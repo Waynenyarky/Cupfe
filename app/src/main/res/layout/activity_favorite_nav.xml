@@ -1,0 +1,831 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".favoriteNav"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="60dp">
+
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/baseline_keyboard_arrow_left_24"
+            android:layout_gravity="start"
+            android:contentDescription="Back Icon"
+            android:layout_marginEnd="60dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CupFe favorite"
+            android:textStyle="bold"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvNumberCoffee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="(0)"
+            android:textSize="16sp"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginEnd="90dp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="6dp">
+
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/light_grey" />
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:background="@drawable/search2"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:hint="Search..."
+        android:paddingStart="25dp"
+        android:textColorHint="@color/searchHint"
+        android:textSize="12sp"
+        android:inputType="text"
+        android:drawableStart="@drawable/ic_search_grey"
+        android:autofillHints="name"
+        android:layout_marginTop="15dp"/>
+    
+    <ScrollView
+        android:layout_width="410dp"
+        android:layout_height="519dp"
+        android:contentDescription="Items of Coffee"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="420dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/favFoodLayout"
+                android:layout_width="300dp"
+                android:layout_height="90dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="45dp"
+                android:background="@drawable/favorite_card"
+                android:orientation="horizontal"
+                >
+
+                <ImageView
+                    android:id="@+id/ivCheck1"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/circle_non_check"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="15dp"/>
+
+                <ImageView
+                    android:id="@+id/ivImage1"
+                    android:layout_width="115dp"
+                    android:layout_height="65dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="8dp"
+                    android:adjustViewBounds="true"
+                    android:padding="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/fav2" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="89dp"
+                    android:gravity="start"
+                    android:orientation="vertical"
+                    android:paddingTop="10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvFavCoffeeNameValue"
+                            android:layout_width="96dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="18dp"
+                            android:fontFamily="@font/sora_variablefont_wght"
+                            android:text="Caffee Mocha"
+                            android:textColor="@color/black"
+                            android:textSize="13sp"
+                            android:textStyle="normal" />
+
+                        <ImageView
+                            android:id="@+id/heart1"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/fav_heart" />
+
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/tvFavSizeValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sora_variablefont_wght"
+                        android:text="Size:"
+                        android:textColor="@color/black"
+                        android:textSize="9sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:id="@+id/tvFavQuantityValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sora_variablefont_wght"
+                        android:text="Quantity:"
+                        android:textColor="@color/black"
+                        android:textSize="9sp"
+                        android:textStyle="normal"
+                        android:layout_marginBottom="1dp"/>
+
+                    <TextView
+                        android:id="@+id/tvFavPriceValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sora_variablefont_wght"
+                        android:text="₱ 67.00"
+                        android:textColor="@color/black"
+                        android:textSize="9sp"
+                        android:textStyle="normal" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/favFoodLayout4"
+                android:layout_width="300dp"
+                android:layout_height="90dp"
+                android:background="@drawable/favorite_card"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginEnd="45dp"
+                >
+
+                <ImageView
+                    android:id="@+id/ivCheck4"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/circle_non_check"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="15dp"/>
+
+                <ImageView
+                    android:id="@+id/ivImage2"
+                    android:layout_width="115dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="8dp"
+                    android:adjustViewBounds="true"
+                    android:padding="8dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/fav4" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="89dp"
+                    android:orientation="vertical"
+                    android:gravity="start"
+                    android:paddingTop="10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvFavCoffeeNameValue4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="48dp"
+                            android:fontFamily="@font/sora_variablefont_wght"
+                            android:text="Caffee Mocha"
+                            android:textColor="@color/black"
+                            android:textSize="13sp"
+                            android:textStyle="normal" />
+
+                        <ImageView
+                            android:id="@+id/heart4"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/fav_heart"/>
+
+                    </LinearLayout>
+
+
+
+
+
+
+                        <TextView
+                            android:id="@+id/tvFavSizeValue4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Size:"
+                            android:textStyle="normal"
+                            android:textSize="9sp"
+                            android:fontFamily="@font/sora_variablefont_wght"/>
+
+                        <TextView
+                            android:id="@+id/tvFavQuantityValue4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Quantity:"
+                            android:textStyle="normal"
+                            android:textSize="9sp"
+                            android:textColor="@color/black"
+                            android:layout_marginBottom="1dp"
+                            android:fontFamily="@font/sora_variablefont_wght"
+                            />
+
+                    <TextView
+                        android:id="@+id/tvFavPriceValue4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₱ 67.00"
+                        android:textSize="9sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/sora_variablefont_wght"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/favFoodLayout6"
+                android:layout_width="300dp"
+                android:layout_height="90dp"
+                android:background="@drawable/favorite_card"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginEnd="45dp"
+                >
+
+                <ImageView
+                    android:id="@+id/ivCheck6"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/circle_non_check"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="15dp"/>
+
+                <ImageView
+                    android:id="@+id/ivImage3"
+                    android:layout_width="115dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="8dp"
+                    android:adjustViewBounds="true"
+                    android:padding="8dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/fav6" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="89dp"
+                    android:paddingTop="10dp"
+                    android:orientation="vertical"
+                    android:gravity="start">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvFavCoffeeNameValue6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textStyle="normal"
+                            android:layout_marginEnd="20dp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/sora_variablefont_wght"
+                            android:text="Caffee Mocha" />
+
+                        <ImageView
+                            android:id="@+id/heart6"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/fav_heart"/>
+
+                    </LinearLayout>
+
+
+
+                        <TextView
+                            android:id="@+id/tvFavSizeValue6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Size:"
+                            android:textStyle="normal"
+                            android:textSize="9sp"
+                            android:fontFamily="@font/sora_variablefont_wght"/>
+
+                        <TextView
+                            android:id="@+id/tvFavQuantityValue6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Quantity:"
+                            android:textStyle="normal"
+                            android:textSize="9sp"
+                            android:textColor="@color/black"
+                            android:layout_marginBottom="1dp"
+                            android:fontFamily="@font/sora_variablefont_wght"
+                            />
+
+                    <TextView
+                        android:id="@+id/tvFavPriceValue6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₱ 67.00"
+                        android:textSize="9sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/sora_variablefont_wght"/>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/favFoodLayout2"
+                android:layout_width="300dp"
+                android:layout_height="90dp"
+                android:background="@drawable/favorite_card"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginEnd="45dp"
+                >
+                <ImageView
+                    android:id="@+id/ivCheck2"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/circle_non_check"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="15dp"/>
+
+
+                <ImageView
+                    android:id="@+id/ivImage4"
+                    android:layout_width="110dp"
+                    android:layout_height="65dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="8dp"
+                    android:adjustViewBounds="true"
+                    android:padding="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/fav1" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="89dp"
+                    android:orientation="vertical"
+                    android:gravity="start"
+                    android:paddingTop="10dp">
+
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvFavCoffeeNameValue2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textStyle="normal"
+                            android:layout_marginEnd="60dp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/sora_variablefont_wght"
+                            android:text="Caffee Mocha" />
+
+                        <ImageView
+                            android:id="@+id/heart2"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/fav_heart"/>
+
+                    </LinearLayout>
+
+
+
+                        <TextView
+                            android:id="@+id/tvFavSizeValue2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Size:"
+                            android:textStyle="normal"
+                            android:textSize="9sp"
+                            android:fontFamily="@font/sora_variablefont_wght"/>
+
+                        <TextView
+                            android:id="@+id/tvFavQuantityValue2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Quantity:"
+                            android:textStyle="normal"
+                            android:textSize="9sp"
+                            android:layout_marginBottom="1dp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/sora_variablefont_wght"
+                            />
+
+                    <TextView
+                        android:id="@+id/tvFavPriceValue2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₱ 67.00"
+                        android:textSize="9sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/sora_variablefont_wght"/>
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/favFoodLayout5"
+                android:layout_width="300dp"
+                android:layout_height="90dp"
+                android:background="@drawable/favorite_card"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginEnd="45dp"
+                >
+
+                <ImageView
+                    android:id="@+id/ivCheck5"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/circle_non_check"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="15dp"/>
+
+                <ImageView
+                    android:id="@+id/ivImage5"
+                    android:layout_width="115dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="8dp"
+                    android:adjustViewBounds="true"
+                    android:padding="8dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/fav5" />
+
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="89dp"
+                    android:orientation="vertical"
+                    android:gravity="start"
+                    android:paddingTop="10dp">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvFavCoffeeNameValue5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textStyle="normal"
+                            android:layout_marginEnd="42dp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/sora_variablefont_wght"
+                            android:text="Caffee Mocha" />
+
+                        <ImageView
+                            android:id="@+id/heart5"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/fav_heart" />
+
+                    </LinearLayout>
+
+
+
+                        <TextView
+                            android:id="@+id/tvFavSizeValue5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Size:"
+                            android:textStyle="normal"
+                            android:textSize="9sp"
+                            android:fontFamily="@font/sora_variablefont_wght"/>
+
+                        <TextView
+                            android:id="@+id/tvFavQuantityValue5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Quantity:"
+                            android:textStyle="normal"
+                            android:textSize="9sp"
+                            android:layout_marginBottom="1dp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/sora_variablefont_wght"
+                            />
+
+                    <TextView
+                        android:id="@+id/tvFavPriceValue5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₱ 67.00"
+                        android:textSize="9sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/sora_variablefont_wght"/>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/favFoodLayout3"
+                android:layout_width="300dp"
+                android:layout_height="90dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/favorite_card"
+                android:orientation="horizontal"
+                android:layout_marginStart="55dp"
+                android:layout_marginEnd="45dp"
+                >
+
+                <ImageView
+                    android:id="@+id/ivCheck3"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/circle_non_check"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="15dp"/>
+
+                <ImageView
+                    android:id="@+id/ivImage6"
+                    android:layout_width="115dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="8dp"
+                    android:adjustViewBounds="true"
+                    android:padding="8dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/fav3" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="89dp"
+                    android:paddingTop="10dp"
+                    android:gravity="start"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/tvFavCoffeeNameValue3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sora_variablefont_wght"
+                            android:text="Caffee Mocha"
+                            android:layout_marginEnd="52dp"
+                            android:textColor="@color/black"
+                            android:textSize="13sp"
+                            android:textStyle="normal" />
+
+                        <ImageView
+                            android:id="@+id/heart3"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/fav_heart" />
+
+                    </LinearLayout>
+
+
+                        <TextView
+                            android:id="@+id/tvFavSizeValue3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sora_variablefont_wght"
+                            android:text="Size:"
+                            android:textColor="@color/black"
+                            android:textSize="9sp"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:id="@+id/tvFavQuantityValue3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sora_variablefont_wght"
+                            android:text="Quantity:"
+                            android:layout_marginBottom="1dp"
+                            android:textColor="@color/black"
+                            android:textSize="9sp"
+                            android:textStyle="normal" />
+
+                    <TextView
+                        android:id="@+id/tvFavPriceValue3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sora_variablefont_wght"
+                        android:text="₱ 67.00"
+                        android:textColor="@color/black"
+                        android:textSize="9sp"
+                        android:textStyle="normal" />
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="@drawable/for_price_bg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Price:"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/sora_variablefont_wght"/>
+
+        <TextView
+            android:id="@+id/tvOverallPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₱ 0.00"
+            android:textSize="18sp"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="7dp"
+            android:layout_marginStart="5dp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:background="@drawable/checkout_nav"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivOverallCheck"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/circle_non_check"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="30dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All"
+            android:textSize="13sp"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textStyle="normal"
+            android:textColor="@color/grey"
+            android:layout_marginTop="23dp"
+            android:layout_marginStart="5dp"/>
+
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="43dp"
+            android:background="@drawable/checkout_btn"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="170dp"/>
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/navigationBar"
+        android:layout_width="330dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="0.5dp"
+        android:layout_marginBottom="23dp"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/nav_home"
+            android:layout_width="6dp"
+            android:layout_height="23dp"
+            android:layout_weight="0.3"
+            android:contentDescription="Home"
+            android:src="@drawable/home" />
+
+        <ImageView
+            android:id="@+id/nav_cart"
+            android:layout_width="6dp"
+            android:layout_marginStart="0.9dp"
+            android:layout_height="20dp"
+            android:layout_weight="0.3"
+            android:contentDescription="Cart"
+            android:src="@drawable/food" />
+
+        <ImageView
+            android:id="@+id/nav_favorite"
+            android:layout_width="6dp"
+            android:layout_height="20dp"
+            android:layout_weight="0.3"
+            android:contentDescription="Favorite"
+            android:src="@drawable/heart" />
+
+        <ImageView
+            android:id="@+id/nav_bag"
+            android:layout_width="6dp"
+            android:layout_height="20dp"
+            android:layout_weight="0.3"
+            android:contentDescription="Bag"
+            android:src="@drawable/bag" />
+
+        <ImageView
+            android:id="@+id/nav_notif"
+            android:layout_width="6dp"
+            android:layout_height="20dp"
+            android:layout_weight="0.3"
+            android:contentDescription="Notification"
+            android:src="@drawable/notification" />
+
+    </LinearLayout>
+</LinearLayout>

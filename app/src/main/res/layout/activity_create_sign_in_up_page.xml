@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".create_sign_in_up_page"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/intro_create_or_login">
+
+
+
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome \nto"
+        android:gravity="center"
+        android:textSize="32sp"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:textColor="@color/dark_grey"
+        android:textStyle="bold|bold|normal"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            android:text="CupFe"
+            android:textColor="@color/light_brown"
+            android:fontFamily="@font/sora_variablefont_wght"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Expresso"
+            android:textSize="32sp"
+            android:textColor="@color/light_brown"
+            android:textStyle="bold"
+            android:fontFamily="@font/sora_variablefont_wght"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:text="It’s coffee o’clock! Log in and let’s grab all the coffee \n we can dream of especially iced coffee!"
+        android:textColor="@color/grey2"
+        android:textStyle="normal"
+        android:fontFamily="@font/sora_variablefont_wght"/>
+
+    <Button
+        android:id="@+id/sign_in"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:text="Sign In"
+        android:textColor="@color/light_brown"
+        android:background="@drawable/button_background2"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:layout_marginTop="50dp"
+        android:textStyle="normal"
+        android:textSize="15sp"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/sign_up"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:textStyle="normal"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:background="@drawable/button_background3"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:layout_marginTop="20dp"
+        android:textAllCaps="false"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="30dp">
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1.3dp"
+            android:layout_weight="1"
+            android:background="@color/light_brown"
+            android:layout_marginStart="70dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="or"
+            android:textSize="15sp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textColor="@color/dark_grey"
+            android:fontFamily="@font/sora_variablefont_wght"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1.3dp"
+            android:layout_weight="1"
+            android:background="@color/light_brown"
+            android:layout_marginEnd="70dp"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Continue as a"
+            android:textSize="15sp"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textStyle="bold"
+            android:textColor="@color/grey2"
+            android:clickable="true"
+            android:focusable="true"
+            android:minWidth="48dp"
+            android:minHeight="48dp"/>
+
+        <TextView
+            android:id="@+id/guest_link2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/guest_text"
+            android:textSize="15sp"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textStyle="bold"
+            android:textColor="@color/light_brown"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginStart="5dp"
+            android:minWidth="48dp"
+            android:minHeight="48dp"/>
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/grey2"
+        android:textStyle="italic"
+        android:textSize="12sp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:text="Sign up for an account to receive 2% off your bill on every \nreservation! "/>
+
+
+
+
+
+</LinearLayout>

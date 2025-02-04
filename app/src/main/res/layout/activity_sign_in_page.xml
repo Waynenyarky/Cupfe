@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".sign_in_page"
+    android:orientation="vertical"
+    android:gravity="center">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="55dp">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="start"
+            android:src="@drawable/baseline_keyboard_arrow_left_24"
+            android:layout_marginStart="87dp"
+            android:contentDescription="Back Icon "
+            android:layout_marginEnd="29dp"/>
+
+
+        <TextView
+            android:autoSizeMinTextSize="1dp"
+            android:autoSizeMaxTextSize="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CupFe"
+            android:textSize="24sp"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textStyle="normal"
+            android:textColor="@color/light_brown"/>
+
+
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="Expresso"
+            android:textSize="24sp"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textStyle="bold"
+            android:textColor="@color/light_brown"
+            android:layout_marginEnd="119dp"
+            android:layout_marginStart="2dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome Back,"
+            android:textSize="18sp"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textStyle="bold"
+            android:textColor="@color/dark_grey"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign In"
+            android:textSize="18sp"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textStyle="bold"
+            android:textColor="@color/light_brown"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email Address"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:textColor="@color/light_brown"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginBottom="5dp"/>
+
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="310dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edit_text"
+        android:hint="tamayoguian@gmail.com"
+        android:textSize="12sp"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:textStyle="normal"
+        android:textColor="@color/grey2"
+        android:paddingStart="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:textColor="@color/light_brown"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="5dp"/>
+
+
+    <EditText
+        android:id="@+id/etPass"
+        android:layout_width="310dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edit_text"
+        android:hint="Ad3Bay0Rjagwar"
+        android:textSize="12sp"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:textStyle="normal"
+        android:textColor="@color/grey2"
+        android:paddingStart="16dp"
+        android:inputType="textNoSuggestions"
+        />
+
+    <Button
+        android:id="@+id/btnSignInAcc"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:text="Sign In"
+        android:textSize="16sp"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:background="@drawable/button_background3"
+        android:textAllCaps="false"
+        android:layout_marginTop="28dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="17dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Don't have an account?"
+            android:textStyle="bold"
+            android:textColor="@color/grey"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textSize="15sp"
+            android:minWidth="48dp"
+            android:minHeight="48dp"/>
+
+        <TextView
+            android:id="@+id/tvSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up"
+            android:textSize="15sp"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textStyle="bold"
+            android:textColor="@color/light_brown"
+            android:layout_marginStart="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:minWidth="48dp"
+            android:minHeight="48dp"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="1dp">
+
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginStart="65dp"
+            android:layout_marginEnd="65dp"
+            android:layout_weight="1"
+            android:background="@color/light_brown" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvForgotPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forgot"
+        android:textSize="15sp"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:textStyle="bold"
+        android:textColor="@color/grey"
+        android:clickable="true"
+        android:focusable="true"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="96dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Continue as a"
+            android:textSize="15sp"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textStyle="bold"
+            android:textColor="@color/grey2"
+            android:minWidth="48dp"
+            android:minHeight="48dp"/>
+
+        <TextView
+            android:id="@+id/guest_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/guest_text"
+            android:textSize="15sp"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textStyle="bold"
+            android:textColor="@color/light_brown"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginStart="5dp"
+            android:minWidth="48dp"
+            android:minHeight="48dp"/>
+    </LinearLayout>
+
+
+
+
+
+
+
+
+</LinearLayout>

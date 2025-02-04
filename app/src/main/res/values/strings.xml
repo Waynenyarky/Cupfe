@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CupFe</string>
+    <string name="guest_text"> Guest?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="forgot">Forgot Password?</string>
+</resources>
