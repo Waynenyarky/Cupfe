@@ -39,8 +39,8 @@ class details_food6 : AppCompatActivity() {
 
         // Back Home
         ivBackHome.setOnClickListener {
-            startActivity(Intent(this, HomePage::class.java))
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+            startActivity(Intent(this, Main_Home_Page::class.java))
+            overridePendingTransition(R.anim.slide_in_top_to_bottom, R.anim.slide_out_bottom)
         }
 
         // Load favorite state

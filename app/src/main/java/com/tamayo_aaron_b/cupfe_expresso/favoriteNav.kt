@@ -70,8 +70,7 @@ class favoriteNav : AppCompatActivity() {
         heart6.setOnClickListener { showUnfavoriteDialog(6) }
 
         ivBack.setOnClickListener {
-            val back = Intent(this, HomePage::class.java)
-            back.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+            val back = Intent(this, Main_Home_Page::class.java)
             startActivity(back)
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
@@ -531,7 +530,7 @@ class favoriteNav : AppCompatActivity() {
     private fun navigateTo(label: String) {
         when (label) {
             "Home" -> {
-                val home = Intent(this, HomePage::class.java)
+                val home = Intent(this, Main_Home_Page::class.java)
                 startActivity(home)
                 overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
             }
@@ -573,7 +572,7 @@ class favoriteNav : AppCompatActivity() {
         val btnFindCupFe = dialogView.findViewById<Button>(R.id.btnFindCupFe)
 
         btnFindCupFe.setOnClickListener {
-            val intent = Intent(this, HomePage::class.java)
+            val intent = Intent(this, Main_Home_Page::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
             dialog.dismiss()

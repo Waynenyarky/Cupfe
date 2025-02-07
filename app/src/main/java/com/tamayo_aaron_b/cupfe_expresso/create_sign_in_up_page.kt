@@ -26,7 +26,7 @@ class create_sign_in_up_page : AppCompatActivity() {
         val content = getString(R.string.guest_text)
 
         tvGuestLink2.setOnClickListener{
-            val guest = Intent(this, HomePage::class.java)
+            val guest = Intent(this, Main_Home_Page::class.java)
             startActivity(guest)
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }

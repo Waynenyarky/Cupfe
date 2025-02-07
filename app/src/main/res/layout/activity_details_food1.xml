@@ -181,11 +181,13 @@
 
         <TextView
             android:id="@+id/tvNumber"
-            android:layout_width="20dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="0"
             android:textColor="@color/black"
             android:textSize="13sp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:gravity="center"
             android:textStyle="normal"
             android:layout_marginStart="2dp"
