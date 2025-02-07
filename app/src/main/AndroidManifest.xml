@@ -31,19 +31,10 @@
             android:name=".details_food2"
             android:exported="false" />
         <activity
-            android:name=".favoriteNavEmpty"
-            android:exported="false" />
-        <activity
             android:name=".details_food1"
             android:exported="false" />
         <activity
             android:name=".favoriteNav"
-            android:exported="false" />
-        <activity
-            android:name=".HomePage"
-            android:exported="false" />
-        <activity
-            android:name=".home_page"
             android:exported="false" />
         <activity
             android:name=".sign_up_page"
