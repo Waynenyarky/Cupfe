@@ -154,10 +154,12 @@ class Main_Home_Page : AppCompatActivity() {
 
             }
             "Cart" -> {
+                val cart = Intent(this, food_menu::class.java)
+                startActivity(cart)
+                overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
 
             }
             "Favorite" -> {
-                // Navigate to Favorite screen
                 val favorite = Intent(this, favoriteNav::class.java)
                 startActivity(favorite)
                 overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
