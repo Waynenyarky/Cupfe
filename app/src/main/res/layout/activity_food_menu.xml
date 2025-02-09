@@ -71,17 +71,38 @@
             android:orientation="vertical"
             android:background="@color/white">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Categories"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_gravity="start"
-                android:layout_marginStart="45dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
+                android:orientation="horizontal"
+                android:gravity="start">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Categories"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="185dp"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Show all"
+                    android:textStyle="normal"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/sora_variablefont_wght"/>
+
+            </LinearLayout>
+
+
 
 
             <GridLayout
@@ -173,10 +194,12 @@
                 android:layout_marginBottom="5dp"/>
 
             <ImageView
-                android:layout_width="410dp"
-                android:layout_height="80dp"
-                android:src="@drawable/caffe_mocha"
-                android:layout_marginTop="5dp"/>
+                android:id="@+id/popular1"
+                android:layout_width="460dp"
+                android:layout_height="75dp"
+                android:layout_marginStart="-25dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/caffe_mocha2" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -197,10 +220,14 @@
             </LinearLayout>
 
             <ImageView
-                android:layout_width="410dp"
-                android:layout_height="80dp"
+                android:id="@+id/popular2"
+                android:layout_width="460dp"
+                android:layout_height="75dp"
+                android:layout_marginStart="-25dp"
                 android:src="@drawable/flat_white"
                 android:layout_marginTop="5dp"/>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -222,8 +249,10 @@
             </LinearLayout>
 
             <ImageView
-                android:layout_width="410dp"
-                android:layout_height="80dp"
+                android:id="@+id/popular3"
+                android:layout_width="460dp"
+                android:layout_height="75dp"
+                android:layout_marginStart="-25dp"
                 android:src="@drawable/mocha_fusi"
                 android:layout_marginTop="5dp"/>
 
@@ -247,8 +276,10 @@
 
 
             <ImageView
-                android:layout_width="410dp"
-                android:layout_height="80dp"
+                android:id="@+id/popular4"
+                android:layout_width="460dp"
+                android:layout_height="75dp"
+                android:layout_marginStart="-25dp"
                 android:src="@drawable/caffe_panna"
                 android:layout_marginTop="5dp"/>
 
@@ -272,8 +303,10 @@
 
 
             <ImageView
-                android:layout_width="410dp"
-                android:layout_height="80dp"
+                android:id="@+id/popular5"
+                android:layout_width="460dp"
+                android:layout_height="75dp"
+                android:layout_marginStart="-25dp"
                 android:src="@drawable/matcha_latte"
                 android:layout_marginTop="5dp"/>
 
@@ -297,8 +330,10 @@
 
 
             <ImageView
-                android:layout_width="410dp"
-                android:layout_height="80dp"
+                android:id="@+id/popular6"
+                android:layout_width="460dp"
+                android:layout_height="75dp"
+                android:layout_marginStart="-25dp"
                 android:src="@drawable/classic_espresso"
                 android:layout_marginTop="5dp"/>
 

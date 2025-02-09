@@ -1,10 +1,15 @@
 package com.tamayo_aaron_b.cupfe_expresso
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.media.Image
 import android.os.Bundle
 import android.view.MotionEvent
+import android.view.Window
 import android.view.animation.ScaleAnimation
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -29,6 +34,13 @@ class food_menu : AppCompatActivity() {
         val navBag = findViewById<ImageView>(R.id.nav_bag)
         val navNotif = findViewById<ImageView>(R.id.nav_notif)
         val ivBack = findViewById<ImageView>(R.id.ivBack)
+        val item1 = findViewById<ImageView>(R.id.item1)
+        val popular1 = findViewById<ImageView>(R.id.popular1)
+        val popular2 = findViewById<ImageView>(R.id.popular2)
+        val popular3 = findViewById<ImageView>(R.id.popular3)
+        val popular4 = findViewById<ImageView>(R.id.popular4)
+        val popular5 = findViewById<ImageView>(R.id.popular5)
+        val popular6 = findViewById<ImageView>(R.id.popular6)
 
 
 
@@ -38,6 +50,50 @@ class food_menu : AppCompatActivity() {
             startActivity(back)
             overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
         }
+
+        item1.setOnClickListener{
+            showPopup()
+            overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
+        }
+
+
+        popular1.setOnClickListener {
+            val food1 = Intent(this, details_food1::class.java)
+            startActivity(food1)
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
+        }
+
+        popular2.setOnClickListener{
+            val food2 = Intent(this, details_food2::class.java)
+            startActivity(food2)
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
+        }
+
+        popular3.setOnClickListener{
+            val food3 = Intent(this, details_food3::class.java)
+            startActivity(food3)
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
+        }
+
+        popular4.setOnClickListener{
+            val food4 = Intent(this, details_food4::class.java)
+            startActivity(food4)
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
+        }
+
+        popular5.setOnClickListener{
+            val food5 = Intent(this, details_food5::class.java)
+            startActivity(food5)
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
+        }
+
+        popular6.setOnClickListener{
+            val food6 = Intent(this, details_food6::class.java)
+            startActivity(food6)
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
+        }
+
+
 
 
 
@@ -54,6 +110,35 @@ class food_menu : AppCompatActivity() {
         setupNavigation(navFavorite, "Favorite", R.drawable.heart, R.drawable.heart_brown)
         setupNavigation(navBag, "Bag", R.drawable.bag, R.drawable.bag_brown)
         setupNavigation(navNotif, "Notification", R.drawable.notification, R.drawable.notification_brown)
+    }
+
+    private fun showPopup() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.activity_hot_coffees) // Create a separate XML layout for the popup
+
+        // Prevent dismissing the dialog when clicking outside
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
+
+
+        // Make the background transparent
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dialog.window?.setLayout(
+            android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
+            android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+
+        // Find the close button inside the popup
+        val close = dialog.findViewById<ImageView>(R.id.close)
+
+        // Close the dialog when clicking the close button
+        close.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     @SuppressLint("ClickableViewAccessibility")

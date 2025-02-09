@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Hot_Coffees"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="6dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:elevation="10dp"
+    android:background="@drawable/menu_popup">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hot Coffees"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="start"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="190dp"/>
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/close"
+            android:contentDescription="Close Button"/>
+
+
+
+    </LinearLayout>
+
+
+
+
+    <HorizontalScrollView
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="Horizontal"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="20dp"
+            android:padding="5dp">
+
+            <View
+                android:layout_width="5dp"
+                android:layout_height="match_parent"/>
+
+            <ImageView
+                android:id="@+id/item1"
+                android:layout_width="110dp"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/item1"/>
+
+            <ImageView
+                android:id="@+id/item2"
+                android:layout_width="110dp"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/item2"/>
+
+            <ImageView
+                android:id="@+id/item3"
+                android:layout_width="110dp"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/item3"/>
+
+            <ImageView
+                android:id="@+id/item4"
+                android:layout_width="110dp"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/item4" />
+            <View
+                android:layout_width="45dp"
+                android:layout_height="match_parent"/>
+
+
+
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</LinearLayout>

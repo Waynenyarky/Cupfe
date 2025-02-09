@@ -39,7 +39,7 @@ class details_food4 : AppCompatActivity() {
 
         // Back Home
         ivBackHome.setOnClickListener {
-            startActivity(Intent(this, Main_Home_Page::class.java))
+            finish()
             overridePendingTransition(R.anim.slide_in_top_to_bottom, R.anim.slide_out_bottom)
         }
 
