@@ -100,19 +100,19 @@ class favoriteNav : AppCompatActivity() {
         // Call updateTotalPrice initially
 
         // Set the heart icon to brown when on the favoriteNav page
-        navFavorite.setImageResource(R.drawable.heart_brown)
+        navFavorite.setImageResource(R.drawable.fav_brown)
 
         // NAVIGATION
         // Add click listeners with animations and image change
-        setupNavigation(navHome, "Home", R.drawable.home, R.drawable.home_brown)
-        setupNavigation(navCart, "Cart", R.drawable.food, R.drawable.food_brown)
-        setupNavigation(navFavorite, "Favorite", R.drawable.heart, R.drawable.heart_brown)
-        setupNavigation(navBag, "Bag", R.drawable.bag, R.drawable.bag_brown)
+        setupNavigation(navHome, "Home", R.drawable.homes, R.drawable.homes_brown)
+        setupNavigation(navCart, "Cart", R.drawable.menu, R.drawable.menu_brown)
+        setupNavigation(navFavorite, "Favorite", R.drawable.fav, R.drawable.fav_brown)
+        setupNavigation(navBag, "Notification", R.drawable.notif, R.drawable.notif_brown)
         setupNavigation(
             navNotif,
-            "Notification",
-            R.drawable.notification,
-            R.drawable.notification_brown
+            "Me",
+            R.drawable.me,
+            R.drawable.me_brown
         )
     }
 
@@ -554,12 +554,12 @@ class favoriteNav : AppCompatActivity() {
     private fun getDefaultImage(buttonId: Int): Int {
         // Return the default image based on the button's ID
         return when (buttonId) {
-            R.id.nav_home -> R.drawable.home
-            R.id.nav_cart -> R.drawable.food
-            R.id.nav_favorite -> R.drawable.heart
-            R.id.nav_bag -> R.drawable.bag
-            R.id.nav_notif -> R.drawable.notification
-            else -> R.drawable.home // Fallback image
+            R.id.nav_home -> R.drawable.homes
+            R.id.nav_cart -> R.drawable.menu
+            R.id.nav_favorite -> R.drawable.fav
+            R.id.nav_bag -> R.drawable.notif
+            R.id.nav_notif -> R.drawable.me
+            else -> R.drawable.homes // Fallback image
         }
     }
 

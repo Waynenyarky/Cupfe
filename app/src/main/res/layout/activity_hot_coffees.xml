@@ -30,8 +30,9 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_gravity="start"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="2dp"
             android:layout_marginEnd="190dp"/>
+
 
         <ImageView
             android:id="@+id/close"
@@ -43,6 +44,17 @@
 
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Popular"
+        android:textColor="@color/light_brown"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_gravity="start"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="190dp"/>
 
 
 
@@ -108,5 +120,8 @@
 
         </LinearLayout>
     </HorizontalScrollView>
+
+
+
 
 </LinearLayout>

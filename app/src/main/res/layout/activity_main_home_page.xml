@@ -363,7 +363,7 @@
         android:id="@+id/navigationBar"
         android:layout_width="331dp"
         android:layout_height="45dp"
-        android:layout_marginBottom="22dp"
+        android:layout_marginBottom="30dp"
         android:background="@android:color/transparent"
         android:gravity="center"
         android:layout_marginStart="0.2dp"
@@ -372,42 +372,46 @@
         <ImageView
             android:id="@+id/nav_home"
             android:layout_width="20dp"
-            android:layout_height="23dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="2dp"
             android:layout_weight="1"
             android:contentDescription="Home"
-            android:src="@drawable/home" />
+            android:src="@drawable/homes" />
 
         <ImageView
             android:id="@+id/nav_cart"
             android:layout_width="18dp"
-            android:layout_height="20dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="2dp"
             android:layout_weight="1"
             android:contentDescription="Cart"
-            android:src="@drawable/food" />
+            android:src="@drawable/menu" />
 
         <ImageView
             android:id="@+id/nav_favorite"
             android:layout_width="18dp"
-            android:layout_height="20dp"
+            android:layout_height="32dp"
             android:layout_weight="1"
+            android:layout_marginTop="1dp"
             android:contentDescription="Favorite"
-            android:src="@drawable/heart" />
+            android:src="@drawable/fav" />
 
         <ImageView
             android:id="@+id/nav_bag"
             android:layout_width="18dp"
-            android:layout_height="20dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="2dp"
             android:layout_weight="1"
-            android:contentDescription="Bag"
-            android:src="@drawable/bag" />
+            android:contentDescription="Notification"
+            android:src="@drawable/notif" />
 
         <ImageView
             android:id="@+id/nav_notif"
             android:layout_width="18dp"
-            android:layout_height="20dp"
+            android:layout_height="35dp"
             android:layout_weight="1"
-            android:contentDescription="Notification"
-            android:src="@drawable/notification" />
+            android:contentDescription="Me"
+            android:src="@drawable/me" />
 
     </LinearLayout>
 
