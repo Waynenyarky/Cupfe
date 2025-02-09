@@ -535,7 +535,9 @@ class favoriteNav : AppCompatActivity() {
                 overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
             }
             "Cart" -> {
-                // Navigate to Cart screen
+                val cart = Intent(this, food_menu::class.java)
+                startActivity(cart)
+                overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
             }
             "Favorite" -> {
                 // Navigate to Favorite screen
@@ -572,7 +574,7 @@ class favoriteNav : AppCompatActivity() {
         val btnFindCupFe = dialogView.findViewById<Button>(R.id.btnFindCupFe)
 
         btnFindCupFe.setOnClickListener {
-            val intent = Intent(this, Main_Home_Page::class.java)
+            val intent = Intent(this, food_menu::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
             dialog.dismiss()

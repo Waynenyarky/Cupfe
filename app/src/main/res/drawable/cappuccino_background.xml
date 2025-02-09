@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Pressed state (when tapped) -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/light_brown"/> <!-- Brown -->
+            <corners android:radius="5dp"/>
+        </shape>
+    </item>
+
+    <!-- Focused state (when hovered or keyboard focus) -->
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/light_brown"/> <!-- Brown -->
+            <corners android:radius="5dp"/>
+        </shape>
+    </item>
+
+    <!-- Default state -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent"/>
+            <corners android:radius="5dp"/>
+        </shape>
+    </item>
+
+</selector>

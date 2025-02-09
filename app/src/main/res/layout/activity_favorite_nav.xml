@@ -781,7 +781,7 @@
         android:layout_width="330dp"
         android:layout_height="45dp"
         android:layout_marginStart="0.5dp"
-        android:layout_marginBottom="23dp"
+        android:layout_marginBottom="24dp"
         android:background="@android:color/transparent"
         android:gravity="center"
         android:orientation="horizontal">

@@ -16,8 +16,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="8dp">
+        android:layout_marginTop="66dp"
+        android:layout_marginBottom="6dp">
 
 
         <ImageView
@@ -27,7 +27,7 @@
             android:src="@drawable/baseline_keyboard_arrow_left_24"
             android:layout_gravity="start"
             android:contentDescription="Back Icon"
-            android:layout_marginEnd="78dp"/>
+            android:layout_marginEnd="76dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,7 +44,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginTop="6dp">
 
 
         <View
@@ -55,769 +56,255 @@
 
     </LinearLayout>
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_marginStart="-6dp"
+
+    <ScrollView
+        android:layout_width="420dp"
+        android:layout_height="676dp"
+        android:fillViewport="true"
+        android:layout_marginTop="5dp"
+        android:padding="3dp"
         android:scrollbars="none">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:background="@color/white">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cappuccino"
-                android:padding="16dp"
-                android:textSize="18sp"
-                android:background="@android:color/transparent"
+                android:text="Categories"
                 android:textColor="@color/black"
-                android:textStyle="bold"/>
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_gravity="start"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="5dp"
+                android:columnCount="3"
+                android:rowCount="3">
+
+                <ImageView
+                    android:id="@+id/item1"
+                    android:layout_width="120dp"
+                    android:layout_height="140dp"
+                    android:layout_margin="-5dp"
+                    android:layout_marginBottom="10dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/hot_coffees"/>
+
+                <ImageView
+                    android:id="@+id/item2"
+                    android:layout_width="120dp"
+                    android:layout_height="140dp"
+                    android:layout_margin="-5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/hot_drinks"/>
+
+                <ImageView
+                    android:id="@+id/item3"
+                    android:layout_width="120dp"
+                    android:layout_height="140dp"
+                    android:adjustViewBounds="true"
+                    android:layout_margin="-5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/hot_teas"/>
+
+                <ImageView
+                    android:id="@+id/item4"
+                    android:layout_width="120dp"
+                    android:layout_height="140dp"
+                    android:adjustViewBounds="true"
+                    android:layout_margin="-5dp"
+                    android:layout_marginBottom="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/frappe"/>
+
+                <ImageView
+                    android:id="@+id/item5"
+                    android:layout_width="120dp"
+                    android:layout_height="140dp"
+                    android:layout_margin="-5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/iced_teas"/>
+
+                <ImageView
+                    android:id="@+id/item6"
+                    android:layout_width="120dp"
+                    android:layout_height="140dp"
+                    android:layout_margin="-5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/cold_drinks"/>
+
+                <ImageView
+                    android:id="@+id/item7"
+                    android:layout_width="120dp"
+                    android:layout_height="140dp"
+                    android:layout_margin="-5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/cold_coffees"/>
+            </GridLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Espresso"
-                android:padding="16dp"
-                android:textSize="18sp"
-                android:background="@android:color/transparent"
+                android:text="Popular Coffee"
                 android:textColor="@color/black"
-                android:textStyle="bold"/>
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_gravity="start"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Latte"
-                android:padding="16dp"
-                android:textSize="18sp"
-                android:background="@android:color/transparent"
-                android:textColor="@color/black"
-                android:textStyle="bold"/>
+            <ImageView
+                android:layout_width="410dp"
+                android:layout_height="80dp"
+                android:src="@drawable/caffe_mocha"
+                android:layout_marginTop="5dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mocha"
-                android:padding="16dp"
-                android:textSize="18sp"
-                android:background="@android:color/transparent"
-                android:textColor="@color/black"
-                android:textStyle="bold"/>
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="6dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@color/cream" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="410dp"
+                android:layout_height="80dp"
+                android:src="@drawable/flat_white"
+                android:layout_marginTop="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Iced Coffee"
-                android:padding="16dp"
-                android:textSize="18sp"
-                android:background="@android:color/transparent"
-                android:textColor="@color/black"
-                android:textStyle="bold"/>
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="6dp">
+
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@color/cream"
+                    />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="410dp"
+                android:layout_height="80dp"
+                android:src="@drawable/mocha_fusi"
+                android:layout_marginTop="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="6dp">
+
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@color/cream" />
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:layout_width="410dp"
+                android:layout_height="80dp"
+                android:src="@drawable/caffe_panna"
+                android:layout_marginTop="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="6dp">
+
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@color/cream"/>
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:layout_width="410dp"
+                android:layout_height="80dp"
+                android:src="@drawable/matcha_latte"
+                android:layout_marginTop="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="6dp">
+
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@color/cream" />
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:layout_width="410dp"
+                android:layout_height="80dp"
+                android:src="@drawable/classic_espresso"
+                android:layout_marginTop="5dp"/>
 
         </LinearLayout>
-    </HorizontalScrollView>
 
-
-
-
-
-
-
-
-
-
-
-
-<ScrollView
-    android:layout_width="405dp"
-    android:layout_height="612dp"
-    android:contentDescription="menu"
-    android:scrollbars="none"
-    android:background="@drawable/plain_white_bg">
-
-<!--First menu-->
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="| Cappuccino"
-        android:layout_gravity="start"
-        android:textColor="@color/light_brown"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_marginStart="35dp"
-        android:layout_marginBottom="5dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="10dp"
-            android:layout_weight="1"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <!--SECOND MENU-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="| Espresso"
-        android:layout_gravity="start"
-        android:textColor="@color/light_brown"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_marginStart="35dp"
-        android:layout_marginBottom="5dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="10dp"
-            android:layout_weight="1"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-
-    <!--THIRD MENU-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="| Latte"
-        android:layout_gravity="start"
-        android:textColor="@color/light_brown"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_marginStart="35dp"
-        android:layout_marginBottom="5dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="10dp"
-            android:layout_weight="1"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <!--FOURTH MENU-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="| Mocha"
-        android:layout_gravity="start"
-        android:textColor="@color/light_brown"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_marginStart="35dp"
-        android:layout_marginBottom="5dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="10dp"
-            android:layout_weight="1"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-
-    <!--FOURTH MENU-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="| Iced Coffee"
-        android:layout_gravity="start"
-        android:textColor="@color/light_brown"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_marginStart="35dp"
-        android:layout_marginBottom="5dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="470dp"
-        android:layout_height="80dp"
-        android:src="@drawable/food_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="10dp"
-            android:layout_weight="1"
-            android:background="@color/light_grey" />
-
-    </LinearLayout>
-
-
-
-
-</LinearLayout>
-</ScrollView>
-
-
-
+    </ScrollView>
 
 
 
