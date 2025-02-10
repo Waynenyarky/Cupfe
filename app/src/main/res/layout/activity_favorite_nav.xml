@@ -24,7 +24,7 @@
             android:src="@drawable/baseline_keyboard_arrow_left_24"
             android:layout_gravity="start"
             android:contentDescription="Back Icon"
-            android:layout_marginEnd="60dp"/>
+            android:layout_marginEnd="47.3dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -45,7 +45,18 @@
             android:fontFamily="@font/sora_variablefont_wght"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:layout_marginEnd="90dp"/>
+            android:layout_marginEnd="77dp"/>
+
+
+        <ImageView
+            android:id="@+id/ivCart"
+            android:layout_width="25dp"
+            android:layout_height="30dp"
+            android:src="@drawable/cart1"
+            android:layout_gravity="start"
+            android:contentDescription="Cart"/>
+
+
     </LinearLayout>
 
 

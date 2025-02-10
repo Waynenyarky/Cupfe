@@ -1,0 +1,46 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Outer Circle with Outline -->
+    <path
+        android:strokeColor="@color/profile"
+        android:strokeWidth="1.5"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M12,2A10,10 0 1,1 2,12A10,10 0 0,1 12,2Z" />
+
+    <!-- Half Horizontal Line from the Left at the Top -->
+    <path
+        android:strokeColor="@color/profile"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M10,11h2" />
+
+    <!-- Exclamation Mark Line with Rounded Ends -->
+    <path
+        android:strokeColor="@color/profile"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M12,11v6" />
+
+    <!-- Horizontal Tail with Rounded Ends -->
+    <path
+        android:strokeColor="@color/profile"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M10,17h4" />
+
+    <!-- Exclamation Mark Dot (Bigger Circle) -->
+    <path
+        android:fillColor="@color/profile"
+        android:strokeWidth="2"
+        android:pathData="M12.5,6A1.5,1.5 0 1,1 10.8,6A1.5,1.5 0 0,1 12.5,6Z" />
+
+
+
+
+
+
+</vector>

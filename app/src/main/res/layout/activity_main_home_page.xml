@@ -48,12 +48,12 @@
 
             <ImageView
                 android:id="@+id/btnBack"
-                android:layout_width="30dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="110dp"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="3dp"
                 android:contentDescription="Back Icon"
-                android:src="@drawable/baseline_dehaze_24" />
+                android:src="@drawable/cart" />
 
 
 

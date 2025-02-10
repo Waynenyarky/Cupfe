@@ -213,6 +213,9 @@ class food_menu : AppCompatActivity() {
 
             }
             "Profile" -> {
+                val profile = Intent(this, Profile::class.java)
+                startActivity(profile)
+                overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
 
             }
         }

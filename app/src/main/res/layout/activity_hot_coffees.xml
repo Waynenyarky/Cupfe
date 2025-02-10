@@ -122,6 +122,17 @@
     </HorizontalScrollView>
 
 
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:text="Show More"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@drawable/button_background3"
+        android:textStyle="bold"
+        android:textSize="13sp"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:layout_marginBottom="13dp"/>
 
 
 </LinearLayout>

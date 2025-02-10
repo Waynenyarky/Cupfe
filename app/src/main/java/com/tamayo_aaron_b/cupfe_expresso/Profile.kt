@@ -1,28 +1,26 @@
 package com.tamayo_aaron_b.cupfe_expresso
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.Looper
 import android.view.MotionEvent
+import android.view.Window
 import android.view.animation.ScaleAnimation
 import android.widget.ImageView
-import android.widget.ViewFlipper
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import java.util.logging.Handler
 
-class Main_Home_Page : AppCompatActivity() {
+class Profile : AppCompatActivity() {
     private var lastClickedButton: ImageView? = null // Track the last clicked button
-    private val handler = android.os.Handler(Looper.getMainLooper())
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_home_page)
+        setContentView(R.layout.activity_profile)
 
         // Get references to navigation buttons
         val navHome = findViewById<ImageView>(R.id.nav_home)
@@ -30,62 +28,21 @@ class Main_Home_Page : AppCompatActivity() {
         val navFavorite = findViewById<ImageView>(R.id.nav_favorite)
         val navBag = findViewById<ImageView>(R.id.nav_bag)
         val navNotif = findViewById<ImageView>(R.id.nav_notif)
-        val item1 = findViewById<ImageView>(R.id.item1)
-        val item2 = findViewById<ImageView>(R.id.item2)
-        val item3 = findViewById<ImageView>(R.id.item3)
-        val item4 = findViewById<ImageView>(R.id.item4)
-        val item5 = findViewById<ImageView>(R.id.item5)
-        val item6 = findViewById<ImageView>(R.id.item6)
-        val viewFlipper = findViewById<ViewFlipper>(R.id.viewFlipper)
-        // Set flipping interval (e.g., 1 second)
-        viewFlipper.flipInterval = 5000
+        val ivBack = findViewById<ImageView>(R.id.ivBack)
 
-        // Delay flipping start by 2 seconds
-        handler.postDelayed({
-            viewFlipper.startFlipping()
-        }, 6000)
 
-        item1.setOnClickListener {
-            val food1 = Intent(this, details_food1::class.java)
-            startActivity(food1)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
 
-        item2.setOnClickListener{
-            val food2 = Intent(this, details_food2::class.java)
-            startActivity(food2)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
 
-        item3.setOnClickListener{
-            val food3 = Intent(this, details_food3::class.java)
-            startActivity(food3)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
-
-        item4.setOnClickListener{
-            val food4 = Intent(this, details_food4::class.java)
-            startActivity(food4)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
-
-        item5.setOnClickListener{
-            val food5 = Intent(this, details_food5::class.java)
-            startActivity(food5)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
-
-        item6.setOnClickListener{
-            val food6 = Intent(this, details_food6::class.java)
-            startActivity(food6)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
+        ivBack.setOnClickListener{
+            val back = Intent(this, Main_Home_Page::class.java)
+            startActivity(back)
+            overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
         }
 
 
 
-        // Highlight Home button in brown by default on HomePage
-        lastClickedButton = navHome
-        navHome.setImageResource(R.drawable.homes_brown)
+
+        navNotif.setImageResource(R.drawable.me_brown)
 
         //NAVIGATION
         // Add click listeners with animations and image change
@@ -93,7 +50,7 @@ class Main_Home_Page : AppCompatActivity() {
         setupNavigation(navCart, "Cart", R.drawable.menu, R.drawable.menu_brown)
         setupNavigation(navFavorite, "Favorite", R.drawable.fav, R.drawable.fav_brown)
         setupNavigation(navBag, "Notification", R.drawable.notif, R.drawable.notif_brown)
-        setupNavigation(navNotif, "Me", R.drawable.me, R.drawable.me_brown)
+        setupNavigation(navNotif, "Profile", R.drawable.me, R.drawable.me_brown)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -150,14 +107,14 @@ class Main_Home_Page : AppCompatActivity() {
     private fun navigateTo(label: String) {
         when (label) {
             "Home" -> {
-                // Navigate to Home screen
-
+                val home = Intent(this,Main_Home_Page::class.java)
+                startActivity(home)
+                overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
             }
             "Cart" -> {
                 val cart = Intent(this, food_menu::class.java)
                 startActivity(cart)
                 overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
-
             }
             "Favorite" -> {
                 val favorite = Intent(this, favoriteNav::class.java)
@@ -167,10 +124,8 @@ class Main_Home_Page : AppCompatActivity() {
             "Notification" -> {
 
             }
-            "Me" -> {
-                val me = Intent(this, Profile::class.java)
-                startActivity(me)
-                overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
+            "Profile" -> {
+
             }
         }
     }
@@ -185,10 +140,5 @@ class Main_Home_Page : AppCompatActivity() {
             R.id.nav_notif -> R.drawable.me
             else -> R.drawable.homes // Fallback image
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        handler.removeCallbacksAndMessages(null) // Prevent memory leaks
     }
 }
