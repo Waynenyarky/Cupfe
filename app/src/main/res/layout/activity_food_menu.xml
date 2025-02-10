@@ -80,17 +80,20 @@
             android:orientation="vertical"
             android:background="@color/white">
 
+            <!--Drinks-->
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="start">
+                android:gravity="center"
+                android:layout_marginStart="10dp">
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Categories"
+                    android:text="Drinks"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -98,7 +101,7 @@
                     android:layout_marginStart="45dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="185dp"/>
+                    android:layout_marginEnd="200dp"/>
 
 
                 <TextView
@@ -107,7 +110,8 @@
                     android:text="Show all"
                     android:textStyle="normal"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/sora_variablefont_wght"/>
+                    android:fontFamily="@font/sora_variablefont_wght"
+                    android:layout_marginBottom="8dp"/>
 
             </LinearLayout>
 
@@ -190,10 +194,253 @@
                     android:src="@drawable/cold_coffees"/>
             </GridLayout>
 
+            <!--FOODS-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Foods"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="205dp"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Show all"
+                    android:textStyle="normal"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/sora_variablefont_wght"
+                    android:layout_marginBottom="8dp"/>
+
+            </LinearLayout>
+
+
+
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="5dp"
+                android:columnCount="3"
+                android:rowCount="3">
+
+                <ImageView
+                    android:id="@+id/food1"
+                    android:layout_width="120dp"
+                    android:layout_height="140dp"
+                    android:layout_margin="-5dp"
+                    android:layout_marginBottom="10dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/breads"/>
+
+                <ImageView
+                    android:id="@+id/food2"
+                    android:layout_width="120dp"
+                    android:layout_height="140dp"
+                    android:layout_margin="-5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/donuts"/>
+
+                <ImageView
+                    android:id="@+id/food3"
+                    android:layout_width="120dp"
+                    android:layout_height="140dp"
+                    android:adjustViewBounds="true"
+                    android:layout_margin="-5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/desserts"/>
+
+
+            </GridLayout>
+
+
+
+
+
+            <!--AT HOME TEAS-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="At Home Coffee"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="132dp"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Show all"
+                    android:textStyle="normal"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/sora_variablefont_wght"
+                    android:layout_marginBottom="8dp"/>
+
+            </LinearLayout>
+
+
+
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="50dp"
+                android:layout_marginTop="5dp"
+                android:columnCount="3"
+                android:rowCount="3">
+
+                <ImageView
+                    android:id="@+id/foodss1"
+                    android:layout_width="120dp"
+                    android:layout_height="140dp"
+                    android:layout_margin="-5dp"
+                    android:layout_marginBottom="10dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/athome2"/>
+
+                <ImageView
+                    android:id="@+id/foodss2"
+                    android:layout_width="120dp"
+                    android:layout_height="140dp"
+                    android:layout_margin="-5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/athome1"/>
+
+
+            </GridLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Merchandise"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="155dp"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Show all"
+                    android:textStyle="normal"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/sora_variablefont_wght"
+                    android:layout_marginBottom="8dp"/>
+
+            </LinearLayout>
+
+
+
+            <!--CUPS-->
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="5dp"
+                android:columnCount="3"
+                android:rowCount="3">
+
+                <ImageView
+                    android:id="@+id/foods1"
+                    android:layout_width="120dp"
+                    android:layout_height="140dp"
+                    android:layout_margin="-5dp"
+                    android:layout_marginBottom="10dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/cold_cup"/>
+
+                <ImageView
+                    android:id="@+id/foods2"
+                    android:layout_width="120dp"
+                    android:layout_height="140dp"
+                    android:layout_margin="-5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/tumblers"/>
+
+                <ImageView
+                    android:id="@+id/foods3"
+                    android:layout_width="120dp"
+                    android:layout_height="140dp"
+                    android:adjustViewBounds="true"
+                    android:layout_margin="-5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/mugs"/>
+
+                <ImageView
+                    android:id="@+id/foods4"
+                    android:layout_width="120dp"
+                    android:layout_height="140dp"
+                    android:adjustViewBounds="true"
+                    android:layout_margin="-5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/other"/>
+
+
+            </GridLayout>
+
+
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Popular Coffee"
+                android:text="Recommended Coffee"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"

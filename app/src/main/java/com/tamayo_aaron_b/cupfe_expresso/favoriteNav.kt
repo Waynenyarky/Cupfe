@@ -542,11 +542,15 @@ class favoriteNav : AppCompatActivity() {
             "Favorite" -> {
                 // Navigate to Favorite screen
             }
-            "Bag" -> {
-                // Navigate to Bag screen
-            }
             "Notification" -> {
-                // Navigate to Notification screen
+                val notification = Intent(this, Notifications::class.java)
+                startActivity(notification)
+                overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
+            }
+            "Me" -> {
+                val me = Intent(this, Profile::class.java)
+                startActivity(me)
+                overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
             }
         }
     }
