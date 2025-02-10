@@ -165,6 +165,9 @@ class Main_Home_Page : AppCompatActivity() {
                 overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
             }
             "Notification" -> {
+                val notification = Intent(this, Notifications::class.java)
+                startActivity(notification)
+                overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
 
             }
             "Me" -> {

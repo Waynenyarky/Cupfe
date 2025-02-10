@@ -1,13 +1,9 @@
 package com.tamayo_aaron_b.cupfe_expresso
 
 import android.annotation.SuppressLint
-import android.app.Dialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.MotionEvent
-import android.view.Window
 import android.view.animation.ScaleAnimation
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
@@ -15,12 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class Profile : AppCompatActivity() {
+class Notifications : AppCompatActivity() {
     private var lastClickedButton: ImageView? = null // Track the last clicked button
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        setContentView(R.layout.activity_notifications)
 
         // Get references to navigation buttons
         val navHome = findViewById<ImageView>(R.id.nav_home)
@@ -42,7 +38,7 @@ class Profile : AppCompatActivity() {
 
 
 
-        navNotif.setImageResource(R.drawable.me_brown)
+        navBag.setImageResource(R.drawable.notif_brown)
 
         //NAVIGATION
         // Add click listeners with animations and image change
@@ -50,7 +46,7 @@ class Profile : AppCompatActivity() {
         setupNavigation(navCart, "Cart", R.drawable.menu, R.drawable.menu_brown)
         setupNavigation(navFavorite, "Favorite", R.drawable.fav, R.drawable.fav_brown)
         setupNavigation(navBag, "Notification", R.drawable.notif, R.drawable.notif_brown)
-        setupNavigation(navNotif, "Profile", R.drawable.me, R.drawable.me_brown)
+        setupNavigation(navNotif, "Me", R.drawable.me, R.drawable.me_brown)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -122,12 +118,13 @@ class Profile : AppCompatActivity() {
                 overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
             }
             "Notification" -> {
-                val notification = Intent(this, Notifications::class.java)
-                startActivity(notification)
-                overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
 
             }
-            "Profile" -> {
+            "Me" -> {
+                val me = Intent(this, Profile::class.java)
+                startActivity(me)
+                overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
+
 
             }
         }
