@@ -9,8 +9,10 @@ import android.graphics.drawable.ColorDrawable
 import android.media.Image
 import android.os.Bundle
 import android.view.MotionEvent
+import android.view.ViewGroup
 import android.view.Window
 import android.view.animation.ScaleAnimation
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -41,7 +43,8 @@ class food_menu : AppCompatActivity() {
         val popular4 = findViewById<ImageView>(R.id.popular4)
         val popular5 = findViewById<ImageView>(R.id.popular5)
         val popular6 = findViewById<ImageView>(R.id.popular6)
-
+        val foodss1 = findViewById<ImageView>(R.id.foodss1)
+        val foodss2 = findViewById<ImageView>(R.id.foodss2)
 
 
 
@@ -53,6 +56,16 @@ class food_menu : AppCompatActivity() {
 
         item1.setOnClickListener{
             showPopup()
+            overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
+        }
+
+        foodss1.setOnClickListener{
+            showPopup2()
+            overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
+        }
+
+        foodss2.setOnClickListener{
+            showPopup3()
             overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
         }
 
@@ -140,6 +153,62 @@ class food_menu : AppCompatActivity() {
 
         dialog.show()
     }
+
+
+
+    private fun showPopup2() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.athome2)
+
+        // Prevent dismissing the dialog when clicking outside
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
+
+        // Make the background transparent
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dialog.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.85).toInt(), // 85% of screen width
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+
+        // Find and set click listener for "OK" button
+        val btnOk = dialog.findViewById<TextView>(R.id.btn_ok)
+        btnOk.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+
+    private fun showPopup3() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.athome2)
+
+        // Prevent dismissing the dialog when clicking outside
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
+
+        // Make the background transparent
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dialog.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.85).toInt(), // 85% of screen width
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+
+        // Find and set click listener for "OK" button
+        val btnOk = dialog.findViewById<TextView>(R.id.btn_ok)
+        btnOk.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
 
     @SuppressLint("ClickableViewAccessibility")
     private fun setupNavigation(
