@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Guest_Main_Home_Page"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/floatingText"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:text="Login to CupFe"
+        android:textSize="18sp"
+        android:textColor="@color/light_brown"
+        android:background="@drawable/float_bg"
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:elevation="10dp"
+        android:visibility="gone"
+        android:textStyle="bold"
+        android:textAllCaps="true"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="140dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/frame_bg">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="start"
+            android:layout_marginTop="80dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CupFe"
+                android:textStyle="normal"
+                android:textSize="27sp"
+                android:textColor="@color/white"
+                android:layout_marginStart="17dp"
+                android:fontFamily="@font/sora_variablefont_wght"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Expresso"
+                android:textStyle="bold"
+                android:textSize="27sp"
+                android:textColor="@color/white"
+                android:layout_marginStart="2dp"
+                android:fontFamily="@font/sora_variablefont_wght"/>
+
+            <ImageView
+                android:id="@+id/Guest_cart"
+                android:layout_width="25dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="110dp"
+                android:layout_marginTop="3dp"
+                android:contentDescription="Back Icon"
+                android:src="@drawable/cart" />
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+    <ScrollView
+        android:layout_width="420dp"
+        android:layout_height="643dp"
+        android:fillViewport="true"
+        android:layout_marginTop="-6dp"
+        android:padding="3dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_scroll">
+
+            <ViewFlipper
+                android:id="@+id/Guest_viewFlipper"
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:layout_margin="10dp"
+                android:autoStart="true"
+                android:flipInterval="5000"
+                android:inAnimation="@android:anim/fade_in"
+                android:outAnimation="@android:anim/fade_out">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/banner4" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/banner1" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/banner3" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/banner2" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/banner5" />
+            </ViewFlipper>
+
+            <LinearLayout
+                android:layout_width="340dp"
+                android:layout_height="230dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/bg_info"
+                android:layout_marginStart="37dp"
+                android:layout_marginTop="-14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="YOU'RE ORDERING FROM"
+                    android:textSize="16sp"
+                    android:textColor="@color/light_brown"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="7dp"
+                    android:layout_marginTop="6dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CupFe Expresso - Arellano St. Dagupan \n City Pangasinan"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Powered by: PHINMA I.T. Students"
+                    android:gravity="center"
+                    android:textSize="8sp"
+                    android:textColor="@color/grey"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="25dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/user"
+                        android:layout_marginEnd="6dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hello, John Wayne Enrique!"
+                        android:textColor="@color/light_brown"
+                        android:textStyle="normal"
+                        android:textSize="13sp"
+                        android:fontFamily="@font/sora_variablefont_wght" />
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:background="@android:color/transparent"
+                    android:orientation="horizontal">
+
+
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="6dp"
+                        android:adjustViewBounds="true"
+                        android:padding="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/streak2" />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginEnd="8dp"
+                        android:adjustViewBounds="true"
+                        android:padding="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/promo2" />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginEnd="8dp"
+                        android:adjustViewBounds="true"
+                        android:padding="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/receipts2" />
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginEnd="8dp"
+                        android:adjustViewBounds="true"
+                        android:padding="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/reserve2" />
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="54dp"
+                android:background="@drawable/search"
+                android:drawableStart="@drawable/ic_search_white"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/sora_variablefont_wght"
+                android:hint="Search coffee"
+                android:paddingStart="15dp"
+                android:textColorHint="@color/grey"
+                android:textSize="15sp"
+                android:inputType="text"
+                android:layout_marginTop="10dp"
+                android:autofillHints="name"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="56dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Must Try! Signatures"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/sora_variablefont_wght"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CupFe!"
+                    android:textSize="16sp"
+                    android:layout_marginStart="3dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/sora_variablefont_wght"/>
+
+
+
+            </LinearLayout>
+
+
+
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:columnCount="2"
+                android:rowCount="3">
+
+                <ImageView
+                    android:id="@+id/Guest_item1"
+                    android:layout_width="150dp"
+                    android:layout_height="220dp"
+                    android:layout_margin="5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/item1"/>
+
+                <ImageView
+                    android:id="@+id/Guest_item2"
+                    android:layout_width="150dp"
+                    android:layout_height="220dp"
+                    android:layout_margin="5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/item2"/>
+
+                <ImageView
+                    android:id="@+id/Guest_item3"
+                    android:layout_width="150dp"
+                    android:layout_height="220dp"
+                    android:layout_margin="5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/item3"/>
+
+                <ImageView
+                    android:id="@+id/Guest_item4"
+                    android:layout_width="150dp"
+                    android:layout_height="220dp"
+                    android:layout_margin="5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/item4"/>
+
+                <ImageView
+                    android:id="@+id/Guest_item5"
+                    android:layout_width="150dp"
+                    android:layout_height="220dp"
+                    android:layout_margin="5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/item5"/>
+
+                <ImageView
+                    android:id="@+id/Guest_item6"
+                    android:layout_width="150dp"
+                    android:layout_height="220dp"
+                    android:layout_margin="5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/item6"/>
+            </GridLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/Guest_navigationBar"
+        android:layout_width="331dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="70dp"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:layout_marginStart="0.2dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/Guest_nav_home"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:contentDescription="Home"
+            android:src="@drawable/homes" />
+
+        <ImageView
+            android:id="@+id/Guest_nav_cart"
+            android:layout_width="18dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:contentDescription="Cart"
+            android:src="@drawable/menu" />
+
+        <ImageView
+            android:id="@+id/Guest_nav_favorite"
+            android:layout_width="18dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:layout_marginTop="1dp"
+            android:contentDescription="Favorite"
+            android:src="@drawable/fav" />
+
+        <ImageView
+            android:id="@+id/Guest_nav_bag"
+            android:layout_width="18dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:contentDescription="Notification"
+            android:src="@drawable/notif" />
+
+        <ImageView
+            android:id="@+id/Guest_nav_notif"
+            android:layout_width="18dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:contentDescription="Me"
+            android:src="@drawable/me" />
+
+    </LinearLayout>
+
+</LinearLayout>

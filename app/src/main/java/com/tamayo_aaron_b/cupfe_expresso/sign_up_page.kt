@@ -70,9 +70,10 @@ class sign_up_page : AppCompatActivity() {
 
 
         btnBack.setOnClickListener{
-            val back = Intent(this, create_sign_in_up_page::class.java)
-            startActivity(back)
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            if (!isFinishing) {
+                finish()
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            }
         }
 
 
