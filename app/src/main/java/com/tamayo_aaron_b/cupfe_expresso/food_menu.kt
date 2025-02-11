@@ -9,12 +9,16 @@ import android.graphics.drawable.ColorDrawable
 import android.media.Image
 import android.os.Bundle
 import android.view.MotionEvent
+import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.view.Window
+import android.view.animation.AnimationUtils
 import android.view.animation.ScaleAnimation
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.ViewFlipper
 import androidx.activity.enableEdgeToEdge
@@ -24,6 +28,7 @@ import androidx.core.view.WindowInsetsCompat
 
 class food_menu : AppCompatActivity() {
     private var lastClickedButton: ImageView? = null // Track the last clicked button
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -45,6 +50,55 @@ class food_menu : AppCompatActivity() {
         val popular6 = findViewById<ImageView>(R.id.popular6)
         val foodss1 = findViewById<ImageView>(R.id.foodss1)
         val foodss2 = findViewById<ImageView>(R.id.foodss2)
+        val floatingText = findViewById<LinearLayout>(R.id.floatingText)
+        val scrollView = findViewById<ScrollView>(R.id.scrollView)
+        val handler = android.os.Handler()
+
+        scrollView.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_MOVE -> {
+                    floatingText.animate()
+                        .alpha(0f)  // Fade out
+                        .setDuration(300) // Animation duration in milliseconds
+                        .withEndAction {
+                            floatingText.visibility = View.INVISIBLE
+                        }
+                        .start()
+
+                    handler.removeCallbacksAndMessages(null) // Remove existing callbacks
+                }
+
+                MotionEvent.ACTION_UP -> {
+                    handler.postDelayed({
+                        floatingText.visibility = View.VISIBLE
+                        floatingText.animate()
+                            .alpha(1f)  // Fade in
+                            .setDuration(500) // Animation duration
+                            .start()
+                    }, 2500)
+                }
+            }
+            false
+        }
+
+
+        floatingText.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                floatingText.viewTreeObserver.removeOnGlobalLayoutListener(this)
+
+                val parentView = floatingText.parent as View
+                val parentWidth = parentView.width
+                val parentHeight = parentView.height
+
+                val floatWidth = floatingText.width
+                val floatHeight = floatingText.height
+
+                floatingText.x = (parentWidth - floatWidth) / 3f
+                floatingText.y = (parentHeight - floatHeight) / 2 + 850f
+
+                floatingText.visibility = View.VISIBLE
+            }
+        })
 
 
 
@@ -105,10 +159,6 @@ class food_menu : AppCompatActivity() {
             startActivity(food6)
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
         }
-
-
-
-
 
 
 

@@ -10,13 +10,42 @@
     android:gravity="center"
     android:background="@color/white">
 
+    <LinearLayout
+        android:id="@+id/floatingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@drawable/float_bg"
+        android:visibility="gone"
+        android:elevation="10dp"
+        android:padding="7dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/coffee_bag_icon"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="See all \nProducts"
+            android:textSize="8sp"
+            android:textColor="@color/light_brown"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:paddingBottom="5dp"/>
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="66dp"
         android:layout_marginBottom="6dp">
 
 
@@ -67,6 +96,7 @@
 
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="420dp"
         android:layout_height="668dp"
         android:fillViewport="true"
@@ -79,6 +109,84 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top Pick's"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_gravity="start"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="200dp"
+                android:layout_marginBottom="-5dp"/>
+
+
+            <HorizontalScrollView
+                android:id="@+id/horizontalScrollView"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:contentDescription="Horizontal"
+                android:scrollbars="none"
+                android:layout_marginBottom="10dp"
+                android:overScrollMode="never"
+                android:fadingEdge="none">
+
+                <LinearLayout
+                    android:id="@+id/container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="20dp"
+                    android:padding="5dp">
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
+
+                    <ImageView
+                        android:layout_width="110dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="10dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/item1"/>
+
+                    <ImageView
+                        android:layout_width="110dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="10dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/item2"/>
+
+                    <ImageView
+                        android:layout_width="110dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="10dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/item3"/>
+
+                    <ImageView
+                        android:layout_width="110dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="10dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/item4" />
+                    <View
+                        android:layout_width="35dp"
+                        android:layout_height="match_parent"/>
+
+
+
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
 
             <!--Drinks-->
 
@@ -200,7 +308,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginStart="10dp">
 
 
@@ -319,7 +427,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginEnd="50dp"
+                android:layout_marginEnd="55dp"
                 android:layout_marginTop="5dp"
                 android:columnCount="3"
                 android:rowCount="3">
@@ -440,13 +548,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Recommended Coffee"
+                android:text="Recommended drinks and food"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_gravity="start"
                 android:layout_marginStart="45dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:layout_marginBottom="5dp"/>
 
             <ImageView
@@ -600,16 +708,12 @@
 
 
 
-
-
-
-
     <!--NAVIGATION-->
     <LinearLayout
         android:id="@+id/navigationBar"
         android:layout_width="331dp"
         android:layout_height="45dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="30.5dp"
         android:background="@android:color/transparent"
         android:gravity="center"
         android:layout_marginStart="0.2dp"

@@ -31,6 +31,8 @@ class sign_in_page : AppCompatActivity() {
         val etPass = findViewById<EditText>(R.id.etPass)
 
 
+
+
         //Email and Password Correction
         btnSignInAcc.setOnClickListener{
             val email = etEmail.text.toString()
@@ -46,6 +48,16 @@ class sign_in_page : AppCompatActivity() {
                 etPass.error = "Please enter your password"
                 etPass.requestFocus()
                 return@setOnClickListener
+            }
+
+            btnSignInAcc.setOnClickListener{
+                val guest = Intent(this, Main_Home_Page::class.java)
+                startActivity(guest)
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+
+                // Clear fields
+                etEmail.text.clear()
+                etPass.text.clear()
             }
         }
 
@@ -79,5 +91,7 @@ class sign_in_page : AppCompatActivity() {
         tvSignIn.text = underlineSpan
         tvForgotPass.text = underlineSpan2
         tvGuestLink.text = underlineSpan3
+
+
     }
 }
