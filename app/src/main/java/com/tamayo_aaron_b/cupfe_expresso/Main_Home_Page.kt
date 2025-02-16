@@ -25,6 +25,7 @@ class Main_Home_Page : AppCompatActivity() {
         setContentView(R.layout.activity_main_home_page)
 
         // Get references to navigation buttons
+        val ivReservation = findViewById<ImageView>(R.id.ivReservation)
         val navHome = findViewById<ImageView>(R.id.nav_home)
         val navCart = findViewById<ImageView>(R.id.nav_cart)
         val navFavorite = findViewById<ImageView>(R.id.nav_favorite)
@@ -44,6 +45,12 @@ class Main_Home_Page : AppCompatActivity() {
         handler.postDelayed({
             viewFlipper.startFlipping()
         }, 6000)
+
+        ivReservation.setOnClickListener {
+            val reserve = Intent(this, Reservation::class.java)
+            startActivity(reserve)
+            overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.fade_out)
+        }
 
         item1.setOnClickListener {
             val food1 = Intent(this, details_food1::class.java)

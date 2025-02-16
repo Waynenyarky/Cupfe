@@ -5,4 +5,10 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+
+    <style name="BrownDatePickerDialog" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorPrimary">#795548</item>
+        <item name="colorPrimaryVariant">#5D4037</item>
+        <item name="colorAccent">#C67C4E</item>
+    </style>
 </resources>

@@ -97,11 +97,12 @@
         android:layout_width="310dp"
         android:layout_height="50dp"
         android:background="@drawable/edit_text"
-        android:hint="tamayoguian@gmail.com"
+        android:hint="Enter your email"
         android:textSize="12sp"
         android:fontFamily="@font/sora_variablefont_wght"
         android:textStyle="normal"
-        android:textColor="@color/grey2"
+        android:textColorHint="@color/grey2"
+        android:textColor="@color/black"
         android:paddingStart="16dp"/>
 
     <TextView
@@ -122,11 +123,12 @@
         android:layout_width="310dp"
         android:layout_height="50dp"
         android:background="@drawable/edit_text"
-        android:hint="Ad3Bay0Rjagwar"
+        android:hint="Enter your password"
         android:textSize="12sp"
         android:fontFamily="@font/sora_variablefont_wght"
         android:textStyle="normal"
-        android:textColor="@color/grey2"
+        android:textColorHint="@color/grey2"
+        android:textColor="@color/black"
         android:paddingStart="16dp"
         android:inputType="textNoSuggestions"
         />

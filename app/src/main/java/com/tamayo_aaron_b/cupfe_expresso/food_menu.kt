@@ -189,8 +189,8 @@ class food_menu : AppCompatActivity() {
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         dialog.window?.setLayout(
-            android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
-            android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
         )
 
         // Find the close button inside the popup

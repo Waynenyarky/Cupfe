@@ -6,4 +6,10 @@
     <string name="forgot">Forgot Password?</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Description">At CupFe Expresso, our mission is to deliver a coffee experience
+                                that’s rich, aromatic, and unforgettable. With sustainably sourced
+                                beans and a carefully curated menu of handcrafted beverages, we
+                                take pride in creating the perfect cup every time. Whether it’s your
+                                morning boost or a relaxing afternoon retreat, CupFe Expresso is
+                                where coffee meets passion.</string>
 </resources>

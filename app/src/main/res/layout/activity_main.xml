@@ -1,54 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="@drawable/cupfe">
+    tools:context=".MainActivity">
 
-
-    <TextView
+    <VideoView
+        android:id="@+id/videoView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Savor the Aroma, \n Embrace the \nCoffee Bliss!"
-        android:textColor="@color/white"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"/>
+
+    <View
+        android:id="@+id/darkOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000" />
+
+    <!-- Content Overlay -->
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:textSize="32sp"
-        android:layout_marginTop="90dp"
-        android:textStyle="bold"
-        android:fontFamily="@font/sora_variablefont_wght"/>
+        android:orientation="vertical"
+        android:padding="20dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textStyle="normal"
-        android:textColor="@color/grey"
-        android:textSize="14sp"
-        android:text="Welcome to your coffee sanctuary, where \n every cup is a hug in a mug."
-        android:layout_marginBottom="420dp"/>
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Savor the Aroma, \nEmbrace the \nCoffee Bliss!"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:layout_marginTop="70dp" />
 
-    <Button
-        android:id="@+id/GetStarted"
-        android:layout_width="310dp"
-        android:layout_height="57dp"
-        android:text="Get Started"
-        android:textSize="16sp"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:fontFamily="@font/sora_variablefont_wght"
-        android:background="@drawable/button_background"
-        android:layout_marginBottom="30dp"/>
-
+        <!-- Subtitle -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            android:text="Welcome to your coffee sanctuary, where \n every cup is a hug in a mug."
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="50dp" />
 
 
 
 
 
+        <!-- Get Started Button -->
+        <Button
+            android:id="@+id/GetStarted"
+            android:layout_width="310dp"
+            android:layout_height="57dp"
+            android:text="Get Started"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:background="@drawable/start_button_bg"
+            android:layout_gravity="center"
+            android:layout_marginTop="355dp" />
 
 
-</LinearLayout>
+    </LinearLayout>
+
+
+
+
+
+
+
+
+</FrameLayout>

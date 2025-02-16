@@ -227,6 +227,7 @@
                        android:src="@drawable/receipts2" />
 
                    <ImageView
+                       android:id="@+id/ivReservation"
                        android:layout_width="70dp"
                        android:layout_height="48dp"
                        android:layout_gravity="center"
