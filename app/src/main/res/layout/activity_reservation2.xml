@@ -70,6 +70,7 @@
 
         <include layout="@layout/date_time_layout"/>
         <include layout="@layout/people_layout"/>
+        <include layout="@layout/prize_total_in_reservation"/>
         <include layout="@layout/table_indoor"/>
 
     </LinearLayout>
@@ -98,6 +99,7 @@
         android:inputType="textPersonName"
         android:fontFamily="@font/sora_variablefont_wght"
         android:textStyle="normal"
+        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
         android:textColorHint="@color/grey2"
         android:textColor="@color/black"
         android:paddingStart="16dp"/>
@@ -125,6 +127,7 @@
         android:inputType="number"
         android:fontFamily="@font/sora_variablefont_wght"
         android:textStyle="normal"
+        android:digits="0123456789"
         android:textColorHint="@color/grey2"
         android:textColor="@color/black"
         android:paddingStart="16dp"/>
@@ -190,6 +193,7 @@
 
 
         <ImageView
+            android:id="@+id/Check"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:contentDescription="check"
@@ -253,6 +257,7 @@
 
 
         <ImageView
+            android:id="@+id/Check2"
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:contentDescription="check"
@@ -350,7 +355,7 @@
 
 
     <TextView
-        android:id="@+id/FindSlot"
+        android:id="@+id/ReserveNow"
         android:layout_width="311dp"
         android:layout_height="40dp"
         android:text="Reserve Now"

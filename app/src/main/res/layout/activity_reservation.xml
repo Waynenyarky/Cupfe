@@ -271,7 +271,7 @@
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="28dp"
-                android:text="11:55"
+                android:text="11:30"
                 android:textStyle="bold"
                 android:textSize="14sp"
                 android:gravity="center"
@@ -303,7 +303,7 @@
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="28dp"
-                android:text="11:30"
+                android:text="11:45"
                 android:textStyle="bold"
                 android:textSize="14sp"
                 android:gravity="center"
@@ -335,7 +335,7 @@
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="28dp"
-                android:text="11:45"
+                android:text="11:55"
                 android:textStyle="bold"
                 android:textSize="14sp"
                 android:gravity="center"

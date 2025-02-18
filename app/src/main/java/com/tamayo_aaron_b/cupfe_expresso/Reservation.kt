@@ -7,6 +7,8 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -45,6 +47,7 @@ class Reservation : AppCompatActivity() {
 
         btnBack.setOnClickListener{
             finish()
+            overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.fade_out)
         }
 
 
@@ -57,12 +60,21 @@ class Reservation : AppCompatActivity() {
             val datePickerDialog = DatePickerDialog(
                 this, R.style.BrownDatePickerDialog,
                 { _, selectedYear, selectedMonth, selectedDay ->
-                    // Store date in numeric format (YYYY-MM-DD) in textViewDate
-                    val numericDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
-                    textViewDate.text = numericDate // Display numeric format in Reservation
+                    val selectedCalendar = Calendar.getInstance()
+                    selectedCalendar.set(selectedYear, selectedMonth, selectedDay)
+
+                    // Check if the selected date is in the past
+                    if (selectedCalendar.before(calendar)) {
+                        Toast.makeText(this, "Select a Date from today onwards", Toast.LENGTH_SHORT).show()
+                    } else {
+                        // Store date in numeric format (YYYY-MM-DD) in textViewDate
+                        val numericDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
+                        textViewDate.text = numericDate
+                    }
                 },
                 year, month, day
             )
+            datePickerDialog.datePicker.minDate = calendar.timeInMillis // Prevent past date selection
             datePickerDialog.show()
         }
 
@@ -139,16 +151,42 @@ class Reservation : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            // Determine AM or PM
+            val timeParts = selectedTime.split(":")
+            val hour = timeParts[0].toInt()
+            val minute = timeParts[1].toInt()
+
+            var period = "" // Set dynamically based on the conditions
+
+            if ((hour == 11 && minute in 30..55) || hour < 11) {
+                period = "AM"
+            } else if ((hour == 12 && minute in 0..59) || (hour == 13 && minute == 0)) {
+                period = "PM"
+            }
+
+            // Format the time
+            val formattedTime = String.format("%02d:%02d", hour, minute)
+
+            // Format the date
+            val dateParts = selectedDate.split("-")
+            val day = dateParts[2]
+            val month = getMonthName(dateParts[1].toInt() - 1) // Convert month number to string
+            val year = dateParts[0]
+            val formattedDate = "$day $month $year | $formattedTime $period" // Include AM/PM
+
             // If all inputs are valid, proceed to the next screen
-            val selectedDateTime = "$selectedDate | $selectedTime"
             val selectedPeopleText = "$selectedPeople Guests"
 
+            val price = peopleCount * 10
             val intent = Intent(this, Reservation2::class.java).apply {
-                putExtra("DATE_TIME", selectedDateTime)
+                putExtra("DATE_TIME", formattedDate)  // Send formatted date and time
                 putExtra("PEOPLE", selectedPeopleText)
+                putExtra("PRICE", price)
             }
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
         }
+
 
 
 
@@ -161,29 +199,53 @@ class Reservation : AppCompatActivity() {
         val etPeopleCount = dialog.findViewById<EditText>(R.id.etPeopleCount)
         val btnCancel = dialog.findViewById<TextView>(R.id.btnCancel)
         val btnConfirm = dialog.findViewById<TextView>(R.id.btnConfirm)
+        val tvCalculatedPrice = dialog.findViewById<TextView>(R.id.tvCalculatedPrice)
+
+        val tvPeople = findViewById<TextView>(R.id.tvPeople) // Ensure this exists in your main layout
+        val tvMainPrice = findViewById<TextView>(R.id.tvCalculatedPrice) // Ensure this exists in your main layout
 
         dialog.setCancelable(false)
         dialog.setCanceledOnTouchOutside(false)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
+        etPeopleCount.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val enteredNumber = s.toString().toIntOrNull()
+                if (enteredNumber != null) {
+                    if (enteredNumber in 1..10) {
+                        val price = enteredNumber * 10
+                        tvCalculatedPrice.text = "₱$price.00"
+                    } else {
+                        Toast.makeText(dialog.context, "Cannot enter more than 10 people", Toast.LENGTH_SHORT).show()
+                        etPeopleCount.text.clear()
+                        tvCalculatedPrice.text = "₱0.00"
+                    }
+                } else {
+                    tvCalculatedPrice.text = "₱0.00"
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
         btnCancel.setOnClickListener { dialog.dismiss() }
 
         btnConfirm.setOnClickListener {
-            val enteredText = etPeopleCount.text.toString().trim()
+            val enteredNumber = etPeopleCount.text.toString().trim().toIntOrNull()
 
-            if (enteredText.isNotEmpty()) {
-                val enteredNumber = enteredText.toIntOrNull()
+            if (enteredNumber != null && enteredNumber in 1..10) {
+                val price = enteredNumber * 10
 
-                if (enteredNumber != null && enteredNumber in 1..10) {
-                    tvPeople.text = enteredNumber.toString()
-                    dialog.dismiss()
-                } else {
-                    Toast.makeText(this, "Please enter a number between 1 and 10 only", Toast.LENGTH_SHORT).show()
-                }
+                tvPeople?.text = "$enteredNumber"  // Update main UI safely
+                tvMainPrice?.text = "₱$price.00" // Update main price safely
+
+                dialog.dismiss()
             } else {
-                Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(dialog.context, "Please enter a number between 1 and 10 only", Toast.LENGTH_SHORT).show()
             }
         }
+
         dialog.show()
     }
 
