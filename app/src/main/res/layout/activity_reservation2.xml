@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Reservation2"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="110dp">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="start"
+            android:src="@drawable/baseline_keyboard_arrow_left_24"
+            android:contentDescription="Back Icon "
+            android:layout_marginEnd="15dp"/>
+
+
+        <TextView
+            android:autoSizeMinTextSize="1dp"
+            android:autoSizeMaxTextSize="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go Back"
+            android:textSize="15sp"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp">
+
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/light_brown" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="start">
+
+        <include layout="@layout/date_time_layout"/>
+        <include layout="@layout/people_layout"/>
+        <include layout="@layout/table_indoor"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Full name"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:textColor="@color/light_brown"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="125dp"
+        android:layout_marginBottom="5dp"/>
+
+
+    <EditText
+        android:id="@+id/etFullName"
+        android:layout_width="310dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edit_text"
+        android:hint="Enter your full name"
+        android:textSize="12sp"
+        android:inputType="textPersonName"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:textStyle="normal"
+        android:textColorHint="@color/grey2"
+        android:textColor="@color/black"
+        android:paddingStart="16dp"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:text="Phone number"
+        android:textColor="@color/light_brown"
+        android:textSize="14sp"
+        android:textStyle="normal" />
+
+    <EditText
+        android:id="@+id/etcpNumber"
+        android:layout_width="310dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edit_text"
+        android:hint="Enter your cellphone number"
+        android:textSize="12sp"
+        android:inputType="number"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:textStyle="normal"
+        android:textColorHint="@color/grey2"
+        android:textColor="@color/black"
+        android:paddingStart="16dp"/>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="75dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:text="Email Address "
+            android:textColor="@color/light_brown"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:text="(Optional)"
+            android:textColor="@color/light_brown"
+            android:textSize="14sp"
+            android:textStyle="italic" />
+
+
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="310dp"
+        android:layout_height="50dp"
+        android:autofillHints="emailAddress"
+        android:background="@drawable/edit_text"
+        android:hint="Enter your email"
+        android:textSize="12sp"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:textStyle="normal"
+        android:inputType="textEmailAddress"
+        android:textColorHint="@color/grey2"
+        android:textColor="@color/black"
+        android:paddingStart="16dp"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="start"
+        android:layout_marginEnd="80dp"
+        android:layout_marginTop="25dp">
+
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:contentDescription="check"
+            android:src="@drawable/check_blank"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="2dp"/>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Use Your Saved Points"
+                android:textColor="@color/size"
+                android:textStyle="bold"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You dont have any saved Points"
+                android:textColor="@color/grey"
+                android:textStyle="normal"
+                android:textSize="10sp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="20dp">
+
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/light_brown" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="start"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="15dp">
+
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:contentDescription="check"
+            android:src="@drawable/check_blank"
+            android:layout_marginEnd="5dp"
+            android:layout_gravity="center_vertical"/>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Receive offers and other emails from this restaurant"
+                android:textColor="@color/size"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="start"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancellation Policy:"
+            android:textSize="12sp"
+            android:textColor="@color/grey"/>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Cancellation"
+                android:textColor="@color/grey"
+                android:textStyle="italic"
+                android:textSize="11sp"
+                android:lineSpacingMultiplier="1.3" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/terms"
+        android:textColor="@color/grey"
+        android:textStyle="italic"
+        android:textSize="13sp"
+        android:lineSpacingMultiplier="1.3"
+        android:textAlignment="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="20dp">
+
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/light_brown" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/FindSlot"
+        android:layout_width="311dp"
+        android:layout_height="40dp"
+        android:text="Reserve Now"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:background="@drawable/reservation_bg_button"
+        android:layout_marginTop="17dp"
+        android:layout_marginBottom="50dp"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"/>
+
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>

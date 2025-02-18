@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/calendar"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:id="@+id/tvDateTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No Date &amp; Time Selected"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/profile"
+            android:fontFamily="@font/sora_variablefont_wght"/>
+
+
+
+
+
+</LinearLayout>

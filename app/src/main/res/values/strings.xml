@@ -12,4 +12,15 @@
                                 take pride in creating the perfect cup every time. Whether it’s your
                                 morning boost or a relaxing afternoon retreat, CupFe Expresso is
                                 where coffee meets passion.</string>
+
+    <string name="Cancellation">You won’t be charged for canceling, but we
+                                kindly ask that you notify us at least 24 hours in
+                                advance. Please note that any payments made
+                                are non-refundable.</string>
+
+    <string name="terms">All transmission of personally identifiable information is via
+                        secure channels. By clicking \"Reserve Now\" you agree to
+                        CupFe Expresso <b><i>Terms of Use</i></b> and <b><i>Privacy Policy</i></b>.
+</string>
+
 </resources>
