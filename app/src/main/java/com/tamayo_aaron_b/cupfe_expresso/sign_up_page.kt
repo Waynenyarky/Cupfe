@@ -1,10 +1,13 @@
 package com.tamayo_aaron_b.cupfe_expresso
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import android.text.SpannableString
 import android.text.TextWatcher
+import android.text.method.PasswordTransformationMethod
 import android.text.style.UnderlineSpan
 import android.widget.Button
 import android.widget.EditText
@@ -13,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
@@ -30,6 +34,28 @@ class sign_up_page : AppCompatActivity() {
         val etPass = findViewById<EditText>(R.id.etPass)
         val etCPass = findViewById<EditText>(R.id.etCPass)
         val btnSignInAcc = findViewById<Button>(R.id.btnSignUpAcc)
+        val ivEye = findViewById<ImageView>(R.id.ivEye)
+
+        addValidationWithIcon1(etEmail) { isValidEmail(it) }
+        addValidationWithIcon1(etFName) { isValidName(it) }
+        addValidationWithIcon(etPass) { isValidPassword(it) }
+
+        var isPasswordVisible = false
+
+        ivEye.setOnClickListener {
+            isPasswordVisible = !isPasswordVisible
+
+            if (isPasswordVisible) {
+                etPass.transformationMethod = null // Show password
+                ivEye.setImageResource(R.drawable.eye_show)
+            } else {
+                etPass.transformationMethod = PasswordTransformationMethod.getInstance() // Hide password
+                ivEye.setImageResource(R.drawable.eye_hide)
+            }
+
+            etPass.setSelection(etPass.text.length) // Maintain cursor position
+        }
+
 
         // Add emoji detection to all text fields
         listOf(etEmail, etFName, etPass, etCPass).forEach { editText ->
@@ -48,6 +74,29 @@ class sign_up_page : AppCompatActivity() {
                     }
                 }
             })
+        }
+
+        // Prevent Enter key press on each EditText
+        listOf(etEmail, etFName, etPass, etCPass).forEach { editText ->
+            editText.setRawInputType(android.text.InputType.TYPE_CLASS_TEXT) // Force single-line input
+            editText.setOnKeyListener { _, keyCode, _ ->
+                if (keyCode == android.view.KeyEvent.KEYCODE_ENTER) {
+                    Toast.makeText(this, "Can't enter a new line!", Toast.LENGTH_SHORT).show()
+                    return@setOnKeyListener true // Consume the event and prevent new line
+                }
+                false // Allow other keys to work normally
+            }
+        }
+
+        // Disable new line (Enter key) for etEmail
+        etEmail.setSingleLine(true) // Forces single-line input
+        etEmail.setRawInputType(android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS) // Ensures email format
+        etEmail.setOnKeyListener { _, keyCode, _ ->
+            if (keyCode == android.view.KeyEvent.KEYCODE_ENTER) {
+                Toast.makeText(this, "Can't enter a new line!", Toast.LENGTH_SHORT).show()
+                return@setOnKeyListener true // Consume the event to disable Enter
+            }
+            false
         }
 
         btnSignInAcc.setOnClickListener {
@@ -93,6 +142,34 @@ class sign_up_page : AppCompatActivity() {
                 return@setOnClickListener
             }
         }
+
+        val checkIcon: Drawable? = ContextCompat.getDrawable(this, R.drawable.ic_check)?.apply {
+            setBounds(0, 0, intrinsicWidth, intrinsicHeight)
+        }
+        val paddingEnd = 50  // Adjust the right padding to fit the icon properly
+        etCPass.setPadding(etCPass.paddingLeft, etCPass.paddingTop, paddingEnd,etCPass.paddingBottom)
+        etCPass.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val password = etPass.text.toString()
+                val confirmPassword = s.toString()
+
+
+
+                etCPass.post {
+                    if (confirmPassword == password && confirmPassword.isNotEmpty()) {
+                        etCPass.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, checkIcon, null)
+                        etCPass.compoundDrawablePadding = 20
+                        etCPass.error = null
+                    } else {
+                        etCPass.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
 
 
 
@@ -148,5 +225,62 @@ class sign_up_page : AppCompatActivity() {
     private fun isValidPassword(password: String): Boolean {
         val passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@#\$%^&+=!])(?!.*[\\s\\p{So}]).{8,}\$".toRegex()
         return password.matches(passwordRegex)
+    }
+
+    //VALID or INVALID
+    private fun addValidationWithIcon(editText: EditText, validator: (String) -> Boolean) {
+        val checkIcon: Drawable? = ContextCompat.getDrawable(editText.context, R.drawable.ic_check)?.apply {
+            setBounds(0, 0, intrinsicWidth, intrinsicHeight)
+        }
+
+        val paddingEnd = 140  // Adjust the right padding to fit the icon properly
+
+        editText.setPadding(editText.paddingLeft, editText.paddingTop, paddingEnd, editText.paddingBottom)
+
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val input = s.toString().trim()
+                editText.post {
+                    if (validator(input)) {
+                        editText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, checkIcon, null)
+                        editText.compoundDrawablePadding = 20 // Adjust padding between text and icon
+                        editText.error = null
+                    } else {
+                        editText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+    }
+
+    private fun addValidationWithIcon1(editText: EditText, validator: (String) -> Boolean) {
+        val checkIcon: Drawable? = ContextCompat.getDrawable(editText.context, R.drawable.ic_check)?.apply {
+            setBounds(0, 0, intrinsicWidth, intrinsicHeight)
+        }
+
+        val paddingEnd = 50  // Adjust the right padding to fit the icon properly
+
+        editText.setPadding(editText.paddingLeft, editText.paddingTop, paddingEnd, editText.paddingBottom)
+
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val input = s.toString().trim()
+                editText.post {
+                    if (validator(input)) {
+                        editText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, checkIcon, null)
+                        editText.compoundDrawablePadding = 20 // Adjust padding between text and icon
+                        editText.error = null
+                    } else {
+                        editText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
     }
 }

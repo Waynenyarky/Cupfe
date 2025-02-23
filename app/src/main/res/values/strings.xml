@@ -20,7 +20,11 @@
 
     <string name="terms">All transmission of personally identifiable information is via
                         secure channels. By clicking \"Reserve Now\" you agree to
-                        CupFe Expresso <b><i>Terms of Use</i></b> and <b><i>Privacy Policy</i></b>.
-</string>
+                        CupFe Expresso <b><i>Terms of Use</i></b> and <b><i>Privacy Policy</i></b>.</string>
+
+    <string name="note">- This reservation cannot be canceled.\n
+                        - Reservations cannot be changed.\n
+                        - Arrive on time to avoid issues.\n
+                        - Contact support for any assistance.</string>
 
 </resources>

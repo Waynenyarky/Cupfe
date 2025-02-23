@@ -70,8 +70,8 @@
 
         <include layout="@layout/date_time_layout"/>
         <include layout="@layout/people_layout"/>
-        <include layout="@layout/prize_total_in_reservation"/>
         <include layout="@layout/table_indoor"/>
+        <include layout="@layout/prize_total_in_reservation"/>
 
     </LinearLayout>
 
@@ -99,7 +99,6 @@
         android:inputType="textPersonName"
         android:fontFamily="@font/sora_variablefont_wght"
         android:textStyle="normal"
-        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
         android:textColorHint="@color/grey2"
         android:textColor="@color/black"
         android:paddingStart="16dp"/>
@@ -127,44 +126,22 @@
         android:inputType="number"
         android:fontFamily="@font/sora_variablefont_wght"
         android:textStyle="normal"
-        android:digits="0123456789"
         android:textColorHint="@color/grey2"
         android:textColor="@color/black"
         android:paddingStart="16dp"/>
 
-
-
-    <LinearLayout
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginEnd="108dp"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="75dp">
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:text="Email Address "
+        android:textColor="@color/light_brown"
+        android:textSize="14sp"
+        android:textStyle="normal" />
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:fontFamily="@font/sora_variablefont_wght"
-            android:text="Email Address "
-            android:textColor="@color/light_brown"
-            android:textSize="14sp"
-            android:textStyle="normal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:fontFamily="@font/sora_variablefont_wght"
-            android:text="(Optional)"
-            android:textColor="@color/light_brown"
-            android:textSize="14sp"
-            android:textStyle="italic" />
-
-
-    </LinearLayout>
 
 
     <EditText
@@ -366,7 +343,7 @@
         android:gravity="center"
         android:background="@drawable/reservation_bg_button"
         android:layout_marginTop="17dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="30dp"
         android:focusable="true"
         android:foreground="?attr/selectableItemBackground"/>
 

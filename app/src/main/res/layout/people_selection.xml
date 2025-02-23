@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
+    android:gravity="start"
     android:background="@drawable/menu_popup"
     android:padding="6dp"
     android:layout_marginStart="10dp"
@@ -18,64 +18,176 @@
         android:textSize="18sp"
         android:textColor="@color/light_brown"
         android:gravity="start"
-        android:layout_marginEnd="90dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="10dp"/>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="start"
+        android:layout_marginStart="74dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Price:"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/tvCalculatedPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₱0.00"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Table:"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginBottom="3dp"
+        android:textSize="14sp"
+        android:layout_gravity="start"
+        android:layout_marginStart="10dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="5dp">
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="start"
+        android:layout_marginStart="10dp">
+
+        <ImageView
+            android:id="@+id/ivMinus1"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/less"
+            android:contentDescription="Minus"
+            android:padding="8dp" />
 
         <TextView
+            android:id="@+id/tvNumber1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Price:"
-            android:textStyle="normal"
-            android:textSize="18sp"
+            android:text="0"
             android:textColor="@color/black"
-            android:layout_marginEnd="3dp"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            android:id="@+id/tvCalculatedPrice"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="₱0.00"
+            android:textSize="13sp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:gravity="center"
             android:textStyle="normal"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:layout_marginEnd="85dp"
-            android:layout_marginBottom="8dp"/>
+            android:layout_gravity="center"/>
 
-
-
+        <ImageView
+            android:id="@+id/ivAdd1"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/add"
+            android:contentDescription="Add"
+            android:padding="8dp" />
     </LinearLayout>
 
+    <EditText
+        android:id="@+id/etTableCount"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Enter a number of tables (1-10)"
+        android:background="@drawable/reservation_bg_border"
+        android:padding="1dp"
+        android:inputType="number"
+        android:textSize="13sp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:visibility="gone"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Person:"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_gravity="start"
+        android:layout_marginBottom="3dp"
+        android:textSize="14sp"
+        android:layout_marginStart="10dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="start"
+        android:layout_marginStart="10dp">
+
+        <ImageView
+            android:id="@+id/ivMinus2"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/less"
+            android:contentDescription="Minus"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/tvNumber2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:gravity="center"
+            android:textStyle="normal"
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:id="@+id/ivAdd2"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/add"
+            android:contentDescription="Add"
+            android:padding="8dp" />
+    </LinearLayout>
 
     <EditText
         android:id="@+id/etPeopleCount"
-        android:layout_width="230dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:hint="Enter a number of peole (1-10)"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:hint="Enter a number of person"
         android:background="@drawable/reservation_bg_border"
-        android:padding="15dp"
+        android:padding="1dp"
         android:inputType="number"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"/>
-
+        android:textSize="13sp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp">
-
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp">
 
         <TextView
             android:id="@+id/btnCancel"
@@ -87,7 +199,9 @@
             android:gravity="center"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:layout_marginEnd="15dp"/>
+            android:layout_marginEnd="15dp"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"/>
 
         <TextView
             android:id="@+id/btnConfirm"
@@ -98,9 +212,41 @@
             android:background="@drawable/reservation_bg_button"
             android:gravity="center"
             android:textSize="15sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Note:"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/red"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reservation fee: ₱40.00 per table\n
+Maximum capacity: 6 persons per table\n
+Outside food and drinks are not allowed"
+            android:textSize="13sp"
+            android:textColor="@color/grey"
+            android:textStyle="italic"
+            android:lineSpacingMultiplier="1.2"/>
 
     </LinearLayout>
+
+
 
 
 

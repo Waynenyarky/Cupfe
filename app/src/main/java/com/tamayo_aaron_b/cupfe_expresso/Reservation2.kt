@@ -1,5 +1,9 @@
 package com.tamayo_aaron_b.cupfe_expresso
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
@@ -10,8 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.core.content.ContextCompat
 
 class Reservation2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +32,12 @@ class Reservation2 : AppCompatActivity() {
         val checkButton = findViewById<ImageView>(R.id.Check)
         val checkButton2 = findViewById<ImageView>(R.id.Check2)
         val tvPrizeTotal = findViewById<TextView>(R.id.tvPrizeTotal)
+        val tvIndoor = findViewById<TextView>(R.id.tvIndoor)
+
+        addValidationWithIcon(etFullName) { isValidName(it) }
+        addValidationWithIcon(etcpNumber) { isValidPhoneNumber(it) }
+        addValidationWithIcon(etEmail) { isValidEmail(it) }
+
 
         checkButton.setOnClickListener {
             Toast.makeText(applicationContext, "Not enough saved Points", Toast.LENGTH_SHORT).show()
@@ -42,6 +51,10 @@ class Reservation2 : AppCompatActivity() {
         val dateTime = intent.getStringExtra("DATE_TIME") ?: "No Date & Time Selected"
         val people = intent.getStringExtra("PEOPLE") ?: "No Guests Selected"
         val price = intent.getIntExtra("PRICE", 0) // Default to 0 if not found
+        val table = intent.getStringExtra("TABLE") ?: "No Table Selected"
+
+
+        tvIndoor.text = table
         tvPrizeTotal.text = "₱$price.00"
 
         ReserveNow.setOnClickListener {
@@ -68,7 +81,7 @@ class Reservation2 : AppCompatActivity() {
                 return@setOnClickListener
             }
             if (!isValidPhoneNumber(cellphone)) {
-                etcpNumber.error = "Must start with 09 and be 12 digits long."
+                etcpNumber.error = "Must start with 09 and be 11 digits long."
                 etcpNumber.requestFocus()
                 return@setOnClickListener
             }
@@ -84,6 +97,7 @@ class Reservation2 : AppCompatActivity() {
                 etEmail.requestFocus()
                 return@setOnClickListener
             }
+            confirmationReserve()
         }
 
         // Prevent Emojis in Inputs
@@ -106,12 +120,12 @@ class Reservation2 : AppCompatActivity() {
         }
 
         // PHONE NUMBER FILTERS
-        etcpNumber.filters = arrayOf(InputFilter.LengthFilter(12)) // Limit to 12 digits
+        etcpNumber.filters = arrayOf(InputFilter.LengthFilter(11))
 
         etcpNumber.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                if (s != null && s.isNotEmpty() && !isValidPhoneNumber(s.toString())) {
-                    etcpNumber.error = "Must start with 09 and be 12 digits long"
+                if (!s.isNullOrEmpty() && !isValidPhoneNumber(s.toString())) {
+                    etcpNumber.error = "Must start with 09 and be 11 digits long"
                 }
             }
 
@@ -119,11 +133,14 @@ class Reservation2 : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        // NAME FILTER (Only letters and spaces)
-        val nameFilter = InputFilter { source, _, _, _, _, _ ->
-            if (source.matches(Regex("^[a-zA-Z ]+$"))) source else ""
+        // NAME FILTER (Only letters and spaces, allowing spaces but not at the start)
+        val nameFilter = InputFilter { source, _, _, dest, dstart, _ ->
+            if (source.matches(Regex("[a-zA-Z. ]*")) && !(source == " " && (dstart == 0 || dest.isEmpty()))) {
+                source
+            } else { "" }
         }
         etFullName.filters = arrayOf(nameFilter)
+
         tvDateTime.text = dateTime
         tvPeople.text = people
 
@@ -133,14 +150,70 @@ class Reservation2 : AppCompatActivity() {
         }
     }
 
+    private fun confirmationReserve(){
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.confirmation_in_reservation)
+
+        val btnCancel = dialog.findViewById<TextView>(R.id.btnCancel)
+        val btnConfirm = dialog.findViewById<TextView>(R.id.btnConfirm)
+
+        btnCancel.setOnClickListener { dialog.dismiss() }
+
+        btnConfirm.setOnClickListener{ dialog.dismiss() }
+
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dialog.show()
+
+    }
+
+
+    private fun addValidationWithIcon(editText: EditText, validator: (String) -> Boolean) {
+        val checkIcon: Drawable? = ContextCompat.getDrawable(editText.context, R.drawable.ic_check)?.apply {
+            setBounds(0, 0, intrinsicWidth, intrinsicHeight)
+        }
+
+        val paddingEnd = 50  // Adjust the right padding to fit the icon properly
+
+        editText.setPadding(editText.paddingLeft, editText.paddingTop, paddingEnd, editText.paddingBottom)
+
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val input = s.toString().trim()
+                editText.post {
+                    if (validator(input)) {
+                        editText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, checkIcon, null)
+                        editText.compoundDrawablePadding = 20 // Adjust padding between text and icon
+                        editText.error = null
+                    } else {
+                        editText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+    }
+
+
+
+
+
+
+
+
     // PHONE NUMBER VALIDATION (Must start with 09 and be 12 digits)
     private fun isValidPhoneNumber(phone: String): Boolean {
-        return phone.matches(Regex("^09\\d{10}$"))
+        return phone.matches(Regex("^09\\d{9}$"))
     }
+
 
     // NAME VALIDATION (Only letters, spaces, and optional suffixes like II, III)
     private fun isValidName(name: String): Boolean {
-        val nameRegex = "^[A-Za-z]{5,20}(?: [A-Za-z]{1,20})*(?: (II|III|IV|V|VI|VII|VIII|IX|X))?$".toRegex()
+        val nameRegex = "^[A-Za-z]+(?:\\.?[A-Za-z]+)*(?: [A-Za-z]+(?:\\.?[A-Za-z]+)*)*(?: (II|III|IV|V|VI|VII|VIII|IX|X))?$".toRegex()
         return name.matches(nameRegex)
     }
 

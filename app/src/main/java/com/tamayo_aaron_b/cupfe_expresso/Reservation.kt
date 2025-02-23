@@ -68,7 +68,7 @@ class Reservation : AppCompatActivity() {
                         Toast.makeText(this, "Select a Date from today onwards", Toast.LENGTH_SHORT).show()
                     } else {
                         // Store date in numeric format (YYYY-MM-DD) in textViewDate
-                        val numericDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
+                        val numericDate = String.format("%04d/%02d/%02d", selectedYear, selectedMonth + 1, selectedDay)
                         textViewDate.text = numericDate
                     }
                 },
@@ -126,7 +126,7 @@ class Reservation : AppCompatActivity() {
             val selectedPeople = tvPeople.text.toString().trim()
 
             // Validate Date (check if it's in the format YYYY-MM-DD)
-            val dateRegex = Regex("\\d{4}-\\d{2}-\\d{2}")
+            val dateRegex = Regex("\\d{4}/\\d{2}/\\d{2}")
             if (!dateRegex.matches(selectedDate)) {
                 timeText.text = "Please select a Date, Time and People"
                 timeText.visibility = View.VISIBLE
@@ -168,7 +168,7 @@ class Reservation : AppCompatActivity() {
             val formattedTime = String.format("%02d:%02d", hour, minute)
 
             // Format the date
-            val dateParts = selectedDate.split("-")
+            val dateParts = selectedDate.split("/")
             val day = dateParts[2]
             val month = getMonthName(dateParts[1].toInt() - 1) // Convert month number to string
             val year = dateParts[0]
@@ -177,11 +177,13 @@ class Reservation : AppCompatActivity() {
             // If all inputs are valid, proceed to the next screen
             val selectedPeopleText = "$selectedPeople Guests"
 
-            val price = peopleCount * 10
+            val price = selectedTables * 40
+            val table = "$selectedTables Indoor Table"
             val intent = Intent(this, Reservation2::class.java).apply {
                 putExtra("DATE_TIME", formattedDate)  // Send formatted date and time
                 putExtra("PEOPLE", selectedPeopleText)
                 putExtra("PRICE", price)
+                putExtra("TABLE", table)
             }
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
@@ -192,36 +194,120 @@ class Reservation : AppCompatActivity() {
 
     }
 
+    private var selectedTables = 0
+    private var selectedPeople = 0
+
     private fun showPeopleSelectionDialog() {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.people_selection)
 
-        val etPeopleCount = dialog.findViewById<EditText>(R.id.etPeopleCount)
         val btnCancel = dialog.findViewById<TextView>(R.id.btnCancel)
         val btnConfirm = dialog.findViewById<TextView>(R.id.btnConfirm)
         val tvCalculatedPrice = dialog.findViewById<TextView>(R.id.tvCalculatedPrice)
 
-        val tvPeople = findViewById<TextView>(R.id.tvPeople) // Ensure this exists in your main layout
-        val tvMainPrice = findViewById<TextView>(R.id.tvCalculatedPrice) // Ensure this exists in your main layout
+        val ivMinus1 = dialog.findViewById<ImageView>(R.id.ivMinus1)
+        val tvNumber1 = dialog.findViewById<TextView>(R.id.tvNumber1)
+        val ivAdd1 = dialog.findViewById<ImageView>(R.id.ivAdd1)
+
+        val ivMinus2 = dialog.findViewById<ImageView>(R.id.ivMinus2)
+        val tvNumber2 = dialog.findViewById<TextView>(R.id.tvNumber2)
+        val ivAdd2 = dialog.findViewById<ImageView>(R.id.ivAdd2)
+
+        val etTableCount = dialog.findViewById<EditText>(R.id.etTableCount)
+        val etPeopleCount = dialog.findViewById<EditText>(R.id.etPeopleCount)
 
         dialog.setCancelable(false)
         dialog.setCanceledOnTouchOutside(false)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        etPeopleCount.addTextChangedListener(object : TextWatcher {
+        var currentTables = selectedTables
+        var currentPeople = selectedPeople
+
+        // Pricing logic
+        fun calculatePrice(tables: Int): Int {
+            return tables * 40
+        }
+
+        // Max people allowed per table logic
+        fun maxPeopleAllowed(): Int {
+            return currentTables * 6
+        }
+
+        // Enable/disable `tvNumber2` based on table selection
+        fun checkTableSelection() {
+            if (currentTables > 0) {
+                tvNumber2.isEnabled = true
+                tvNumber2.setTextColor(Color.BLACK) // Enable and set to normal color
+            } else {
+                tvNumber2.isEnabled = false
+                tvNumber2.setTextColor(Color.GRAY) // Disable and make it gray
+                etPeopleCount.visibility = View.GONE // Hide input if disabled
+            }
+        }
+
+        // Update UI
+        fun updateUI() {
+            tvNumber1.text = currentTables.toString()
+            tvNumber2.text = currentPeople.toString()
+            tvCalculatedPrice.text = "₱${calculatePrice(currentTables)}.00"
+            checkTableSelection() // Ensure correct state of `tvNumber2`
+        }
+
+        // Handle Table Increment
+        ivAdd1.setOnClickListener {
+            if (currentTables < 10) {
+                currentTables++
+                if (currentPeople > maxPeopleAllowed()) {
+                    currentPeople = maxPeopleAllowed() // Adjust people count if needed
+                }
+                updateUI()
+            }
+        }
+
+        // Handle Table Decrement
+        ivMinus1.setOnClickListener {
+            if (currentTables > 1) {
+                currentTables--
+                if (currentPeople > maxPeopleAllowed()) {
+                    currentPeople = maxPeopleAllowed()
+                }
+                updateUI()
+            }
+        }
+
+        // Handle People Increment
+        ivAdd2.setOnClickListener {
+            if (currentTables > 0) { // Ensure at least 1 table is selected
+                if (currentPeople < maxPeopleAllowed()) {
+                    currentPeople++
+                    updateUI()
+                }
+            } else {
+                Toast.makeText(dialog.context, "Please add a table first!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Handle People Decrement
+        ivMinus2.setOnClickListener {
+            if (currentPeople > 1) {
+                currentPeople--
+                updateUI()
+            }
+        }
+
+        // Handle Table Count Input
+        etTableCount.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                val enteredNumber = s.toString().toIntOrNull()
-                if (enteredNumber != null) {
-                    if (enteredNumber in 1..10) {
-                        val price = enteredNumber * 10
-                        tvCalculatedPrice.text = "₱$price.00"
-                    } else {
-                        Toast.makeText(dialog.context, "Cannot enter more than 10 people", Toast.LENGTH_SHORT).show()
-                        etPeopleCount.text.clear()
-                        tvCalculatedPrice.text = "₱0.00"
+                val enteredValue = s.toString().toIntOrNull()
+                if (enteredValue != null && enteredValue in 1..10) {
+                    currentTables = enteredValue
+                    if (currentPeople > maxPeopleAllowed()) {
+                        currentPeople = maxPeopleAllowed()
                     }
+                    updateUI()
                 } else {
-                    tvCalculatedPrice.text = "₱0.00"
+                    etTableCount.text.clear()
+                    Toast.makeText(dialog.context, "Max tables: 10", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -229,25 +315,69 @@ class Reservation : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        btnCancel.setOnClickListener { dialog.dismiss() }
+        // Handle People Count Input
+        etPeopleCount.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val enteredValue = s.toString().toIntOrNull()
+                if (enteredValue != null && enteredValue in 1..maxPeopleAllowed()) {
+                    currentPeople = enteredValue
+                    updateUI()
+                } else {
+                    etPeopleCount.text.clear()
+                    Toast.makeText(dialog.context, "Max people: ${maxPeopleAllowed()}", Toast.LENGTH_SHORT).show()
+                }
+            }
 
-        btnConfirm.setOnClickListener {
-            val enteredNumber = etPeopleCount.text.toString().trim().toIntOrNull()
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
 
-            if (enteredNumber != null && enteredNumber in 1..10) {
-                val price = enteredNumber * 10
+        // Show/hide Table Count input
+        tvNumber1.setOnClickListener {
+            etTableCount.visibility = if (etTableCount.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+        }
 
-                tvPeople?.text = "$enteredNumber"  // Update main UI safely
-                tvMainPrice?.text = "₱$price.00" // Update main price safely
-
-                dialog.dismiss()
+        // Show/hide People Count input only if tables are selected
+        tvNumber2.setOnClickListener {
+            if (currentTables > 0) {
+                etPeopleCount.visibility = if (etPeopleCount.visibility == View.VISIBLE) View.GONE else View.VISIBLE
             } else {
-                Toast.makeText(dialog.context, "Please enter a number between 1 and 10 only", Toast.LENGTH_SHORT).show()
+                Toast.makeText(dialog.context, "Please select a table first!", Toast.LENGTH_SHORT).show()
             }
         }
 
+        btnCancel.setOnClickListener {
+            val tvPeople = findViewById<TextView>(R.id.tvPeople)
+
+            // Reset to "People" only if both table and person are 0
+            if (selectedTables == 0 && selectedPeople == 0) {
+                tvPeople.text = "People"
+            }
+
+            dialog.dismiss()
+            dialog.dismiss()
+        }
+
+        btnConfirm.setOnClickListener {
+            if (currentTables == 0 || currentPeople == 0) {
+                Toast.makeText(dialog.context, "Table and Person can't be 0!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener // Stop further execution
+            }
+
+            selectedTables = currentTables
+            selectedPeople = currentPeople
+
+            val tvPeople = findViewById<TextView>(R.id.tvPeople)
+            tvPeople.text = tvNumber2.text
+            dialog.dismiss()
+        }
+
+        updateUI() // Initialize UI
         dialog.show()
     }
+
+
+
 
     private fun getMonthName(month: Int): String {
         return arrayOf(
