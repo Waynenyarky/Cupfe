@@ -25,6 +25,13 @@ class Notifications : AppCompatActivity() {
         val navBag = findViewById<ImageView>(R.id.nav_bag)
         val navNotif = findViewById<ImageView>(R.id.nav_notif)
         val ivBack = findViewById<ImageView>(R.id.ivBack)
+        val ivCart = findViewById<ImageView>(R.id.ivCart)
+
+        ivCart.setOnClickListener{
+            val cart = Intent(this, AddToCart::class.java)
+            startActivity(cart)
+            overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
+        }
 
 
 
@@ -118,7 +125,7 @@ class Notifications : AppCompatActivity() {
                 overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
             }
             "Notification" -> {
-
+                //NOTIFICATION
             }
             "Me" -> {
                 val me = Intent(this, Profile::class.java)

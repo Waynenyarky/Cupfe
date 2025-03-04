@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="No item in your favorite!"
+        android:text="No item in your cart!"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Let’s blend your bag with your favorite picks and sweet deals!"
+        android:text="Let’s blend your bag with your cart picks and sweet deals!"
         android:textSize="13sp"
         android:textColor="@color/grey"
         android:gravity="center"
@@ -49,6 +49,5 @@
         android:textColor="@android:color/white"
         android:fontFamily="@font/sora_variablefont_wght"
         android:textAllCaps="false"/>
-
 
 </LinearLayout>

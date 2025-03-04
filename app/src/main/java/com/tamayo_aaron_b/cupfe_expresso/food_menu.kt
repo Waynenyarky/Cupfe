@@ -3,28 +3,21 @@ package com.tamayo_aaron_b.cupfe_expresso
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.media.Image
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.Window
-import android.view.animation.AnimationUtils
 import android.view.animation.ScaleAnimation
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
-import android.widget.ViewFlipper
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class food_menu : AppCompatActivity() {
     private var lastClickedButton: ImageView? = null // Track the last clicked button
@@ -53,6 +46,13 @@ class food_menu : AppCompatActivity() {
         val floatingText = findViewById<LinearLayout>(R.id.floatingText)
         val scrollView = findViewById<ScrollView>(R.id.scrollView)
         val handler = android.os.Handler()
+        val ivCart = findViewById<ImageView>(R.id.ivCart)
+
+        ivCart.setOnClickListener{
+            val cart = Intent(this, AddToCart::class.java)
+            startActivity(cart)
+            overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
+        }
 
         scrollView.setOnTouchListener { _, event ->
             when (event.action) {

@@ -1,7 +1,6 @@
 package com.tamayo_aaron_b.cupfe_expresso
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
@@ -11,14 +10,15 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class details_food3 : AppCompatActivity() {
+
     private var isHeartRed3 = false
+    private var isAddedCart3 = false
     private var selectedSize3 = "none"
     private var currentNumber3 = 0
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var sharedPreferences1: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -26,6 +26,7 @@ class details_food3 : AppCompatActivity() {
         setContentView(R.layout.activity_details_food3)
 
         sharedPreferences = getSharedPreferences("FavoritePrefs", Context.MODE_PRIVATE)
+        sharedPreferences1 = getSharedPreferences("CartPrefs", Context.MODE_PRIVATE)
 
         val heartIcon3 = findViewById<ImageView>(R.id.heartIcon3)
         val ivSmall3 = findViewById<ImageView>(R.id.ivSmall3)
@@ -36,6 +37,7 @@ class details_food3 : AppCompatActivity() {
         val ivAdd3 = findViewById<ImageView>(R.id.ivAdd3)
         val tvVolumeSize3 = findViewById<TextView>(R.id.tvVolume_Size3)
         val ivBackHome = findViewById<ImageView>(R.id.ivBackHome)
+        val ivAddToCart3 = findViewById<ImageView>(R.id.ivAddToCart3)
 
         // Back Home
         ivBackHome.setOnClickListener {
@@ -45,6 +47,7 @@ class details_food3 : AppCompatActivity() {
 
         // Load favorite state
         loadFavoriteState(heartIcon3)
+        loadCart()
 
         // Logic for selecting size
         ivSmall3.setOnClickListener { handleSizeSelection("Small", ivSmall3, ivMedium3, ivLarge3, tvVolumeSize3, "240ml") }
@@ -79,6 +82,21 @@ class details_food3 : AppCompatActivity() {
                 } else {
                     // Proceed to add to favorites
                     toggleFavorite(heartIcon3)
+                }
+            }
+        }
+
+        ivAddToCart3.setOnClickListener {
+            if (isAddedCart3) {
+                // Allow removing favorite without checking size or quantity
+                toggleCart()
+            } else {
+                // Only show alert if trying to add to favorites without size or quantity
+                if (selectedSize3 == "none" || currentNumber3 == 0) {
+                    showCustomAlertDialog("Incomplete Selection", "Please select a size and quantity first.")
+                } else {
+                    // Proceed to add to favorites
+                    toggleCart()
                 }
             }
         }
@@ -201,6 +219,51 @@ class details_food3 : AppCompatActivity() {
         if (!savedName.isNullOrEmpty() && !savedSize.isNullOrEmpty() && savedQuantity > 0) {
             isHeartRed3 = true
             heartIcon.setImageResource(R.drawable.fav_heart_red)
+            selectedSize3 = savedSize
+            currentNumber3 = savedQuantity
+        }
+    }
+
+    private fun toggleCart() {
+        val coffeeName3 = findViewById<TextView>(R.id.tvCoffeeName3).text.toString()
+        val priceText3 = findViewById<TextView>(R.id.tvPrice3).text.toString()
+        val editor = sharedPreferences1.edit()
+
+        if (!isAddedCart3) { // Ensuring it's only added once
+            if (selectedSize3 == "none" || currentNumber3 == 0) {
+                showCustomAlertDialog("Incomplete Selection", "Please select a size and quantity first.")
+                return
+            }
+
+            // Adding to cart after validation
+            val price = priceText3.replace("₱", "").replace(".00", "").toIntOrNull() ?: 0
+            val totalPrice3 = price * currentNumber3
+
+            editor.putString("coffeeName3", coffeeName3)
+            editor.putString("selectedSize3", selectedSize3)
+            editor.putInt("quantity3", currentNumber3)
+            editor.putInt("totalPrice3", totalPrice3)
+            val favoriteCount = sharedPreferences.getInt("favoriteCount", 0) + 1
+            editor.putInt("favoriteCount", favoriteCount)
+            editor.apply()
+
+            isAddedCart3 = true
+
+            showCustomAlertDialog("Added to Cart", "Size: $selectedSize3\nQuantity: $currentNumber3\nTotal: ₱$totalPrice3.00")
+        } else {
+            showCustomAlertDialog("Already Added", "This item is already in your cart.")
+        }
+    }
+
+
+
+    private fun loadCart() {
+        val savedName = sharedPreferences1.getString("coffeeName3", null)
+        val savedSize = sharedPreferences1.getString("selectedSize3", null)
+        val savedQuantity = sharedPreferences1.getInt("quantity3", 0)
+
+        if (!savedName.isNullOrEmpty() && !savedSize.isNullOrEmpty() && savedQuantity > 0) {
+            isAddedCart3 = true
             selectedSize3 = savedSize
             currentNumber3 = savedQuantity
         }

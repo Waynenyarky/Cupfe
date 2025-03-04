@@ -17,9 +17,11 @@ import androidx.core.view.WindowInsetsCompat
 class details_food1 : AppCompatActivity() {
 
     private var isHeartRed = false
+    private var isAddedCart = false
     private var selectedSize = "none"
     private var currentNumber = 0
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var sharedPreferences1: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -27,6 +29,7 @@ class details_food1 : AppCompatActivity() {
         setContentView(R.layout.activity_details_food1)
 
         sharedPreferences = getSharedPreferences("FavoritePrefs", Context.MODE_PRIVATE)
+        sharedPreferences1 = getSharedPreferences("CartPrefs", Context.MODE_PRIVATE)
 
         val heartIcon = findViewById<ImageView>(R.id.heartIcon)
         val ivSmall = findViewById<ImageView>(R.id.ivSmall)
@@ -37,6 +40,7 @@ class details_food1 : AppCompatActivity() {
         val ivAdd = findViewById<ImageView>(R.id.ivAdd)
         val tvVolumeSize = findViewById<TextView>(R.id.tvVolume_Size)
         val ivBackHome = findViewById<ImageView>(R.id.ivBackHome)
+        val ivAddToCart = findViewById<ImageView>(R.id.ivAddToCart)
 
         // Back Home
         ivBackHome.setOnClickListener {
@@ -46,6 +50,7 @@ class details_food1 : AppCompatActivity() {
 
         // Load favorite state
         loadFavoriteState(heartIcon)
+        loadCart()
 
         // Logic for selecting size
         ivSmall.setOnClickListener { handleSizeSelection("Small", ivSmall, ivMedium, ivLarge, tvVolumeSize, "240ml") }
@@ -69,8 +74,6 @@ class details_food1 : AppCompatActivity() {
             }
         }
 
-
-
         heartIcon.setOnClickListener {
             if (isHeartRed) {
                 // Allow removing favorite without checking size or quantity
@@ -82,6 +85,21 @@ class details_food1 : AppCompatActivity() {
                 } else {
                     // Proceed to add to favorites
                     toggleFavorite(heartIcon)
+                }
+            }
+        }
+
+        ivAddToCart.setOnClickListener {
+            if (isAddedCart) {
+                // Allow removing favorite without checking size or quantity
+                toggleCart()
+            } else {
+                // Only show alert if trying to add to favorites without size or quantity
+                if (selectedSize == "none" || currentNumber == 0) {
+                    showCustomAlertDialog("Incomplete Selection", "Please select a size and quantity first.")
+                } else {
+                    // Proceed to add to favorites
+                    toggleCart()
                 }
             }
         }
@@ -123,17 +141,17 @@ class details_food1 : AppCompatActivity() {
 
             dialog.show()
         }
-
     }
 
     private fun handleSizeSelection(size: String, ivSmall: ImageView, ivMedium: ImageView, ivLarge: ImageView, tvVolumeSize: TextView, volume: String) {
-        val tvPrice = findViewById<TextView>(R.id.tvPrice) // Reference to price TextView
+        val tvPrice= findViewById<TextView>(R.id.tvPrice) // Reference to price TextView
         val price = when (size) {
             "Small" -> "₱99.00"
             "Medium" -> "₱109.00"
             "Large" -> "₱119.00"
             else -> "₱0.00"
         }
+
 
         if (selectedSize != size) {
             ivSmall.setBackgroundResource(if (size == "Small") R.drawable.small_brown else R.drawable.small_white)
@@ -167,7 +185,6 @@ class details_food1 : AppCompatActivity() {
         }
 
         if (isHeartRed) {
-            // **Removing from favorites (No validation needed)**
             editor.remove("coffeeName")
             editor.remove("selectedSize")
             editor.remove("quantity")
@@ -211,6 +228,50 @@ class details_food1 : AppCompatActivity() {
         }
     }
 
+    private fun toggleCart() {
+        val coffeeName = findViewById<TextView>(R.id.tvCoffeeName).text.toString()
+        val priceText = findViewById<TextView>(R.id.tvPrice).text.toString()
+        val editor = sharedPreferences1.edit()
+
+        if (!isAddedCart) { // Ensuring it's only added once
+            if (selectedSize == "none" || currentNumber == 0) {
+                showCustomAlertDialog("Incomplete Selection", "Please select a size and quantity first.")
+                return
+            }
+
+            // Adding to cart after validation
+            val price = priceText.replace("₱", "").replace(".00", "").toIntOrNull() ?: 0
+            val totalPrice = price * currentNumber
+
+            editor.putString("coffeeName", coffeeName)
+            editor.putString("selectedSize", selectedSize)
+            editor.putInt("quantity", currentNumber)
+            editor.putInt("totalPrice", totalPrice)
+            val favoriteCount = sharedPreferences.getInt("favoriteCount", 0) + 1
+            editor.putInt("favoriteCount", favoriteCount)
+            editor.apply()
+
+            isAddedCart = true
+            showCustomAlertDialog("Added to Cart", "Size: $selectedSize\nQuantity: $currentNumber\nTotal: ₱$totalPrice.00")
+        } else {
+            showCustomAlertDialog("Already Added", "This item is already in your cart.")
+        }
+    }
+
+
+
+    private fun loadCart() {
+        val savedName = sharedPreferences1.getString("coffeeName", null)
+        val savedSize = sharedPreferences1.getString("selectedSize", null)
+        val savedQuantity = sharedPreferences1.getInt("quantity", 0)
+
+        if (!savedName.isNullOrEmpty() && !savedSize.isNullOrEmpty() && savedQuantity > 0) {
+            isAddedCart = true
+            selectedSize = savedSize
+            currentNumber = savedQuantity
+        }
+    }
+
     private fun showCustomAlertDialog(title: String, message: String, onOkClick: (() -> Unit)? = null) {
         val builder = AlertDialog.Builder(this)
         val customView = layoutInflater.inflate(R.layout.custom_alert_dialog, null)
@@ -226,6 +287,7 @@ class details_food1 : AppCompatActivity() {
             onOkClick?.invoke()
             alertDialog.dismiss()
         }
+
         // Prevent dismissing by clicking outside
         alertDialog.setCanceledOnTouchOutside(false)
         alertDialog.setCancelable(false)

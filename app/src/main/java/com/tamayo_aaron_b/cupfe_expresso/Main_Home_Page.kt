@@ -38,6 +38,7 @@ class Main_Home_Page : AppCompatActivity() {
         val item5 = findViewById<ImageView>(R.id.item5)
         val item6 = findViewById<ImageView>(R.id.item6)
         val viewFlipper = findViewById<ViewFlipper>(R.id.viewFlipper)
+        val ivCart = findViewById<ImageView>(R.id.ivCart)
         // Set flipping interval (e.g., 1 second)
         viewFlipper.flipInterval = 5000
 
@@ -45,6 +46,13 @@ class Main_Home_Page : AppCompatActivity() {
         handler.postDelayed({
             viewFlipper.startFlipping()
         }, 6000)
+
+
+        ivCart.setOnClickListener {
+            val cart = Intent(this, AddToCart::class.java)
+            startActivity(cart)
+            overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.fade_out)
+        }
 
         ivReservation.setOnClickListener {
             val reserve = Intent(this, Reservation::class.java)

@@ -5,21 +5,16 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
-import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.ScaleAnimation
 import android.widget.Button
-import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class favoriteNav : AppCompatActivity() {
     private var lastClickedButton: ImageView? = null // Track the last clicked button
@@ -52,6 +47,7 @@ class favoriteNav : AppCompatActivity() {
         val heart4 = findViewById<ImageView>(R.id.heart4)
         val heart5 = findViewById<ImageView>(R.id.heart5)
         val heart6 = findViewById<ImageView>(R.id.heart6)
+        val ivCart = findViewById<ImageView>(R.id.ivCart)
         ivCheck1 = findViewById(R.id.ivCheck1)
         ivCheck2 = findViewById(R.id.ivCheck2)
         ivCheck3 = findViewById(R.id.ivCheck3)
@@ -75,6 +71,12 @@ class favoriteNav : AppCompatActivity() {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
 
+        ivCart.setOnClickListener{
+            val cart = Intent(this, AddToCart::class.java)
+            startActivity(cart)
+            overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
+        }
+
 
 
         // Set up click listeners for individual checkboxes
@@ -86,9 +88,7 @@ class favoriteNav : AppCompatActivity() {
         ivCheck6.setOnClickListener { toggleCheckbox(5, ivCheck6) }
 
 
-        ivOverallCheck.setOnClickListener {
-            toggleOverallCheckbox()
-        }
+        ivOverallCheck.setOnClickListener { toggleOverallCheckbox() }
 
 
 

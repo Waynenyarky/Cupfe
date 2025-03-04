@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     android:background="@drawable/dialog_rounded_background">
 
     <TextView
         android:id="@+id/dialog_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Are you sure you want to let go of \n your favorite CupFe?"
+        android:text="Are you sure you want to let go of \n your cart CupFe?"
         android:gravity="center"
         android:textColor="@android:color/black"
         android:textSize="16sp"

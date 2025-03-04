@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12sp"
-        android:text="It’s coffee o’clock! Log in and let’s grab all the coffee \n we can dream of especially iced coffee!"
+        android:text="It’s coffee o’clock! Log in and let’s grab all the coffee \nwe can dream of especially iced coffee!"
         android:textColor="@color/grey2"
         android:textStyle="normal"
         android:fontFamily="@font/sora_variablefont_wght"/>

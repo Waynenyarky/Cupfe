@@ -27,8 +27,8 @@
             android:src="@drawable/baseline_keyboard_arrow_left_24"
             android:layout_gravity="start"
             android:contentDescription="Back Icon"
-            android:layout_marginEnd="95dp"
-            />
+            android:background="@drawable/close_btn_bg"
+            android:layout_marginEnd="95dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -278,7 +278,7 @@
 
 
         <ImageView
-            android:id="@+id/ivAddToCart"
+            android:id="@+id/ivAddToCart2"
             android:layout_width="143dp"
             android:layout_height="53dp"
             android:background="@drawable/addtocart"

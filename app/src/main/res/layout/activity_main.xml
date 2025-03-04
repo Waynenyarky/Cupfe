@@ -51,10 +51,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="50dp" />
 
-
-
-
-
         <!-- Get Started Button -->
         <Button
             android:id="@+id/GetStarted"
@@ -71,12 +67,4 @@
 
 
     </LinearLayout>
-
-
-
-
-
-
-
-
 </FrameLayout>

@@ -56,6 +56,7 @@
             android:src="@drawable/baseline_keyboard_arrow_left_24"
             android:layout_gravity="start"
             android:contentDescription="Back Icon"
+            android:background="@drawable/close_btn_bg"
             android:layout_marginEnd="80dp"/>
 
         <TextView
