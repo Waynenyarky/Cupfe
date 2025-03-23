@@ -2,42 +2,73 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="20dp"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/dialog_rounded_background">
+    android:background="@drawable/confirmation_bg"
+    android:paddingStart="30dp"
+    android:paddingEnd="30dp"
+    android:paddingBottom="15dp"
+    android:paddingTop="15dp">
 
 
-    <TextView
-        android:id="@+id/tvSuccessMessage"
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/check_in_confirmation"
+        android:layout_marginBottom="10dp"/>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Success!"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:layout_marginBottom="15dp"/>
+        android:orientation="horizontal"
+        android:gravity="center">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign In"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:layout_marginEnd="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Successfully"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/light_brown"
+            android:fontFamily="@font/sora_variablefont_wght"/>
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your Sign-in was completed successfully."
-        android:textStyle="normal"
-        android:textSize="15sp"
-        android:textColor="@color/dgrey"/>
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:textStyle="italic"
+        android:gravity="center"
+        android:layout_marginTop="8dp"/>
 
     <Button
         android:id="@+id/btnOkay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/button_order_bg"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
         android:text="OK"
-        android:layout_marginTop="15dp"
-        android:backgroundTint="@color/light_brown"
-        android:textColor="@android:color/white"/>
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"/>
 
 
 </LinearLayout>

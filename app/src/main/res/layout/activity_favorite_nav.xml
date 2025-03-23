@@ -133,22 +133,24 @@
                     android:src="@drawable/fav2" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="89dp"
                     android:gravity="start"
                     android:orientation="vertical"
-                    android:paddingTop="10dp">
+                    android:paddingTop="10dp"
+                    android:layout_marginStart="-10dp"
+                    android:layout_marginEnd="10dp">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/tvFavCoffeeNameValue"
-                            android:layout_width="96dp"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="18dp"
                             android:fontFamily="@font/sora_variablefont_wght"
                             android:text="Caffee Mocha"
                             android:textColor="@color/black"
@@ -233,22 +235,24 @@
                     android:src="@drawable/fav4" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="89dp"
                     android:orientation="vertical"
                     android:gravity="start"
-                    android:paddingTop="10dp">
+                    android:paddingTop="10dp"
+                    android:layout_marginStart="-10dp"
+                    android:layout_marginEnd="10dp">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/tvFavCoffeeNameValue4"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="48dp"
                             android:fontFamily="@font/sora_variablefont_wght"
                             android:text="Caffee Mocha"
                             android:textColor="@color/black"
@@ -336,24 +340,26 @@
                     android:src="@drawable/fav6" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="89dp"
                     android:paddingTop="10dp"
                     android:orientation="vertical"
-                    android:gravity="start">
+                    android:gravity="start"
+                    android:layout_marginStart="-10dp"
+                    android:layout_marginEnd="10dp">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/tvFavCoffeeNameValue6"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:textSize="13sp"
                             android:textStyle="normal"
-                            android:layout_marginEnd="20dp"
                             android:textColor="@color/black"
                             android:fontFamily="@font/sora_variablefont_wght"
                             android:text="Caffee Mocha" />
@@ -438,24 +444,26 @@
                     android:src="@drawable/fav1" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="89dp"
                     android:orientation="vertical"
                     android:gravity="start"
-                    android:paddingTop="10dp">
+                    android:paddingTop="10dp"
+                    android:layout_marginStart="-8dp"
+                    android:layout_marginEnd="10dp">
 
                     <LinearLayout
-                        android:layout_width="200dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/tvFavCoffeeNameValue2"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:textSize="13sp"
                             android:textStyle="normal"
-                            android:layout_marginEnd="60dp"
                             android:textColor="@color/black"
                             android:fontFamily="@font/sora_variablefont_wght"
                             android:text="Caffee Mocha" />
@@ -542,25 +550,27 @@
 
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="89dp"
                     android:orientation="vertical"
                     android:gravity="start"
-                    android:paddingTop="10dp">
+                    android:paddingTop="10dp"
+                    android:layout_marginStart="-10dp"
+                    android:layout_marginEnd="10dp">
 
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/tvFavCoffeeNameValue5"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:textSize="13sp"
                             android:textStyle="normal"
-                            android:layout_marginEnd="42dp"
                             android:textColor="@color/black"
                             android:fontFamily="@font/sora_variablefont_wght"
                             android:text="Caffee Mocha" />
@@ -644,25 +654,27 @@
                     android:src="@drawable/fav3" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="89dp"
                     android:paddingTop="10dp"
                     android:gravity="start"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="-10dp"
+                    android:layout_marginEnd="10dp">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
 
                         <TextView
                             android:id="@+id/tvFavCoffeeNameValue3"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/sora_variablefont_wght"
                             android:text="Caffee Mocha"
-                            android:layout_marginEnd="52dp"
                             android:textColor="@color/black"
                             android:textSize="13sp"
                             android:textStyle="normal" />
@@ -789,17 +801,18 @@
 
     <LinearLayout
         android:id="@+id/navigationBar"
-        android:layout_width="331dp"
+        android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginBottom="24dp"
-        android:layout_marginStart="0.3dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:background="@android:color/transparent"
         android:gravity="center"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/nav_home"
-            android:layout_width="20dp"
+            android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginTop="2dp"
             android:layout_weight="1"
@@ -808,7 +821,7 @@
 
         <ImageView
             android:id="@+id/nav_cart"
-            android:layout_width="18dp"
+            android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginTop="2dp"
             android:layout_weight="1"
@@ -817,7 +830,7 @@
 
         <ImageView
             android:id="@+id/nav_favorite"
-            android:layout_width="18dp"
+            android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_weight="1"
             android:layout_marginTop="1dp"
@@ -826,7 +839,7 @@
 
         <ImageView
             android:id="@+id/nav_bag"
-            android:layout_width="18dp"
+            android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginTop="2dp"
             android:layout_weight="1"
@@ -835,7 +848,7 @@
 
         <ImageView
             android:id="@+id/nav_notif"
-            android:layout_width="18dp"
+            android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_weight="1"
             android:contentDescription="Notification"

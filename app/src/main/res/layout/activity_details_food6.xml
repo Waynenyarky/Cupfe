@@ -219,21 +219,23 @@
         android:fontFamily="@font/sora_variablefont_wght"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginStart="31dp"
+        android:layout_marginEnd="31dp">
 
 
         <TextView
             android:id="@+id/tvPrice6"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="₱ 39.00"
             android:textStyle="bold"
             android:textSize="18sp"
             android:textColor="@color/light_brown"
             android:fontFamily="@font/sora_variablefont_wght"
-            android:layout_marginEnd="150dp"
             android:layout_marginBottom="25dp"/>
 
 

@@ -25,6 +25,7 @@
             android:layout_height="35dp"
             android:src="@drawable/white_back_btn"
             android:layout_gravity="start"
+            android:background="@drawable/close_btn_bg"
             android:contentDescription="Back Icon"
             android:layout_marginEnd="90dp"/>
 
@@ -41,32 +42,61 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/profile_pic"
-        android:layout_marginBottom="10dp"/>
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageProfile"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/edit_pro"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/light_brown"
+        android:padding="6dp"
+        android:background="@color/light_grey"
+        app:shapeAppearanceOverlay="@style/RoundedImageShape"/>
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hi, John Wayne !"
-        android:layout_marginBottom="20dp"
-        android:textColor="@color/white"
-        android:fontFamily="@font/sora_variablefont_wght"/>
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello, "
+            android:textColor="@color/white"
+            android:fontFamily="@font/sora_variablefont_wght"/>
+
+        <TextView
+            android:id="@+id/profileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="John Wayne "
+            android:textColor="@color/white"
+            android:fontFamily="@font/sora_variablefont_wght"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" !"
+            android:textColor="@color/white"
+            android:fontFamily="@font/sora_variablefont_wght"/>
+
+    </LinearLayout>
 
 
 
 
 
     <ScrollView
-        android:layout_width="405dp"
+        android:layout_width="match_parent"
         android:layout_height="528dp"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center"
@@ -88,12 +118,13 @@
             <!--Personal Info-->
             <LinearLayout
                 android:id="@+id/personalInfo"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:orientation="horizontal"
                 android:layout_marginBottom="20dp"
-                android:layout_marginStart="15dp">
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp">
 
                 <ImageView
                     android:layout_width="20dp"
@@ -110,13 +141,12 @@
                     android:textStyle="normal"
                     android:textColor="@color/profile"
                     android:layout_marginStart="5dp"
-                    />
+                    android:layout_weight="1"/>
 
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:src="@drawable/right_arrow"
-                    android:layout_marginStart="160dp"/>
+                    android:src="@drawable/right_arrow" />
 
 
             </LinearLayout>
@@ -126,12 +156,13 @@
             <!--Transaction History-->
             <LinearLayout
                 android:id="@+id/transactionHistory"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:orientation="horizontal"
                 android:layout_marginBottom="20dp"
-                android:layout_marginStart="15dp">
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp">
 
                 <ImageView
                     android:layout_width="20dp"
@@ -148,13 +179,12 @@
                     android:layout_marginTop="4dp"
                     android:textColor="@color/profile"
                     android:layout_marginStart="5dp"
-                    />
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:src="@drawable/right_arrow"
-                    android:layout_marginStart="115dp"/>
+                    android:src="@drawable/right_arrow"/>
 
 
             </LinearLayout>
@@ -163,12 +193,13 @@
             <!--QR code-->
             <LinearLayout
                 android:id="@+id/qrCode"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:orientation="horizontal"
                 android:layout_marginBottom="20dp"
-                android:layout_marginStart="15dp">
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp">
 
                 <ImageView
                     android:layout_width="20dp"
@@ -185,13 +216,12 @@
                     android:layout_marginTop="4dp"
                     android:textColor="@color/profile"
                     android:layout_marginStart="5dp"
-                    />
+                    android:layout_weight="1"/>
 
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:src="@drawable/right_arrow"
-                    android:layout_marginStart="195dp"/>
+                    android:src="@drawable/right_arrow"/>
 
 
             </LinearLayout>
@@ -215,12 +245,13 @@
             <!--Application Terms-->
             <LinearLayout
                 android:id="@+id/applicationTerms"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:orientation="horizontal"
                 android:layout_marginBottom="20dp"
-                android:layout_marginStart="15dp">
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp">
 
                 <ImageView
                     android:layout_width="20dp"
@@ -237,13 +268,12 @@
                     android:textStyle="normal"
                     android:textColor="@color/profile"
                     android:layout_marginStart="5dp"
-                    />
+                    android:layout_weight="1"/>
 
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:src="@drawable/right_arrow"
-                    android:layout_marginStart="118dp"/>
+                    android:src="@drawable/right_arrow" />
 
 
             </LinearLayout>
@@ -251,12 +281,13 @@
             <!--Privacy Notice-->
             <LinearLayout
                 android:id="@+id/privacyNotice"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:orientation="horizontal"
                 android:layout_marginBottom="20dp"
-                android:layout_marginStart="15dp">
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp">
 
                 <ImageView
                     android:layout_width="20dp"
@@ -273,13 +304,12 @@
                     android:textStyle="normal"
                     android:textColor="@color/profile"
                     android:layout_marginStart="5dp"
-                    />
+                    android:layout_weight="1"/>
 
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:src="@drawable/right_arrow"
-                    android:layout_marginStart="152dp"/>
+                    android:src="@drawable/right_arrow" />
 
 
             </LinearLayout>
@@ -290,12 +320,13 @@
             <!--Website Link-->
             <LinearLayout
                 android:id="@+id/websiteLink"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:orientation="horizontal"
                 android:layout_marginBottom="20dp"
-                android:layout_marginStart="12dp">
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="15dp">
 
                 <ImageView
                     android:layout_width="23dp"
@@ -311,13 +342,13 @@
                     android:text="Website Link"
                     android:textColor="@color/profile"
                     android:textSize="19sp"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    android:layout_weight="1"/>
 
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:src="@drawable/right_arrow"
-                    android:layout_marginStart="162dp"/>
+                    android:src="@drawable/right_arrow" />
 
 
             </LinearLayout>
@@ -325,12 +356,13 @@
             <!--Feedback-->
             <LinearLayout
                 android:id="@+id/feedback"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:orientation="horizontal"
                 android:layout_marginBottom="20dp"
-                android:layout_marginStart="15dp">
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp">
 
                 <ImageView
                     android:layout_width="21dp"
@@ -347,26 +379,25 @@
                     android:layout_marginTop="4dp"
                     android:textColor="@color/profile"
                     android:layout_marginStart="5dp"
-                    />
+                    android:layout_weight="1"/>
 
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:src="@drawable/right_arrow"
-                    android:layout_marginStart="184dp"/>
-
+                    android:src="@drawable/right_arrow"/>
 
             </LinearLayout>
 
             <!--Help-->
             <LinearLayout
                 android:id="@+id/help"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginBottom="20dp"
                 android:orientation="horizontal"
-                android:layout_marginStart="15dp">
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp">
 
                 <ImageView
                     android:layout_width="20dp"
@@ -383,13 +414,12 @@
                     android:layout_marginTop="4dp"
                     android:textColor="@color/profile"
                     android:layout_marginStart="5dp"
-                    />
+                    android:layout_weight="1"/>
 
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:src="@drawable/right_arrow"
-                    android:layout_marginStart="220dp"/>
+                    android:src="@drawable/right_arrow"/>
 
 
             </LinearLayout>
@@ -398,11 +428,12 @@
             <!--Delete-->
             <LinearLayout
                 android:id="@+id/delete"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:orientation="horizontal"
-                android:layout_marginStart="15dp">
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp">
 
                 <ImageView
                     android:layout_width="20dp"
@@ -419,13 +450,12 @@
                     android:layout_marginTop="4dp"
                     android:textColor="@color/profile"
                     android:layout_marginStart="5dp"
-                    />
+                    android:layout_weight="1"/>
 
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:src="@drawable/right_arrow"
-                    android:layout_marginStart="145dp"/>
+                    android:src="@drawable/right_arrow"/>
 
 
             </LinearLayout>
@@ -444,11 +474,25 @@
                 android:layout_marginTop="20dp"/>
 
 
-            <ImageView
-                android:layout_width="90dp"
-                android:layout_height="30dp"
-                android:src="@drawable/profile_signout"
-                android:layout_marginStart="20dp"/>
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground">
+
+                <Button
+                    android:id="@+id/btnSigOut"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:text="Sign Out"
+                    android:textColor="@color/text_color_selector"
+                    android:fontFamily="@font/sora_variablefont_wght"
+                    android:textStyle="normal"
+                    android:textSize="13sp"
+                    android:background="@drawable/button_sign_out"
+                    android:gravity="center"
+                    android:layout_marginStart="15dp"/>
+            </FrameLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -463,14 +507,9 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="25dp"/>
-
-
+                android:layout_height="20dp"/>
 
         </LinearLayout>
-
-
-
     </ScrollView>
 
 
@@ -479,17 +518,18 @@
     <!--NAVIGATION-->
     <LinearLayout
         android:id="@+id/navigationBar"
-        android:layout_width="331dp"
+        android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginBottom="30dp"
         android:background="@android:color/transparent"
         android:gravity="center"
-        android:layout_marginStart="0.2dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/nav_home"
-            android:layout_width="20dp"
+            android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginTop="2dp"
             android:layout_weight="1"
@@ -498,7 +538,7 @@
 
         <ImageView
             android:id="@+id/nav_cart"
-            android:layout_width="18dp"
+            android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginTop="2dp"
             android:layout_weight="1"
@@ -507,7 +547,7 @@
 
         <ImageView
             android:id="@+id/nav_favorite"
-            android:layout_width="18dp"
+            android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_weight="1"
             android:layout_marginTop="1dp"
@@ -516,7 +556,7 @@
 
         <ImageView
             android:id="@+id/nav_bag"
-            android:layout_width="18dp"
+            android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginTop="2dp"
             android:layout_weight="1"
@@ -525,21 +565,11 @@
 
         <ImageView
             android:id="@+id/nav_notif"
-            android:layout_width="18dp"
+            android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_weight="1"
             android:contentDescription="Notification"
             android:src="@drawable/me" />
 
     </LinearLayout>
-
-
-
-
-
-
-
-
-
-
 </LinearLayout>

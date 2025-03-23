@@ -14,42 +14,41 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
+        android:layout_marginTop="40dp"
         android:layout_marginBottom="210dp"
-        android:layout_marginTop="20dp">
+        android:gravity="center"
+        android:orientation="vertical">
 
 
         <ImageView
             android:id="@+id/ivBackHome"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:src="@drawable/baseline_keyboard_arrow_left_24"
             android:layout_gravity="start"
+            android:layout_marginEnd="95dp"
             android:background="@drawable/close_btn_bg"
             android:contentDescription="Back Icon"
-            android:layout_marginEnd="95dp"
-            />
+            android:src="@drawable/baseline_keyboard_arrow_left_24" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Details"
-            android:textStyle="bold"
             android:fontFamily="@font/sora_variablefont_wght"
+            android:text="Details"
+            android:textColor="@color/black"
             android:textSize="16sp"
-            android:textColor="@color/black"/>
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/heartIcon"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/fav_heart_white"
-            android:contentDescription="Heart Icon"
             android:layout_marginStart="95dp"
-            android:padding="13dp"
             android:clickable="true"
-            android:focusable="true" />
+            android:contentDescription="Heart Icon"
+            android:focusable="true"
+            android:padding="13dp"
+            android:src="@drawable/fav_heart_white" />
     </LinearLayout>
 
     <TextView
@@ -66,245 +65,360 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <TextView
+
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Coffee Size"
-        android:fontFamily="@font/sora_variablefont_wght"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_gravity="start"
-        android:layout_marginStart="31dp"
-        android:textColor="@color/black"
-        android:layout_marginBottom="25dp"/>
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="25dp">
-
-        <ImageView
-            android:id="@+id/ivSmall"
-            android:layout_width="85dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_height="33dp"
-            android:background="@drawable/small_white"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:contentDescription="Small size button"
-            android:padding="8dp" />
-
-        <ImageView
-            android:id="@+id/ivMedium"
-            android:layout_width="85dp"
-            android:layout_height="33dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/medium_white"
-            android:minWidth="0dp"
-            android:contentDescription="Small size button"
-            android:minHeight="0dp"
-            android:padding="8dp" />
-
-        <ImageView
-            android:id="@+id/ivLarge"
-            android:layout_width="85dp"
-            android:layout_height="33dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/large_white"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:contentDescription="Small size button"
-            android:padding="8dp" />
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Description"
-        android:textColor="@color/black"
-        android:fontFamily="@font/sora_variablefont_wght"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_gravity="start"
-        android:layout_marginStart="31dp"/>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="A cappuccino is an approximately 150 ml (5 oz) beverage, with 25 ml of espresso coffee and 85 ml of fresh milk, the foam topping it off to create a rich, creamy texture."
-            android:textColor="@color/grey"
-            android:fontFamily="@font/sora_variablefont_wght"
-            android:textSize="13sp"
-            android:textStyle="normal"
-            android:layout_gravity="start"
-            android:layout_marginStart="31dp"
-            android:layout_marginEnd="31dp"
-            android:layout_marginBottom="25dp"/>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Quantity"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:fontFamily="@font/sora_variablefont_wght"
-        android:layout_gravity="start"
-        android:layout_marginStart="31dp"
-        android:layout_marginBottom="8dp"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="start"
-        android:layout_gravity="start"
-        android:layout_marginBottom="30dp">
-
-
-        <ImageView
-            android:id="@+id/ivMinus"
-            android:layout_width="25dp"
-            android:layout_marginStart="31dp"
-            android:layout_height="25dp"
-            android:background="@drawable/less"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:contentDescription="Minus"
-            android:padding="8dp" />
-
-        <TextView
-            android:id="@+id/tvNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:gravity="center"
-            android:textStyle="normal"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="3dp"
-            android:fontFamily="@font/sora_variablefont_wght"/>
-
-        <ImageView
-            android:id="@+id/ivAdd"
-            android:layout_width="25dp"
-            android:layout_marginStart="2dp"
-            android:layout_height="25dp"
-            android:background="@drawable/add"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:contentDescription="Minus"
-            android:padding="8dp" />
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Price:"
-        android:textStyle="normal"
-        android:textSize="14sp"
-        android:layout_gravity="start"
-        android:layout_marginStart="31dp"
-        android:textColor="@color/grey"
-        android:fontFamily="@font/sora_variablefont_wght"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-
-        <TextView
-            android:id="@+id/tvPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="₱ 99.00"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="@color/light_brown"
-            android:fontFamily="@font/sora_variablefont_wght"
-            android:layout_marginEnd="150dp"
-            android:layout_marginBottom="25dp"/>
-
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="end"
-            android:layout_marginTop="5dp">
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Coffee Size"
+                android:fontFamily="@font/sora_variablefont_wght"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_gravity="start"
+                android:layout_marginStart="31dp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="25dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="25dp">
+
+                <ImageView
+                    android:id="@+id/ivSmall"
+                    android:layout_width="85dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_height="33dp"
+                    android:background="@drawable/small_white"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:contentDescription="Small size button"
+                    android:padding="8dp" />
+
+                <ImageView
+                    android:id="@+id/ivMedium"
+                    android:layout_width="85dp"
+                    android:layout_height="33dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/medium_white"
+                    android:minWidth="0dp"
+                    android:contentDescription="Small size button"
+                    android:minHeight="0dp"
+                    android:padding="8dp" />
+
+                <ImageView
+                    android:id="@+id/ivLarge"
+                    android:layout_width="85dp"
+                    android:layout_height="33dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/large_white"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:contentDescription="Small size button"
+                    android:padding="8dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textColor="@color/black"
+                android:fontFamily="@font/sora_variablefont_wght"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_gravity="start"
+                android:layout_marginStart="31dp"/>
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Volume:"
-                android:textStyle="bold"
+                android:text="A cappuccino is an approximately 150 ml (5 oz) beverage, with 25 ml of espresso coffee and 85 ml of fresh milk, the foam topping it off to create a rich, creamy texture."
+                android:textColor="@color/grey"
+                android:fontFamily="@font/sora_variablefont_wght"
                 android:textSize="13sp"
-                android:layout_marginEnd="3dp"
+                android:textStyle="normal"
+                android:layout_gravity="start"
+                android:layout_marginStart="31dp"
+                android:layout_marginEnd="31dp"
+                android:layout_marginBottom="25dp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantity"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/sora_variablefont_wght"
+                android:layout_gravity="start"
+                android:layout_marginStart="31dp"
+                android:layout_marginBottom="8dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="start"
+                android:layout_gravity="start"
+                android:layout_marginBottom="30dp">
+
+
+                <ImageView
+                    android:id="@+id/ivMinus"
+                    android:layout_width="25dp"
+                    android:layout_marginStart="31dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/less"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:contentDescription="Minus"
+                    android:padding="8dp" />
+
+                <TextView
+                    android:id="@+id/tvNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:gravity="center"
+                    android:textStyle="normal"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/sora_variablefont_wght"/>
+
+                <ImageView
+                    android:id="@+id/ivAdd"
+                    android:layout_width="25dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/add"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:contentDescription="Minus"
+                    android:padding="8dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price:"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:layout_gravity="start"
+                android:layout_marginStart="31dp"
                 android:textColor="@color/grey"
                 android:fontFamily="@font/sora_variablefont_wght"/>
 
-            <TextView
-                android:id="@+id/tvVolume_Size"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="31dp"
+                android:layout_marginEnd="31dp">
+
+
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="₱ 99.00"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/light_brown"
+                    android:fontFamily="@font/sora_variablefont_wght"
+                    android:layout_marginBottom="25dp"/>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="end"
+                    android:layout_marginTop="5dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Volume:"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginEnd="3dp"
+                        android:textColor="@color/grey"
+                        android:fontFamily="@font/sora_variablefont_wght"/>
+
+                    <TextView
+                        android:id="@+id/tvVolume_Size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0ml"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:textColor="@color/light_brown"
+                        android:fontFamily="@font/sora_variablefont_wght"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/favorite_card"
+                android:layout_marginBottom="30dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:elevation="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Special Instructions"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="15dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/order_ins"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="10dp"/>
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Instructions"
+                        android:background="@color/white"
+                        android:paddingStart="3dp"
+                        android:paddingEnd="3dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/sora_variablefont_wght"
+                        android:textSize="10sp"
+                        android:gravity="start"
+                        android:elevation="0.01dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="2dp"
+                        android:textColor="@color/size"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/instructions"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp">
+
+                        <EditText
+                            android:id="@+id/etComment"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/sora_variablefont_wght"
+                            android:hint="e.g 50% less sugar"
+                            android:inputType="textMultiLine"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="15dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey2"
+                            android:textSize="12sp"
+                            android:textStyle="normal"
+                            android:theme="@style/HintStyle"
+                            android:background="@null"
+                            android:scrollHorizontally="false"
+                            android:gravity="top|start"
+                            android:maxLines="4" />
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0ml"
-                android:textStyle="bold"
-                android:textSize="13sp"
-                android:textColor="@color/light_brown"
-                android:fontFamily="@font/sora_variablefont_wght"/>
+                android:orientation="horizontal"
+                android:gravity="center">
+
+
+                <ImageView
+                    android:id="@+id/ivAddToCart"
+                    android:layout_width="143dp"
+                    android:layout_height="53dp"
+                    android:background="@drawable/addtocart"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:contentDescription="Minus"
+                    android:padding="8dp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="38dp"
+                    android:background="@color/light_grey"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"/>
+
+
+                <ImageView
+                    android:id="@+id/ivBuyNow"
+                    android:layout_width="143dp"
+                    android:layout_height="53dp"
+                    android:background="@drawable/buynow"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:contentDescription="Minus"
+                    android:padding="8dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+
 
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-
-        <ImageView
-            android:id="@+id/ivAddToCart"
-            android:layout_width="143dp"
-            android:layout_height="53dp"
-            android:background="@drawable/addtocart"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:contentDescription="Minus"
-            android:padding="8dp" />
-
-        <View
-            android:layout_width="2dp"
-            android:layout_height="38dp"
-            android:background="@color/light_grey"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"/>
-
-
-        <ImageView
-            android:id="@+id/ivBuyNow"
-            android:layout_width="143dp"
-            android:layout_height="53dp"
-            android:background="@drawable/buynow"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:contentDescription="Minus"
-            android:padding="8dp" />
-    </LinearLayout>
 
 </LinearLayout>

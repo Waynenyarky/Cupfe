@@ -5,22 +5,32 @@
     android:orientation="vertical"
     android:gravity="start"
     android:background="@drawable/menu_popup"
-    android:padding="6dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingEnd="30dp"
+    android:paddingStart="30dp"
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
     android:elevation="10dp">
 
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/question_confirmation"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Confirm Reservation?"
+        android:text="Confirm Bundle?"
         android:textStyle="bold"
         android:textSize="18sp"
         android:textColor="@color/black"
-        android:gravity="start"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="40dp"/>
+        android:layout_marginBottom="8dp"/>
 
 
         <TextView
@@ -31,7 +41,7 @@
             android:textColor="@color/red"
             android:textStyle="bold"
             android:layout_marginBottom="5dp"
-            android:layout_marginStart="10dp"/>
+           android:layout_gravity="start"/>
 
 
 
@@ -43,12 +53,8 @@
         android:textColor="@color/black"
         android:layout_marginBottom="8dp"
         android:textSize="14sp"
-        android:layout_gravity="start"
-        android:layout_marginStart="18dp"
+        android:layout_gravity="center"
         android:lineSpacingMultiplier="1.2"/>
-
-
-
 
 
     <EditText
@@ -68,17 +74,16 @@
         android:visibility="gone"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
+        android:layout_marginBottom="5dp">
 
         <TextView
             android:id="@+id/btnCancel"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="40dp"
             android:text="Cancel"
             android:textColor="@color/white"
@@ -86,13 +91,14 @@
             android:gravity="center"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:layout_marginEnd="15dp"
+            android:layout_marginEnd="10dp"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackground"/>
 
         <TextView
             android:id="@+id/btnConfirm"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="40dp"
             android:text="Confirm"
             android:textColor="@color/white"
@@ -104,9 +110,13 @@
             android:foreground="?attr/selectableItemBackground"/>
     </LinearLayout>
 
-
-
-
-
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please double-check before confirming!"
+        android:textStyle="italic"
+        android:textSize="11sp"
+        android:textColor="@color/dark_grey"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"/>
 </LinearLayout>

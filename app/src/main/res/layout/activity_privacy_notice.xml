@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Privacy_Notice"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="27.5dp">
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/baseline_keyboard_arrow_left_24"
+            android:layout_gravity="start"
+            android:contentDescription="Back Icon"
+            android:background="@drawable/close_btn_bg"
+            android:layout_marginEnd="65.5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Privacy Notice"
+            android:textStyle="bold"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginEnd="105.5dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CupFe's"
+            android:textColor="@color/light_brown"
+            android:textStyle="bold"
+            android:textSize="21sp"
+            android:layout_marginEnd="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Privacy Notice"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="21sp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_terms6"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        android:textColor="@color/black"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="20dp"
+        android:layout_gravity="start"
+        android:layout_marginTop="7dp"
+        android:lineSpacingMultiplier="1.2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Information We Collect"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_gravity="start"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="30dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_terms7"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        android:textColor="@color/black"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="22dp"
+        android:layout_gravity="start"
+        android:layout_marginTop="1dp"
+        android:lineSpacingMultiplier="1.2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How We Share Your Information"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_gravity="start"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="30dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_terms8"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        android:textColor="@color/black"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="22dp"
+        android:layout_gravity="start"
+        android:layout_marginTop="1dp"
+        android:lineSpacingMultiplier="1.2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Choices"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_gravity="start"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="30dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_terms9"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        android:textColor="@color/black"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="22dp"
+        android:layout_gravity="start"
+        android:layout_marginTop="1dp"
+        android:lineSpacingMultiplier="1.2"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="© 2025 CupfeExpresso. All rights reserved."
+        android:textSize="9sp"
+        android:textStyle="normal"
+        android:layout_gravity="start"
+        android:textColor="@color/grey"
+        android:layout_marginStart="105dp"
+        android:layout_marginTop="295dp"/>
+
+</LinearLayout>

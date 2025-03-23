@@ -11,4 +11,11 @@
         <item name="colorPrimaryVariant">#5D4037</item>
         <item name="colorAccent">#C67C4E</item>
     </style>
+
+    <style name="HintStyle">
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="RoundedImageShape" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

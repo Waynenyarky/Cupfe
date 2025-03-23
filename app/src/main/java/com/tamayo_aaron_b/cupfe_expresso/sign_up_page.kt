@@ -1,5 +1,6 @@
 package com.tamayo_aaron_b.cupfe_expresso
 
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -32,7 +33,6 @@ class sign_up_page : AppCompatActivity() {
     private lateinit var etFName: EditText
     private lateinit var etPass: EditText
     private lateinit var etCPass: EditText
-    private lateinit var etOTP: EditText
     private lateinit var btnOTP: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,21 +47,20 @@ class sign_up_page : AppCompatActivity() {
         etFName = findViewById(R.id.etFName)
         etPass = findViewById(R.id.etPass)
         etCPass = findViewById(R.id.etCPass)
-        etOTP = findViewById(R.id.etOTP)
-        val btnSignInAcc = findViewById<Button>(R.id.btnSignUpAcc)
         val ivEye = findViewById<ImageView>(R.id.ivEye)
+        val ivEye2 = findViewById<ImageView>(R.id.ivEye2)
 
         btnOTP = findViewById(R.id.btnOTP)
+
+        addValidationWithIcon1(etEmail) { isValidEmail(it) }
+        addValidationWithIcon1(etFName) { isValidName(it) }
+        addValidationWithIcon(etPass) { isValidPassword(it) }
 
         // Send OTP when clicking btnOTP
         btnOTP.setOnClickListener {
             sendOTP()
         }
 
-
-        addValidationWithIcon1(etEmail) { isValidEmail(it) }
-        addValidationWithIcon1(etFName) { isValidName(it) }
-        addValidationWithIcon(etPass) { isValidPassword(it) }
 
         var isPasswordVisible = false
 
@@ -77,6 +76,22 @@ class sign_up_page : AppCompatActivity() {
             }
 
             etPass.setSelection(etPass.text.length) // Maintain cursor position
+        }
+
+        var isPasswordVisible2 = false
+
+        ivEye2.setOnClickListener {
+            isPasswordVisible2 = !isPasswordVisible2
+
+            if (isPasswordVisible2) {
+                etCPass.transformationMethod = null // Show password
+                ivEye2.setImageResource(R.drawable.eye_show)
+            } else {
+                etCPass.transformationMethod = PasswordTransformationMethod.getInstance() // Hide password
+                ivEye2.setImageResource(R.drawable.eye_hide)
+            }
+
+            etCPass.setSelection(etCPass.text.length) // Maintain cursor position
         }
 
 
@@ -122,62 +137,17 @@ class sign_up_page : AppCompatActivity() {
             false
         }
 
-        btnSignInAcc.setOnClickListener {
-            val email = etEmail.text.toString()
-            val username = etFName.text.toString()
-            val password = etPass.text.toString()
-            val confirmPassword = etCPass.text.toString()
 
-            // EMAIL
-            if (email.isEmpty()) {
-                etEmail.error = "Please complete the text field."
-                etEmail.requestFocus()
-                return@setOnClickListener
-            }
-            if (!isValidEmail(email)) {
-                etEmail.error = "Invalid email format."
-                etEmail.requestFocus()
-                return@setOnClickListener
-            }
-
-            // NAME
-            if (username.isEmpty()) {
-                etFName.error = "Please complete the text field."
-                etFName.requestFocus()
-                return@setOnClickListener
-            }
-            if (!isValidName(username)) {
-                etFName.error = "Invalid name format."
-                etFName.requestFocus()
-                return@setOnClickListener
-            }
-
-            // PASSWORD
-            if (!isValidPassword(password)) {
-                etPass.error = "Password must be strong and not contain spaces or emojis."
-                etPass.requestFocus()
-                return@setOnClickListener
-            }
-
-            if (password != confirmPassword) {
-                etCPass.error = "Passwords do not match."
-                etCPass.requestFocus()
-                return@setOnClickListener
-            }
-            verifyUserInput()
-        }
 
         val checkIcon: Drawable? = ContextCompat.getDrawable(this, R.drawable.ic_check)?.apply {
             setBounds(0, 0, intrinsicWidth, intrinsicHeight)
         }
-        val paddingEnd = 50  // Adjust the right padding to fit the icon properly
+        val paddingEnd = 140  // Adjust the right padding to fit the icon properly
         etCPass.setPadding(etCPass.paddingLeft, etCPass.paddingTop, paddingEnd,etCPass.paddingBottom)
         etCPass.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val password = etPass.text.toString()
                 val confirmPassword = s.toString()
-
-
 
                 etCPass.post {
                     if (confirmPassword == password && confirmPassword.isNotEmpty()) {
@@ -226,29 +196,77 @@ class sign_up_page : AppCompatActivity() {
         return input.replace(Regex("[\\p{So}\\p{Cn}]"), "")
     }
 
-    // EMAIL VALIDATION
-    private fun isValidEmail(email: String): Boolean {
-        val allowedDomains = listOf("@gmail.com", "@yahoo.com", "@outlook.com", "@hotmail.com", "@icloud.com", "@aol.com", "@protonmail.com", "@zoho.com")
-        val regex = "^[a-z]{8,}[a-z0-9._%+-]*@[a-z]+\\.[a-z]{2,6}\$".toRegex()
-        val atIndex = email.indexOf("@")
 
-        if (atIndex < 8 || !regex.matches(email) || email.contains(" ") || email.any { it.isUpperCase() } || email.any { !it.isLetterOrDigit() && it !in ".@_-"}) {
-            return false
+
+    // Function to send OTP
+    private fun sendOTP() {
+        val email = etEmail.text.toString().trim()
+        val username = etFName.text.toString().trim()
+        val password = etPass.text.toString().trim()
+        val confirm_password = etCPass.text.toString().trim()
+
+        if (!isValidEmail(email)) {
+            etEmail.error = "Email is required"
+            etEmail.requestFocus()
+            return
         }
 
-        return allowedDomains.any { email.endsWith(it, ignoreCase = true) }
-    }
+        if (!isValidName(username)) {
+            etFName.error = "Username is required"
+            etFName.requestFocus()
+            return
+        }
 
-    // NAME VALIDATION
-    private fun isValidName(name: String): Boolean {
-        val nameRegex = "^[A-Za-z]{3,20}(?: [A-Za-z]{1,20})*(?: (II|III|IV|V|VI|VII|VIII|IX|X))?$".toRegex()
-        return name.matches(nameRegex)
-    }
+        if (!isValidPassword(password)) {
+            etPass.error = "Password is required"
+            etPass.requestFocus()
+            return
+        }
 
-    // PASSWORD VALIDATION
-    private fun isValidPassword(password: String): Boolean {
-        val passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@#\$%^&+=!])(?!.*[\\s\\p{So}]).{8,}\$".toRegex()
-        return password.matches(passwordRegex)
+        if (password != confirm_password) {
+            etPass.error = "Passwords do not match."
+            etPass.requestFocus()
+            return
+        }
+
+        val request = OTPRequest(email, username, password, "customer")
+
+        // Disable button and show loading
+        btnOTP.isEnabled = false
+        btnOTP.text = "Verifying..."
+
+        RetrofitClient.instance.sendOTP(request).enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if (response.isSuccessful) {
+                    response.body()
+                    Toast.makeText(applicationContext, "OTP sent successfully", Toast.LENGTH_LONG).show()
+
+                    // Navigate to sign_in_page2 instead of ForgotPassword2
+                    val intent = Intent(this@sign_up_page, sign_up_page2::class.java)
+                    intent.putExtra("EMAIL", email)
+                    intent.putExtra("USERNAME", username)
+                    intent.putExtra("PASSWORD", password)
+                    startActivity(intent)
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("Server Error", "Error: $errorBody")
+                    Toast.makeText(applicationContext, "Server Error: $errorBody", Toast.LENGTH_LONG).show()
+                }
+                // Enable button and restore text after response
+                btnOTP.isEnabled = true
+                btnOTP.text = "Send OTP"
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                // Enable button and restore text after response
+                btnOTP.isEnabled = true
+                btnOTP.text = "Send OTP"
+
+                Log.e("sendOTP", "Network Error", t)
+                Toast.makeText(applicationContext, "Network error: ${t.localizedMessage}", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     //VALID or INVALID
@@ -280,6 +298,31 @@ class sign_up_page : AppCompatActivity() {
         })
     }
 
+    // EMAIL VALIDATION
+    private fun isValidEmail(email: String): Boolean {
+        val allowedDomains = listOf("@gmail.com", "@yahoo.com", "@outlook.com", "@hotmail.com", "@icloud.com", "@aol.com", "@protonmail.com", "@zoho.com")
+        val regex = "^[a-z]{8,}[a-z0-9._%+-]*@[a-z]+\\.[a-z]{2,6}\$".toRegex()
+        val atIndex = email.indexOf("@")
+
+        if (atIndex < 8 || !regex.matches(email) || email.contains(" ") || email.any { it.isUpperCase() } || email.any { !it.isLetterOrDigit() && it !in ".@_-"}) {
+            return false
+        }
+
+        return allowedDomains.any { email.endsWith(it, ignoreCase = true) }
+    }
+
+    // NAME VALIDATION
+    private fun isValidName(name: String): Boolean {
+        val nameRegex = "^[A-Za-z]{3,20}(?: [A-Za-z]{1,20})*(?: (II|III|IV|V|VI|VII|VIII|IX|X))?$".toRegex()
+        return name.matches(nameRegex)
+    }
+
+    // PASSWORD VALIDATION
+    private fun isValidPassword(password: String): Boolean {
+        val passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@#\$%^&+=!])(?!.*[\\s\\p{So}]).{8,}\$".toRegex()
+        return password.matches(passwordRegex)
+    }
+
     private fun addValidationWithIcon1(editText: EditText, validator: (String) -> Boolean) {
         val checkIcon: Drawable? = ContextCompat.getDrawable(editText.context, R.drawable.ic_check)?.apply {
             setBounds(0, 0, intrinsicWidth, intrinsicHeight)
@@ -308,155 +351,4 @@ class sign_up_page : AppCompatActivity() {
         })
     }
 
-
-
-    // Function to send OTP
-    private fun sendOTP() {
-        val email = etEmail.text.toString().trim()
-        val username = etFName.text.toString().trim()
-        val password = etPass.text.toString().trim()
-
-        if (email.isEmpty()) {
-            etEmail.error = "Email is required"
-            etEmail.requestFocus()
-            return
-        }
-
-        if (username.isEmpty()) {
-            etFName.error = "Username is required"
-            etFName.requestFocus()
-            return
-        }
-
-        if (password.isEmpty()) {
-            etPass.error = "Password is required"
-            etPass.requestFocus()
-            return
-        }
-
-        val request = OTPRequest(email, username, password, "customer")
-
-        // Disable button and show loading
-        btnOTP.isEnabled = false
-        btnOTP.text = "Sending..."
-
-        RetrofitClient.instance.sendOTP(request).enqueue(object : Callback<String> {
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                if (response.isSuccessful) {
-                    response.body()
-                    Toast.makeText(applicationContext, "OTP sent successfully", Toast.LENGTH_LONG).show()
-                } else {
-                    val errorBody = response.errorBody()?.string()
-                    Log.e("Server Error", "Error: $errorBody")
-                    Toast.makeText(applicationContext, "Server Error: $errorBody", Toast.LENGTH_LONG).show()
-                }
-                // Enable button and restore text after response
-                btnOTP.isEnabled = true
-                btnOTP.text = "Send OTP"
-            }
-
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                // Enable button and restore text after response
-                btnOTP.isEnabled = true
-                btnOTP.text = "Send OTP"
-
-                Log.e("sendOTP", "Network Error", t)
-                Toast.makeText(applicationContext, "Network error: ${t.localizedMessage}", Toast.LENGTH_LONG).show()
-            }
-        })
-    }
-
-
-
-
-    // Function to verify OTP and create account
-    private fun verifyUserInput() {
-        val email = etEmail.text.toString().trim()
-        val username = etFName.text.toString().trim()
-        val password = etPass.text.toString()
-        val confirmPassword = etCPass.text.toString()
-        val otp = etOTP.text.toString().trim()
-        val role = "customer" // Default role
-
-        if (email.isEmpty()) {
-            etEmail.error = "Email is required"
-            etEmail.requestFocus()
-            return
-        }
-
-        if (username.isEmpty()) {
-            etFName.error = "Name is required"
-            etFName.requestFocus()
-            return
-        }
-
-        if (password.isEmpty()) {
-            etPass.error = "Password is required"
-            etPass.requestFocus()
-            return
-        }
-
-        if (confirmPassword.isEmpty()) {
-            etCPass.error = "Confirm Password is required"
-            etCPass.requestFocus()
-            return
-        }
-
-        if (password != confirmPassword) {
-            etCPass.error = "Passwords do not match"
-            etCPass.requestFocus()
-            return
-        }
-
-        if (otp.isEmpty()) {
-            etOTP.error = "OTP is required"
-            etOTP.requestFocus()
-            return
-        }
-
-        verifyOTP(username, email, password, otp, role)
-    }
-
-    private fun verifyOTP(username: String, email: String, password: String, otp: String, role: String) {
-        val request = VerifyOTPRequest(username, email, password, otp, role)
-
-        RetrofitClient.instance.verifyOTP(request).enqueue(object : Callback<ApiResponse> {
-            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-                val apiResponse = response.body()
-                if (response.isSuccessful && apiResponse != null && !apiResponse.error) {
-                    showSuccessDialog()
-                } else {
-                    Toast.makeText(applicationContext, apiResponse?.message ?: "OTP verification failed", Toast.LENGTH_LONG).show()
-                }
-            }
-
-            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                Toast.makeText(applicationContext, "Network Error: ${t.message}", Toast.LENGTH_LONG).show()
-            }
-        })
-    }
-
-
-    private fun showSuccessDialog() {
-        val dialogView = layoutInflater.inflate(R.layout.dialog_success, null)
-        val dialog = android.app.AlertDialog.Builder(this)
-            .setView(dialogView)
-            .setCancelable(false)
-            .create()
-
-        dialog.setCancelable(false)
-        dialog.setCanceledOnTouchOutside(false)
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        val btnOkay = dialogView.findViewById<Button>(R.id.btnOkay)
-        btnOkay.setOnClickListener {
-            dialog.dismiss()
-            val intent = Intent(this@sign_up_page, sign_in_page::class.java)
-            startActivity(intent)
-            finish() // Close the sign-in page
-        }
-
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.show()
-    }
 }

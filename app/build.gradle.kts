@@ -56,5 +56,6 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.firebase.firestore.ktx)
     implementation (libs.lottie)
+    implementation (libs.ucrop)
 
 }

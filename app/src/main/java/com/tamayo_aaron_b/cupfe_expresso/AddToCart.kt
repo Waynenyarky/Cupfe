@@ -543,7 +543,7 @@ class AddToCart : AppCompatActivity() {
                 editor.remove("cartQuantity${coffeeName}")
                 editor.remove("selectedSize")
                 editor.remove("quantity")
-                editor.remove("totalPrice")
+                editor.remove("totalPrice${coffeeName}")
                 findViewById<LinearLayout>(R.id.favFoodLayout).visibility = View.GONE
             }
             2 -> {
@@ -552,7 +552,7 @@ class AddToCart : AppCompatActivity() {
                 editor.remove("cartQuantity2${coffeeName2}")
                 editor.remove("selectedSize2")
                 editor.remove("quantity2")
-                editor.remove("totalPrice2")
+                editor.remove("totalPrice2${coffeeName2}")
                 findViewById<LinearLayout>(R.id.favFoodLayout2).visibility = View.GONE
             }
             3 -> {
@@ -561,7 +561,7 @@ class AddToCart : AppCompatActivity() {
                 editor.remove("cartQuantity3${coffeeName3}")
                 editor.remove("selectedSize3")
                 editor.remove("quantity3")
-                editor.remove("totalPrice3")
+                editor.remove("totalPrice3${coffeeName3}")
                 findViewById<LinearLayout>(R.id.favFoodLayout3).visibility = View.GONE
             }
             4 -> {
@@ -570,7 +570,7 @@ class AddToCart : AppCompatActivity() {
                 editor.remove("cartQuantity4${coffeeName4}")
                 editor.remove("selectedSize4")
                 editor.remove("quantity4")
-                editor.remove("totalPrice4")
+                editor.remove("totalPrice4${coffeeName4}")
                 findViewById<LinearLayout>(R.id.favFoodLayout4).visibility = View.GONE
             }
             5 -> {
@@ -579,7 +579,7 @@ class AddToCart : AppCompatActivity() {
                 editor.remove("cartQuantity5${coffeeName5}")
                 editor.remove("selectedSize5")
                 editor.remove("quantity5")
-                editor.remove("totalPrice5")
+                editor.remove("totalPrice5${coffeeName5}")
                 findViewById<LinearLayout>(R.id.favFoodLayout5).visibility = View.GONE
             }
             6 -> {
@@ -588,7 +588,7 @@ class AddToCart : AppCompatActivity() {
                 editor.remove("cartQuantity6${coffeeName6}")
                 editor.remove("selectedSize6")
                 editor.remove("quantity6")
-                editor.remove("totalPrice6")
+                editor.remove("totalPrice6${coffeeName6}")
                 findViewById<LinearLayout>(R.id.favFoodLayout6).visibility = View.GONE
             }
         }
@@ -609,11 +609,13 @@ class AddToCart : AppCompatActivity() {
         val selectedSize = sharedPreferences1.getString("selectedSize", "N/A")
         val quantity = sharedPreferences1.getInt("quantity", 0)
         val totalPrice = sharedPreferences1.getInt("totalPrice", 0)
+        val userComment = sharedPreferences1.getString("userComment", null)
 
         val coffeeName2 = sharedPreferences1.getString("coffeeName2", "N/A")
         val selectedSize2 = sharedPreferences1.getString("selectedSize2", "N/A")
         val quantity2 = sharedPreferences1.getInt("quantity2", 0)
         val totalPrice2 = sharedPreferences1.getInt("totalPrice2", 0)
+        val userComment2 = sharedPreferences1.getString("userComment2", null)
 
         val coffeeName3 = sharedPreferences1.getString("coffeeName3", "N/A")
         val selectedSize3 = sharedPreferences1.getString("selectedSize3", "N/A")
@@ -684,12 +686,14 @@ class AddToCart : AppCompatActivity() {
 
             findViewById<TextView>(R.id.tvFavCoffeeNameValue).text = coffeeName
             findViewById<TextView>(R.id.tvFavSizeValue).text = "Size: $size"
+            findViewById<TextView>(R.id.tvComment1).text = "``$userComment"
 
             val addQuantity = findViewById<TextView>(R.id.addQuantity)
             val tvAdd = findViewById<TextView>(R.id.tvAdd)
             val tvMinus = findViewById<TextView>(R.id.tvMinus)
             val tvFavPriceValue = findViewById<TextView>(R.id.tvFavPriceValue)
             val tvFavQuantityValue = findViewById<TextView>(R.id.tvFavQuantityValue)
+
 
             val sharedPreferences = sharedPreferences1
             val editor = sharedPreferences.edit()
@@ -754,6 +758,7 @@ class AddToCart : AppCompatActivity() {
             }
             findViewById<TextView>(R.id.tvFavCoffeeNameValue2).text = coffeeName2
             findViewById<TextView>(R.id.tvFavSizeValue2).text = "Size: $size2"
+            findViewById<TextView>(R.id.tvComment2).text = "``$userComment2"
 
             val addQuantity2 = findViewById<TextView>(R.id.addQuantity2)
             val tvAdd2 = findViewById<TextView>(R.id.tvAdd2)

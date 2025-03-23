@@ -1,23 +1,29 @@
 package com.tamayo_aaron_b.cupfe_expresso
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
 import android.view.MotionEvent
 import android.view.animation.ScaleAnimation
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.ViewFlipper
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.imageview.ShapeableImageView
 import java.util.logging.Handler
 
 class Main_Home_Page : AppCompatActivity() {
     private var lastClickedButton: ImageView? = null // Track the last clicked button
     private val handler = android.os.Handler(Looper.getMainLooper())
-
+    private lateinit var imageProfile: ShapeableImageView
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -37,8 +43,10 @@ class Main_Home_Page : AppCompatActivity() {
         val item4 = findViewById<ImageView>(R.id.item4)
         val item5 = findViewById<ImageView>(R.id.item5)
         val item6 = findViewById<ImageView>(R.id.item6)
+        val homeName = findViewById<TextView>(R.id.homeName)
         val viewFlipper = findViewById<ViewFlipper>(R.id.viewFlipper)
         val ivCart = findViewById<ImageView>(R.id.ivCart)
+        imageProfile = findViewById(R.id.imageProfile)
         // Set flipping interval (e.g., 1 second)
         viewFlipper.flipInterval = 5000
 
@@ -46,6 +54,22 @@ class Main_Home_Page : AppCompatActivity() {
         handler.postDelayed({
             viewFlipper.startFlipping()
         }, 6000)
+
+        // Get the image URI from EditProfile
+        val imageUri = intent.getStringExtra("IMAGE_URI") ?: getSavedImageUri()
+
+        sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+
+        // Retrieve saved name
+        val savedName = sharedPreferences.getString("USERNAME", "User")
+
+        if (!savedName.isNullOrEmpty()) {
+            homeName.text = "$savedName"
+        }
+
+        imageUri?.let {
+            imageProfile.setImageURI(Uri.parse(it)) // Display image in Profile
+        }
 
 
         ivCart.setOnClickListener {
@@ -109,6 +133,11 @@ class Main_Home_Page : AppCompatActivity() {
         setupNavigation(navFavorite, "Favorite", R.drawable.fav, R.drawable.fav_brown)
         setupNavigation(navBag, "Notification", R.drawable.notif, R.drawable.notif_brown)
         setupNavigation(navNotif, "Me", R.drawable.me, R.drawable.me_brown)
+    }
+
+    private fun getSavedImageUri(): String? {
+        val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("saved_image_uri", null)
     }
 
     @SuppressLint("ClickableViewAccessibility")

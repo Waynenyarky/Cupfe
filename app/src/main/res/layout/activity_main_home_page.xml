@@ -10,10 +10,10 @@
     android:gravity="center">
 
 
-
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="140dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="-20dp"
         android:orientation="vertical"
         android:gravity="center"
         android:background="@drawable/frame_bg">
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="start"
-            android:layout_marginTop="80dp">
+            android:layout_marginTop="100dp">
 
 
             <TextView
@@ -167,20 +167,54 @@
                    android:gravity="center"
                    android:layout_marginBottom="10dp">
 
-                   <ImageView
+                   <com.google.android.material.imageview.ShapeableImageView
+                       android:id="@+id/imageProfile"
                        android:layout_width="25dp"
                        android:layout_height="25dp"
-                       android:src="@drawable/user"
-                       android:layout_marginEnd="6dp"/>
+                       android:scaleType="centerCrop"
+                       android:src="@drawable/edit_pro"
+                       app:strokeWidth="1dp"
+                       app:strokeColor="@color/light_brown"
+                       android:padding="1dp"
+                       android:background="@color/light_brown"
+                       app:shapeAppearanceOverlay="@style/RoundedImageShape"
+                       android:layout_marginEnd="5dp"/>
 
-                   <TextView
+                   <LinearLayout
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="Hello, John Wayne Enrique!"
-                       android:textColor="@color/light_brown"
-                       android:textStyle="normal"
-                       android:textSize="13sp"
-                       android:fontFamily="@font/sora_variablefont_wght" />
+                       android:orientation="horizontal">
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Hello, "
+                           android:textColor="@color/light_brown"
+                           android:textStyle="normal"
+                           android:textSize="13sp"
+                           android:fontFamily="@font/sora_variablefont_wght" />
+
+                       <TextView
+                           android:id="@+id/homeName"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="John Wayne Enrique"
+                           android:textColor="@color/light_brown"
+                           android:textStyle="normal"
+                           android:textSize="13sp"
+                           android:fontFamily="@font/sora_variablefont_wght" />
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text=" !"
+                           android:textColor="@color/light_brown"
+                           android:textStyle="normal"
+                           android:textSize="13sp"
+                           android:fontFamily="@font/sora_variablefont_wght" />
+
+                   </LinearLayout>
+
                </LinearLayout>
 
 
@@ -236,7 +270,7 @@
                        android:adjustViewBounds="true"
                        android:padding="5dp"
                        android:scaleType="centerCrop"
-                       android:src="@drawable/reserve2"/>
+                       android:src="@drawable/bundle"/>
 
                </LinearLayout>
 
@@ -291,8 +325,6 @@
 
 
             </LinearLayout>
-
-
 
 
             <GridLayout
@@ -362,17 +394,18 @@
 
     <LinearLayout
         android:id="@+id/navigationBar"
-        android:layout_width="331dp"
+        android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginBottom="30dp"
         android:background="@android:color/transparent"
         android:gravity="center"
-        android:layout_marginStart="0.2dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/nav_home"
-            android:layout_width="20dp"
+            android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginTop="2dp"
             android:layout_weight="1"
@@ -381,7 +414,7 @@
 
         <ImageView
             android:id="@+id/nav_cart"
-            android:layout_width="18dp"
+            android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginTop="2dp"
             android:layout_weight="1"
@@ -390,7 +423,7 @@
 
         <ImageView
             android:id="@+id/nav_favorite"
-            android:layout_width="18dp"
+            android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_weight="1"
             android:layout_marginTop="1dp"
@@ -399,7 +432,7 @@
 
         <ImageView
             android:id="@+id/nav_bag"
-            android:layout_width="18dp"
+            android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginTop="2dp"
             android:layout_weight="1"
@@ -408,7 +441,7 @@
 
         <ImageView
             android:id="@+id/nav_notif"
-            android:layout_width="18dp"
+            android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_weight="1"
             android:contentDescription="Me"

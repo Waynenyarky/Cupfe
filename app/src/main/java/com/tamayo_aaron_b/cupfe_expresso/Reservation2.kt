@@ -24,15 +24,12 @@ class Reservation2 : AppCompatActivity() {
 
         val btnBack = findViewById<ImageView>(R.id.btnBack)
         val tvDateTime = findViewById<TextView>(R.id.tvDateTime)
-        val tvPeople = findViewById<TextView>(R.id.tvPeople)
         val etFullName = findViewById<EditText>(R.id.etFullName)
         val etcpNumber = findViewById<EditText>(R.id.etcpNumber)
         val etEmail = findViewById<EditText>(R.id.etEmail)
         val ReserveNow = findViewById<TextView>(R.id.ReserveNow)
         val checkButton = findViewById<ImageView>(R.id.Check)
         val checkButton2 = findViewById<ImageView>(R.id.Check2)
-        val tvPrizeTotal = findViewById<TextView>(R.id.tvPrizeTotal)
-        val tvIndoor = findViewById<TextView>(R.id.tvIndoor)
 
         addValidationWithIcon(etFullName) { isValidName(it) }
         addValidationWithIcon(etcpNumber) { isValidPhoneNumber(it) }
@@ -46,16 +43,24 @@ class Reservation2 : AppCompatActivity() {
         checkButton2.setOnClickListener {
             Toast.makeText(applicationContext, "Not available this offer", Toast.LENGTH_SHORT).show()
         }
-
-
         val dateTime = intent.getStringExtra("DATE_TIME") ?: "No Date & Time Selected"
-        val people = intent.getStringExtra("PEOPLE") ?: "No Guests Selected"
-        val price = intent.getIntExtra("PRICE", 0) // Default to 0 if not found
-        val table = intent.getStringExtra("TABLE") ?: "No Table Selected"
+        val packageName = intent.getStringExtra("packageName")?:""
+        val price = intent.getStringExtra("price")?:""
+        val person = intent.getStringExtra("person")?:""
+        val packageNameB = intent.getStringExtra("packageNameB")
+        val priceB = intent.getStringExtra("priceB")
+        val personB = intent.getStringExtra("personB")
 
+        val finalPackageName = if (!packageNameB.isNullOrEmpty()) "$packageName$packageNameB" else packageName
+        val finalPrice = if (!priceB.isNullOrEmpty()) "$price$priceB" else price
+        val finalPerson = if (!personB.isNullOrEmpty()) "$person$personB" else person
 
-        tvIndoor.text = table
-        tvPrizeTotal.text = "₱$price.00"
+        // Set values to the same IDs, ensuring no overwriting occurs
+        findViewById<TextView>(R.id.tvPackageName).text = finalPackageName
+        findViewById<TextView>(R.id.tvPrice).text = finalPrice
+        findViewById<TextView>(R.id.tvPerson).text = finalPerson
+        tvDateTime.text = dateTime
+
 
         ReserveNow.setOnClickListener {
             val email = etEmail.text.toString()
@@ -141,8 +146,7 @@ class Reservation2 : AppCompatActivity() {
         }
         etFullName.filters = arrayOf(nameFilter)
 
-        tvDateTime.text = dateTime
-        tvPeople.text = people
+
 
         btnBack.setOnClickListener {
             finish()
@@ -159,7 +163,10 @@ class Reservation2 : AppCompatActivity() {
 
         btnCancel.setOnClickListener { dialog.dismiss() }
 
-        btnConfirm.setOnClickListener{ dialog.dismiss() }
+        btnConfirm.setOnClickListener{
+            Toast.makeText(this, "Bundle Confirm", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
 
         dialog.setCancelable(false)
         dialog.setCanceledOnTouchOutside(false)
@@ -197,13 +204,7 @@ class Reservation2 : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
     }
-
-
-
-
-
-
-
+    
 
     // PHONE NUMBER VALIDATION (Must start with 09 and be 12 digits)
     private fun isValidPhoneNumber(phone: String): Boolean {
@@ -211,9 +212,9 @@ class Reservation2 : AppCompatActivity() {
     }
 
 
-    // NAME VALIDATION (Only letters, spaces, and optional suffixes like II, III)
+    // NAME VALIDATION
     private fun isValidName(name: String): Boolean {
-        val nameRegex = "^[A-Za-z]+(?:\\.?[A-Za-z]+)*(?: [A-Za-z]+(?:\\.?[A-Za-z]+)*)*(?: (II|III|IV|V|VI|VII|VIII|IX|X))?$".toRegex()
+        val nameRegex = "^[A-Za-z]{3,20}(?: [A-Za-z]{1,20})*(?: (II|III|IV|V|VI|VII|VIII|IX|X))?$".toRegex()
         return name.matches(nameRegex)
     }
 

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="start"
+    android:background="@drawable/menu_popup"
+    android:padding="6dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:elevation="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm Delete"
+        android:textStyle="bold"
+        android:textSize="19sp"
+        android:textColor="@color/profile"
+        android:gravity="start"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="15dp"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Are you sure you want to delete your account?"
+        android:textSize="15sp"
+        android:textColor="@color/profile"
+        android:textStyle="normal"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"/>
+
+
+
+    <EditText
+        android:id="@+id/etPeopleCount"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Enter a number of person"
+        android:background="@drawable/reservation_bg_border"
+        android:padding="1dp"
+        android:inputType="number"
+        android:textSize="13sp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="15dp">
+
+        <TextView
+            android:id="@+id/btnNo"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="NO"
+            android:textColor="@color/white"
+            android:background="@drawable/reservation_bg_button"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="15dp"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"/>
+
+        <TextView
+            android:id="@+id/btnYes"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="YES"
+            android:textColor="@color/white"
+            android:background="@drawable/reservation_bg_button"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"/>
+    </LinearLayout>
+
+</LinearLayout>

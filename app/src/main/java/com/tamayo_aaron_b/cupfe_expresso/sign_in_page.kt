@@ -1,5 +1,7 @@
 package com.tamayo_aaron_b.cupfe_expresso
 
+import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -10,6 +12,7 @@ import android.text.SpannableString
 import android.text.TextWatcher
 import android.text.method.PasswordTransformationMethod
 import android.text.style.UnderlineSpan
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -28,7 +31,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class sign_in_page : AppCompatActivity() {
-    private lateinit var btnOTP: Button
     private lateinit var btnSignInAcc: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,16 +48,32 @@ class sign_in_page : AppCompatActivity() {
         val etEmail = findViewById<EditText>(R.id.etEmail)
         val etPass = findViewById<EditText>(R.id.etPass)
         val ivEye = findViewById<ImageView>(R.id.ivEye)
-        val etOTP = findViewById<EditText>(R.id.etOTP)
-        btnOTP = findViewById(R.id.btnOTP)
 
         val paddingEnd = 50  // Adjust the right padding to fit the icon properly
         etEmail.setPadding(etEmail.paddingLeft, etEmail.paddingTop, paddingEnd,etEmail.paddingBottom)
 
+        tvForgotPass.setOnClickListener{
+            val forgotPassword = Intent(this, ForgotPassword::class.java)
+            startActivity(forgotPassword)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
+
         tvGuestLink.setOnClickListener{
             val guest = Intent(this, Guest_Main_Home_Page::class.java)
             startActivity(guest)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
+
+        // Retrieve from Intent
+        var username = intent.getStringExtra("USERNAME")
+
+        // If Intent doesn't have it, get it from SharedPreferences
+        if (username.isNullOrEmpty()) {
+            val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+            username = sharedPreferences.getString("USERNAME", "")
+        }
+
+        Log.d("DEBUG", "Name 123 Saved: $username")
 
         var isPasswordVisible = false
 
@@ -74,32 +92,12 @@ class sign_in_page : AppCompatActivity() {
         }
 
 
-        // Send OTP button
-        btnOTP.setOnClickListener {
-            val email = etEmail.text.toString().trim()
-            val password = etPass.text.toString().trim()
-
-            if (email.isEmpty()) {
-                etEmail.error = "Please enter your email"
-                etEmail.requestFocus()
-                return@setOnClickListener
-            }
-
-            if (password.isEmpty()) {
-                etPass.error = "Please enter your password"
-                etPass.requestFocus()
-                return@setOnClickListener
-            }
-
-            sendOTP(email, password)
-        }
 
 
         // Verify OTP & Login button
         btnSignInAcc.setOnClickListener {
             val email = etEmail.text.toString().trim()
             val password = etPass.text.toString().trim()
-            val otp = etOTP.text.toString().trim()
 
             if (email.isEmpty()) {
                 etEmail.error = "Please enter your email"
@@ -113,19 +111,13 @@ class sign_in_page : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (otp.isEmpty()) {
-                etOTP.error = "Please enter OTP"
-                etOTP.requestFocus()
-                return@setOnClickListener
-            }
 
             // Disable button to prevent multiple clicks
             btnSignInAcc.isEnabled = false
             btnSignInAcc.text = "Verifying..."
-            verifyOTPLogin(email, password, otp)
+            verifyOTPLogin(email, password)
             etEmail.text.clear()
             etPass.text.clear()
-            etOTP.text.clear()
         }
 
 
@@ -206,46 +198,9 @@ class sign_in_page : AppCompatActivity() {
         return input.replace(Regex("[\\p{So}\\p{Cn}]"), "")
     }
 
-    private fun sendOTP(email: String, password: String) {
-        val request = LoginRequest(email, password)
 
-        // Disable button and show loading
-        btnOTP.isEnabled = false
-        btnOTP.text = "Sending..."
-
-        RetrofitClient1.instance.sendOTP(request).enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                val responseBody = response.body()
-                val errorBody = response.errorBody()?.string()
-
-                println("Raw API Response: $errorBody")  // Debug log
-
-                if (response.isSuccessful && responseBody != null) {
-                    Toast.makeText(this@sign_in_page, "OTP sent successfully!", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this@sign_in_page, "Error: ${response.message()} - ${errorBody ?: "No details"}", Toast.LENGTH_SHORT).show()
-                }
-                // Enable button and restore text after response
-                btnOTP.isEnabled = true
-                btnOTP.text = "Send OTP"
-            }
-
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-
-                // Enable button and restore text on failure
-                btnOTP.isEnabled = true
-                btnOTP.text = "Send OTP"
-
-                t.printStackTrace()
-                Toast.makeText(this@sign_in_page, "Failed to send OTP: ${t.message}", Toast.LENGTH_LONG).show()
-            }
-        })
-    }
-
-
-
-    private fun verifyOTPLogin(email: String, password: String, otp: String) {
-        val request = VerifyOTPRequest("", email, password, otp)
+    private fun verifyOTPLogin(email: String, password: String) {
+        val request = OTPRequest(email = email, username = "", password = password)
 
         RetrofitClient1.instance.verifyOTPSignIn(request).enqueue(object : Callback<ApiResponse> {
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
@@ -253,14 +208,21 @@ class sign_in_page : AppCompatActivity() {
                     btnSignInAcc.isEnabled = true
                     btnSignInAcc.text = "Sign In"
 
-                    if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    val errorBody = response.errorBody()?.string()
+
+                    if (response.isSuccessful && responseBody != null) {
+                        val token = responseBody.token ?: "" // Assuming `key1` contains the token
+                        saveUserDetails(email, token) // Save token to SharedPreferences
                         showSuccessDialog()
                     } else {
-                        val errorMessage = response.errorBody()?.string() ?: "Unknown error"
-                        Toast.makeText(this@sign_in_page, "Error: $errorMessage", Toast.LENGTH_SHORT).show()
+                        val errorMessage = errorBody ?: "Unknown error"
+                        Toast.makeText(this@sign_in_page, "Invalid Credentials", Toast.LENGTH_SHORT).show()
+                        Log.e("API_ERROR", "Error response: $errorMessage")
                     }
                 }
             }
+
 
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
                 runOnUiThread {
@@ -274,26 +236,36 @@ class sign_in_page : AppCompatActivity() {
         })
     }
 
-    private fun showSuccessDialog() {
-        val dialogView = layoutInflater.inflate(R.layout.dialog_success, null)
-        val dialog = android.app.AlertDialog.Builder(this)
-            .setView(dialogView)
-            .setCancelable(false)
-            .create()
+    private fun saveUserDetails(email: String, token: String) {
+        val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("user_email", email)  // Save user email
+        editor.putString("auth_token", token)  // Save authentication token
+        editor.apply()
 
+        Log.d("DEBUG", "Email Saved: $email")
+        Log.d("DEBUG", "Token Saved: $token")
+
+    }
+
+
+    private fun showSuccessDialog() {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_success)
         dialog.setCancelable(false)
         dialog.setCanceledOnTouchOutside(false)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        val btnOkay = dialogView.findViewById<Button>(R.id.btnOkay)
+        val btnOkay = dialog.findViewById<Button>(R.id.btnOkay)
         btnOkay.setOnClickListener {
             dialog.dismiss()
             val intent = Intent(this@sign_in_page, Main_Home_Page::class.java)
             startActivity(intent)
+            Toast.makeText(this, "Sign In Successfully", Toast.LENGTH_SHORT).show()
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish() // Close the sign-in page
         }
 
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.show()
     }
 }

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PackageB"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/package_2">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="240dp"
+        android:layout_marginTop="35dp">
+
+
+        <ImageView
+            android:id="@+id/ivBackHome"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/baseline_keyboard_arrow_left_24"
+            android:layout_gravity="start"
+            android:background="@drawable/close_btn_bg"
+            android:contentDescription="Back Icon"
+            android:layout_marginEnd="100dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Details"
+            android:textStyle="bold"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_marginEnd="140dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/packageNameB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Package B"
+        android:textStyle="bold"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_marginBottom="30dp"
+        android:layout_gravity="start"
+        android:layout_marginStart="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="start"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="2dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Coffee Date Bundle"
+            android:textStyle="bold"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textSize="20sp"
+            android:textColor="@color/light_brown"/>
+
+        <TextView
+            android:id="@+id/tvPriceBundleB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₱1099.00"
+            android:textStyle="bold"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_marginStart="10dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvPersonB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="For 5-7 Persons"
+        android:textStyle="bold"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:textSize="16sp"
+        android:textColor="@color/light_brown"
+        android:layout_gravity="start"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="30dp"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reserved Seating"
+        android:textStyle="bold"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_gravity="start"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="2dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A spacious corner booth perfect for group bonding."
+        android:textStyle="normal"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:textSize="14sp"
+        android:textColor="@color/profile"
+        android:layout_gravity="start"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="15dp"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Includes:"
+        android:textStyle="bold"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:textSize="16sp"
+        android:textColor="@color/light_brown"
+        android:layout_gravity="start"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="40dp"/>
+
+    <TextView
+        android:id="@+id/tvIncludesB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/B"
+        android:textStyle="normal"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_gravity="start"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="20dp"
+        android:lineSpacingMultiplier="1.2"/>
+
+    <TextView
+        android:id="@+id/getPackageB"
+        android:layout_width="311dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/reservation_bg_button"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="Get this package"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"/>
+
+</LinearLayout>

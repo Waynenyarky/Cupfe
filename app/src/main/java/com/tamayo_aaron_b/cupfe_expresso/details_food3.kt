@@ -1,7 +1,12 @@
 package com.tamayo_aaron_b.cupfe_expresso
 
+import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -19,7 +24,11 @@ class details_food3 : AppCompatActivity() {
     private var currentNumber3 = 0
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var sharedPreferences1: SharedPreferences
+    private lateinit var ivSmall3 : ImageView
+    private lateinit var ivMedium3 : ImageView
+    private lateinit var ivLarge3 : ImageView
 
+    @SuppressLint("CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -29,18 +38,35 @@ class details_food3 : AppCompatActivity() {
         sharedPreferences1 = getSharedPreferences("CartPrefs", Context.MODE_PRIVATE)
 
         val heartIcon3 = findViewById<ImageView>(R.id.heartIcon3)
-        val ivSmall3 = findViewById<ImageView>(R.id.ivSmall3)
-        val ivMedium3 = findViewById<ImageView>(R.id.ivMedium3)
-        val ivLarge3 = findViewById<ImageView>(R.id.ivLarge3)
+        ivSmall3 = findViewById(R.id.ivSmall3)
+        ivMedium3 = findViewById(R.id.ivMedium3)
+        ivLarge3 = findViewById(R.id.ivLarge3)
         val ivMinus3 = findViewById<ImageView>(R.id.ivMinus3)
         val tvNumber3 = findViewById<TextView>(R.id.tvNumber3)
         val ivAdd3 = findViewById<ImageView>(R.id.ivAdd3)
         val tvVolumeSize3 = findViewById<TextView>(R.id.tvVolume_Size3)
         val ivBackHome = findViewById<ImageView>(R.id.ivBackHome)
         val ivAddToCart3 = findViewById<ImageView>(R.id.ivAddToCart3)
+        val ivBuyNow3 = findViewById<ImageView>(R.id.ivBuyNow3)
+        val etComment3 = findViewById<EditText>(R.id.etComment3)
 
         // Back Home
         ivBackHome.setOnClickListener {
+            val prefs = getSharedPreferences("TempSelection3", Context.MODE_PRIVATE).edit()
+            prefs.clear().apply() // Clear saved selection
+            selectedSize3 = "none"
+            currentNumber3 = 0
+
+            // Reset UI Elements
+            tvVolumeSize3.text = "0ml"
+            findViewById<TextView>(R.id.tvPrice3).text = "₱0.00"
+            findViewById<TextView>(R.id.tvNumber3).text = "0"
+
+            // Reset Selection UI
+            ivSmall3.setBackgroundResource(R.drawable.small_white)
+            ivMedium3.setBackgroundResource(R.drawable.medium_white)
+            ivLarge3.setBackgroundResource(R.drawable.large_white)
+
             finish()
             overridePendingTransition(R.anim.slide_in_top_to_bottom, R.anim.slide_out_bottom)
         }
@@ -48,6 +74,34 @@ class details_food3 : AppCompatActivity() {
         // Load favorite state
         loadFavoriteState(heartIcon3)
         loadCart()
+
+        ivBuyNow3.setOnClickListener {
+            if (selectedSize3 == "none" || currentNumber3 == 0) {
+                showCustomAlertDialog("Incomplete Selection", "Please select a size and quantity first.")
+            } else {
+                val priceText3 = findViewById<TextView>(R.id.tvPrice3).text.toString()
+                val cleanedPrice3 = priceText3.replace("₱", "").replace(".00", "").trim()
+
+
+                // Save selected size and quantity before navigating
+                val prefs = getSharedPreferences("TempSelection3", Context.MODE_PRIVATE).edit()
+                prefs.putString("selectedSize3", selectedSize3)
+                prefs.putInt("quantity3", currentNumber3)
+                val userComment3 = etComment3.text.toString()
+                prefs.putBoolean("fromOrderSummary3", true)
+                prefs.apply()
+
+                val intent = Intent(this, Order_Summary::class.java).apply {
+                    putExtra("coffeeName3", findViewById<TextView>(R.id.tvCoffeeName3).text.toString())
+                    putExtra("selectedSize3", selectedSize3)
+                    putExtra("quantity3", currentNumber3)
+                    putExtra("userComment3", userComment3)
+                    putExtra("price3", cleanedPrice3)
+                }
+                startActivity(intent)
+                overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
+            }
+        }
 
         // Logic for selecting size
         ivSmall3.setOnClickListener { handleSizeSelection("Small", ivSmall3, ivMedium3, ivLarge3, tvVolumeSize3, "240ml") }
@@ -270,46 +324,77 @@ class details_food3 : AppCompatActivity() {
     }
 
     private fun showCustomAlertDialog(title: String, message: String, onOkClick: (() -> Unit)? = null) {
-        val builder = AlertDialog.Builder(this)
-        val customView = layoutInflater.inflate(R.layout.custom_alert_dialog, null)
-        builder.setView(customView)
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.custom_alert_dialog) // Directly setting the layout
 
-        val alertDialog = builder.create()
-        alertDialog.window?.setBackgroundDrawableResource(R.drawable.dialog_rounded_background)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        customView.findViewById<TextView>(R.id.dialogTitle).text = title
-        customView.findViewById<TextView>(R.id.dialogMessage).text = message
+        dialog.findViewById<TextView>(R.id.dialogTitle).text = title
+        dialog.findViewById<TextView>(R.id.dialogMessage).text = message
 
-        customView.findViewById<Button>(R.id.okButton).setOnClickListener {
+        dialog.findViewById<Button>(R.id.okButton).setOnClickListener {
             onOkClick?.invoke()
-            alertDialog.dismiss()
+            dialog.dismiss()
         }
 
-        // Prevent dismissing by clicking outside
-        alertDialog.setCanceledOnTouchOutside(false)
-        alertDialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
 
-        alertDialog.show()
+        dialog.show()
     }
 
     override fun onResume() {
         super.onResume()
+        resetSelections()
 
-        // Reset quantity to default (0)
-        currentNumber3 = 0
-        val tvNumber = findViewById<TextView>(R.id.tvNumber3)
-        tvNumber.text = currentNumber3.toString()
+        val prefs = getSharedPreferences("TempSelection3", Context.MODE_PRIVATE)
+        val fromOrderSummary3 = prefs.getBoolean("fromOrderSummary3", false)
+        selectedSize3 = prefs.getString("selectedSize3", "none") ?: "none"
 
-        // Reset the size selection
+        // Keep the selected size highlighted
+        ivSmall3.setBackgroundResource(if (selectedSize3 == "Small") R.drawable.small_brown else R.drawable.small_white)
+        ivMedium3.setBackgroundResource(if (selectedSize3 == "Medium") R.drawable.medium_brown else R.drawable.medium_white)
+        ivLarge3.setBackgroundResource(if (selectedSize3 == "Large") R.drawable.large_brown else R.drawable.large_white)
+
+        if (fromOrderSummary3) {
+            selectedSize3 = prefs.getString("selectedSize3", "none") ?: "none"
+            currentNumber3 = prefs.getInt("quantity3", 0)
+
+            val priceTextView = findViewById<TextView>(R.id.tvPrice3)
+            val tvVolumeSize = findViewById<TextView>(R.id.tvVolume_Size3)
+            val tvNumber = findViewById<TextView>(R.id.tvNumber3)
+
+            // Restore values
+            tvNumber.text = currentNumber3.toString()
+            tvVolumeSize.text = when (selectedSize3) {
+                "Small" -> "240ml"
+                "Medium" -> "350ml"
+                "Large" -> "450ml"
+                else -> "0ml"
+            }
+
+            priceTextView.text = when (selectedSize3) {
+                "Small" -> "₱99.00"
+                "Medium" -> "₱109.00"
+                "Large" -> "₱119.00"
+                else -> "₱0.00"
+            }
+
+            // Reset flag so it doesn't retain old values indefinitely
+            prefs.edit().putBoolean("fromOrderSummary3", false).apply()
+        }
+    }
+
+    private fun resetSelections() {
         selectedSize3 = "none"
-        val ivSmall3 = findViewById<ImageView>(R.id.ivSmall3)
-        val ivMedium3 = findViewById<ImageView>(R.id.ivMedium3)
-        val ivLarge3 = findViewById<ImageView>(R.id.ivLarge3)
-        val tvVolumeSize3 = findViewById<TextView>(R.id.tvVolume_Size3)
+        currentNumber3 = 0
+
+        findViewById<TextView>(R.id.tvVolume_Size3).text = "0ml"
+        findViewById<TextView>(R.id.tvPrice3).text = "₱0.00"
+        findViewById<TextView>(R.id.tvNumber3).text = "0"
 
         ivSmall3.setBackgroundResource(R.drawable.small_white)
         ivMedium3.setBackgroundResource(R.drawable.medium_white)
         ivLarge3.setBackgroundResource(R.drawable.large_white)
-        tvVolumeSize3.text = "0ml"
     }
 }

@@ -3,6 +3,7 @@
     <string name="guest_text"> Guest?</string>
     <string name="sign_up">Sign Up</string>
     <string name="sign_in">Sign In</string>
+    <string name="forgotPass">Return</string>
     <string name="forgot">Forgot Password?</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -22,9 +23,35 @@
                         secure channels. By clicking \"Reserve Now\" you agree to
                         CupFe Expresso <b><i>Terms of Use</i></b> and <b><i>Privacy Policy</i></b>.</string>
 
-    <string name="note">- This reservation cannot be canceled.\n
-                        - Reservations cannot be changed.\n
-                        - Arrive on time to avoid issues.\n
-                        - Contact support for any assistance.</string>
+    <string name="note">- This bundle cannot be canceled.\n- Reservations cannot be changed.\n- Arrive on time to avoid issues.\n- Contact support for any assistance.</string>
+    <string name="app_terms1">Welcome to CupFe Expresso! By using our app,you agree to the following Terms and Conditions.
+                            Please read them carefully!</string>
+
+    <string name="app_terms2">By using the App, you represent that you are of legal age \nand have the legal capacity to enter into a binding \nagreement. If you are using the App on behalf of an \norganization, you represent that you have the authority\nto bind the organization to these Terms.</string>
+
+    <string name="app_terms3">You are responsible for ensuring the accuracy and completeness of the information provided through the App. You agree to comply with all applicable laws and regulations while using the App and to treat transportation providers with respect and courtesy.</string>
+
+    <string name="app_terms4">Payment for <font color='#C67C4E'><b>CupFe Expresso</b></font> services booked through the App will be processed in accordance with the payment terms specified within the App. You agree to provide accurate and valid payment information and authorize us to charge the applicable fees for the services provided.</string>
+
+    <string name="app_terms5">If you have any question about these Terms and Conditions, please contact us at <i>@CupFeExpresso.com</i></string>
+
+    <string name="app_terms6">In CupFe Expresso, We are committed to protecting your privacy. This Privacy Notice explains how we collect,use, and share information when you use our app for ordering and reservation.</string>
+
+    <string name="app_terms7">When you use Cupfe application, we may collect personal information such as your name, email, phone number and payment information.</string>
+
+    <string name="app_terms8">We may share your data with third parties to process payments or store data securely.</string>
+
+    <string name="app_terms9">You may delete your account at anytime by accessing your account settings in the App.</string>
+
+    <string name="order_ins">Please let us know if you are allergic to anything or if we need to avoid anything.</string>
+
+    <string name="A">• 4 Slices of Cheesecake (Blueberry/New York Style).\n• 1 Chocolate Lava Cake.\n• Choice of 2 Complimentary Biscuits or Cookies.</string>
+
+    <string name="B">• 7 Slices of Cheesecake (Blueberry/New York Style).\n• 1 Large Pancake Stack.\n• Choice of 4 Complimentary Biscuits or Cookies.</string>
+
+    <string name="C">•10 pcs of Assorted  Donuts.\n•10 pcs  of Chewy Chocolate Chip Cookies.\n•8 pcs of Cupcakes .\n•8 pcs of Garlic Cheese Breadsticks.\n•Choice of  6 Complimentary Biscuits or Cookies</string>
+
+    <string name="receipts">XLarge, 3 Splenda, 6 Pump(s) Chocolate Syrup,3 Shot(s) Espresso, Whipped Cream Topping,Oatmilk, Normal Ice</string>
+
 
 </resources>

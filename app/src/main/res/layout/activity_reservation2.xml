@@ -24,6 +24,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="start"
+            android:background="@drawable/close_btn_bg"
             android:src="@drawable/baseline_keyboard_arrow_left_24"
             android:contentDescription="Back Icon "
             android:layout_marginEnd="15dp"/>
@@ -69,8 +70,8 @@
         android:layout_gravity="start">
 
         <include layout="@layout/date_time_layout"/>
-        <include layout="@layout/people_layout"/>
         <include layout="@layout/table_indoor"/>
+        <include layout="@layout/people_layout"/>
         <include layout="@layout/prize_total_in_reservation"/>
 
     </LinearLayout>
