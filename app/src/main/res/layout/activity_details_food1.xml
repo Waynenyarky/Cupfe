@@ -51,6 +51,12 @@
             android:src="@drawable/fav_heart_white" />
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
     <TextView
         android:id="@+id/tvCoffeeName"
         android:layout_width="wrap_content"
@@ -145,6 +151,7 @@
 
 
             <TextView
+                android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="A cappuccino is an approximately 150 ml (5 oz) beverage, with 25 ml of espresso coffee and 85 ml of fresh milk, the foam topping it off to create a rich, creamy texture."

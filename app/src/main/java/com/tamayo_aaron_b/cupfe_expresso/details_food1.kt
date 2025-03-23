@@ -17,6 +17,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
+import com.tamayo_aaron_b.cupfe_expresso.menu.Coffee
 
 class details_food1 : AppCompatActivity() {
 
@@ -35,6 +37,19 @@ class details_food1 : AppCompatActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details_food1)
+
+
+        val coffee = intent.getParcelableExtra<Coffee>("coffee")
+
+        if (coffee != null) {
+            // Use coffee object (e.g., update UI)
+            findViewById<TextView>(R.id.tvCoffeeName).text = coffee.name
+            findViewById<TextView>(R.id.description).text = coffee.description
+            findViewById<TextView>(R.id.tvPrice).text = "$${coffee.priceSmall}"
+            Glide.with(this)
+                .load(coffee.imageUrl)
+                .into(findViewById(R.id.image))
+        }
 
         sharedPreferences = getSharedPreferences("FavoritePrefs", Context.MODE_PRIVATE)
         sharedPreferences1 = getSharedPreferences("CartPrefs", Context.MODE_PRIVATE)
@@ -114,9 +129,9 @@ class details_food1 : AppCompatActivity() {
 
 
         // Logic for selecting size
-        ivSmall.setOnClickListener { handleSizeSelection("Small", ivSmall, ivMedium, ivLarge, tvVolumeSize, "240ml") }
-        ivMedium.setOnClickListener { handleSizeSelection("Medium", ivSmall, ivMedium, ivLarge, tvVolumeSize, "350ml") }
-        ivLarge.setOnClickListener { handleSizeSelection("Large", ivSmall, ivMedium, ivLarge, tvVolumeSize, "450ml") }
+        ivSmall.setOnClickListener { handleSizeSelection(coffee,"Small", ivSmall, ivMedium, ivLarge, tvVolumeSize, "240ml") }
+        ivMedium.setOnClickListener { handleSizeSelection(coffee,"Medium", ivSmall, ivMedium, ivLarge, tvVolumeSize, "350ml") }
+        ivLarge.setOnClickListener { handleSizeSelection(coffee,"Large", ivSmall, ivMedium, ivLarge, tvVolumeSize, "450ml") }
 
         // Logic for quantity
         tvNumber.text = currentNumber.toString()
@@ -204,12 +219,12 @@ class details_food1 : AppCompatActivity() {
         }
     }
 
-    private fun handleSizeSelection(size: String, ivSmall: ImageView, ivMedium: ImageView, ivLarge: ImageView, tvVolumeSize: TextView, volume: String) {
+    private fun handleSizeSelection(coffee: Coffee?, size: String, ivSmall: ImageView, ivMedium: ImageView, ivLarge: ImageView, tvVolumeSize: TextView, volume: String) {
         val tvPrice= findViewById<TextView>(R.id.tvPrice) // Reference to price TextView
         val price = when (size) {
-            "Small" -> "₱99.00"
-            "Medium" -> "₱109.00"
-            "Large" -> "₱119.00"
+            "Small" -> coffee?.priceSmall
+            "Medium" -> coffee?.priceMedium
+            "Large" -> coffee?.priceLarge
             else -> "₱0.00"
         }
 

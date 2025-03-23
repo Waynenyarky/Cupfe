@@ -79,36 +79,6 @@ class Guest_Main_Home_Page : AppCompatActivity() {
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
         }
 
-        Guest_item2.setOnClickListener{
-            val food2 = Intent(this, details_food2::class.java)
-            startActivity(food2)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
-
-        Guest_item3.setOnClickListener{
-            val food3 = Intent(this, details_food3::class.java)
-            startActivity(food3)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
-
-        Guest_item4.setOnClickListener{
-            val food4 = Intent(this, details_food4::class.java)
-            startActivity(food4)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
-
-        Guest_item5.setOnClickListener{
-            val food5 = Intent(this, details_food5::class.java)
-            startActivity(food5)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
-
-        Guest_item6.setOnClickListener{
-            val food6 = Intent(this, details_food6::class.java)
-            startActivity(food6)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
-
         Guest_cart.setOnClickListener{
             val cart = Intent(this, sign_in_page::class.java)
             startActivity(cart)

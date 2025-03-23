@@ -1,13 +1,17 @@
 package com.tamayo_aaron_b.cupfe_expresso.menu
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tamayo_aaron_b.cupfe_expresso.R
+import com.tamayo_aaron_b.cupfe_expresso.details_food1
 
 class CoffeeAdapter(private val coffees: List<Coffee>) :
     RecyclerView.Adapter<CoffeeAdapter.CoffeeViewHolder>() {
@@ -38,6 +42,14 @@ class CoffeeAdapter(private val coffees: List<Coffee>) :
             name.text = coffee.name
             price.text = "$${coffee.priceSmall}"
             subcategory.text = coffee.subcategory
+
+            itemView.setOnClickListener{
+                val intent = Intent(itemView.context, details_food1::class.java)
+                intent.putExtra("coffee", coffee)  // Passing Parcelable object
+                itemView.context.startActivity(intent)
+//                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
+
+            }
         }
     }
 }

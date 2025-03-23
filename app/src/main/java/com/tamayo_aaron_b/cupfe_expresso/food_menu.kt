@@ -130,37 +130,6 @@ class food_menu : AppCompatActivity() {
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
         }
 
-        popular2.setOnClickListener{
-            val food2 = Intent(this, details_food2::class.java)
-            startActivity(food2)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
-
-        popular3.setOnClickListener{
-            val food3 = Intent(this, details_food3::class.java)
-            startActivity(food3)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
-
-        popular4.setOnClickListener{
-            val food4 = Intent(this, details_food4::class.java)
-            startActivity(food4)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
-
-        popular5.setOnClickListener{
-            val food5 = Intent(this, details_food5::class.java)
-            startActivity(food5)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
-
-        popular6.setOnClickListener{
-            val food6 = Intent(this, details_food6::class.java)
-            startActivity(food6)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
-
-
 
 
 
