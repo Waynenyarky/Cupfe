@@ -36,7 +36,7 @@ class CoffeeAdapter(private val coffees: List<Coffee>) :
                 .load(coffee.imageUrl)
                 .into(image)
             name.text = coffee.name
-            price.text = "$${coffee.price}"
+            price.text = "$${coffee.priceSmall}"
             subcategory.text = coffee.subcategory
         }
     }

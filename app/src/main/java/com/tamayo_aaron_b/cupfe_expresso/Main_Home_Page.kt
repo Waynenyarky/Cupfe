@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.view.MotionEvent
 import android.view.animation.ScaleAnimation
 import android.widget.ImageView
@@ -22,6 +23,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.imageview.ShapeableImageView
 import com.tamayo_aaron_b.cupfe_expresso.menu.Coffee
 import com.tamayo_aaron_b.cupfe_expresso.menu.CoffeeAdapter
+import com.tamayo_aaron_b.cupfe_expresso.menu.CoffeeClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.logging.Handler
 
 class Main_Home_Page : AppCompatActivity() {
@@ -106,72 +111,23 @@ class Main_Home_Page : AppCompatActivity() {
 
     private fun fetchCoffees() {
 
-        val fakeCoffees: List<Coffee> = listOf(
-                Coffee(
-                    1,
-                    "Coffee 1",
-                    "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/flat-white-3402c4f.jpg",
-                    50,
-                    "Hot/"
-                ),
-                Coffee(
-                    1,
-                    "Coffee 1",
-                    "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/flat-white-3402c4f.jpg",
-                    50,
-                    "Hot/"
-                ),
-                Coffee(
-                    1,
-                    "Coffee 1",
-                    "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/flat-white-3402c4f.jpg",
-                    50,
-                    "Hot/"
-                ),
-                Coffee(
-                    1,
-                    "Coffee 1",
-                    "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/flat-white-3402c4f.jpg",
-                    50,
-                    "Hot/"
-                ),
-                Coffee(
-                    1,
-                    "Coffee 1",
-                    "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/flat-white-3402c4f.jpg",
-                    50,
-                    "Hot/"
-                ),
-                Coffee(
-                    1,
-                    "Coffee 1",
-                    "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/flat-white-3402c4f.jpg",
-                    50,
-                    "Hot/"
-                ),
-            )
+        CoffeeClient.instance.getCoffees().enqueue(object : Callback<List<Coffee>> {
+            override fun onResponse(call: Call<List<Coffee>>, response: Response<List<Coffee>>) {
+                if (response.isSuccessful) {
+                    val coffees = response.body() ?: emptyList()
+                    coffeeAdapter = CoffeeAdapter(coffees)
+                    recyclerViewCoffees.adapter = coffeeAdapter
+                } else {
+                    // Handle API error
+                    Log.e("MainActivity", "API call failed: ${response.errorBody()}")
+                }
+            }
 
-
-        coffeeAdapter = CoffeeAdapter(fakeCoffees)
-        recyclerViewCoffees.adapter = coffeeAdapter
-
-//        RetrofitClient.instance.getProducts().enqueue(object : Callback<ApiResponse> {
-//            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-//                if (response.isSuccessful) {
-//                    val products = response.body()?.body ?: emptyList()
-//                    adapter = ProductAdapter(products)
-//                    recyclerView.adapter = adapter
-//                } else {
-//                    // Handle API error
-//                    Log.e("MainActivity", "API call failed: ${response.errorBody()}")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-//                // Handle network failure
-//                t.printStackTrace()
-//            }
-//        })
+            override fun onFailure(call: Call<List<Coffee>>, t: Throwable) {
+                // Handle network failure
+                t.printStackTrace()
+            }
+        })
     }
 
     private fun getSavedImageUri(): String? {
