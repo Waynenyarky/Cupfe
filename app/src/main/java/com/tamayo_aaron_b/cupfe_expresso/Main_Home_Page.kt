@@ -16,7 +16,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.imageview.ShapeableImageView
+import com.tamayo_aaron_b.cupfe_expresso.menu.Coffee
+import com.tamayo_aaron_b.cupfe_expresso.menu.CoffeeAdapter
 import java.util.logging.Handler
 
 class Main_Home_Page : AppCompatActivity() {
@@ -24,6 +29,9 @@ class Main_Home_Page : AppCompatActivity() {
     private val handler = android.os.Handler(Looper.getMainLooper())
     private lateinit var imageProfile: ShapeableImageView
     private lateinit var sharedPreferences: SharedPreferences
+
+    private lateinit var recyclerViewCoffees: RecyclerView
+    private lateinit var coffeeAdapter: CoffeeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -37,12 +45,6 @@ class Main_Home_Page : AppCompatActivity() {
         val navFavorite = findViewById<ImageView>(R.id.nav_favorite)
         val navBag = findViewById<ImageView>(R.id.nav_bag)
         val navNotif = findViewById<ImageView>(R.id.nav_notif)
-        val item1 = findViewById<ImageView>(R.id.item1)
-        val item2 = findViewById<ImageView>(R.id.item2)
-        val item3 = findViewById<ImageView>(R.id.item3)
-        val item4 = findViewById<ImageView>(R.id.item4)
-        val item5 = findViewById<ImageView>(R.id.item5)
-        val item6 = findViewById<ImageView>(R.id.item6)
         val homeName = findViewById<TextView>(R.id.homeName)
         val viewFlipper = findViewById<ViewFlipper>(R.id.viewFlipper)
         val ivCart = findViewById<ImageView>(R.id.ivCart)
@@ -84,44 +86,6 @@ class Main_Home_Page : AppCompatActivity() {
             overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.fade_out)
         }
 
-        item1.setOnClickListener {
-            val food1 = Intent(this, details_food1::class.java)
-            startActivity(food1)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
-
-        item2.setOnClickListener{
-            val food2 = Intent(this, details_food2::class.java)
-            startActivity(food2)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
-
-        item3.setOnClickListener{
-            val food3 = Intent(this, details_food3::class.java)
-            startActivity(food3)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
-
-        item4.setOnClickListener{
-            val food4 = Intent(this, details_food4::class.java)
-            startActivity(food4)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
-
-        item5.setOnClickListener{
-            val food5 = Intent(this, details_food5::class.java)
-            startActivity(food5)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
-
-        item6.setOnClickListener{
-            val food6 = Intent(this, details_food6::class.java)
-            startActivity(food6)
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-        }
-
-
-
         // Highlight Home button in brown by default on HomePage
         lastClickedButton = navHome
         navHome.setImageResource(R.drawable.homes_brown)
@@ -133,6 +97,81 @@ class Main_Home_Page : AppCompatActivity() {
         setupNavigation(navFavorite, "Favorite", R.drawable.fav, R.drawable.fav_brown)
         setupNavigation(navBag, "Notification", R.drawable.notif, R.drawable.notif_brown)
         setupNavigation(navNotif, "Me", R.drawable.me, R.drawable.me_brown)
+
+        recyclerViewCoffees = findViewById(R.id.recyclerViewCoffees)
+        recyclerViewCoffees.layoutManager = GridLayoutManager(this,2)
+
+        fetchCoffees()
+    }
+
+    private fun fetchCoffees() {
+
+        val fakeCoffees: List<Coffee> = listOf(
+                Coffee(
+                    1,
+                    "Coffee 1",
+                    "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/flat-white-3402c4f.jpg",
+                    50,
+                    "Hot/"
+                ),
+                Coffee(
+                    1,
+                    "Coffee 1",
+                    "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/flat-white-3402c4f.jpg",
+                    50,
+                    "Hot/"
+                ),
+                Coffee(
+                    1,
+                    "Coffee 1",
+                    "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/flat-white-3402c4f.jpg",
+                    50,
+                    "Hot/"
+                ),
+                Coffee(
+                    1,
+                    "Coffee 1",
+                    "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/flat-white-3402c4f.jpg",
+                    50,
+                    "Hot/"
+                ),
+                Coffee(
+                    1,
+                    "Coffee 1",
+                    "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/flat-white-3402c4f.jpg",
+                    50,
+                    "Hot/"
+                ),
+                Coffee(
+                    1,
+                    "Coffee 1",
+                    "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/flat-white-3402c4f.jpg",
+                    50,
+                    "Hot/"
+                ),
+            )
+
+
+        coffeeAdapter = CoffeeAdapter(fakeCoffees)
+        recyclerViewCoffees.adapter = coffeeAdapter
+
+//        RetrofitClient.instance.getProducts().enqueue(object : Callback<ApiResponse> {
+//            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+//                if (response.isSuccessful) {
+//                    val products = response.body()?.body ?: emptyList()
+//                    adapter = ProductAdapter(products)
+//                    recyclerView.adapter = adapter
+//                } else {
+//                    // Handle API error
+//                    Log.e("MainActivity", "API call failed: ${response.errorBody()}")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+//                // Handle network failure
+//                t.printStackTrace()
+//            }
+//        })
     }
 
     private fun getSavedImageUri(): String? {

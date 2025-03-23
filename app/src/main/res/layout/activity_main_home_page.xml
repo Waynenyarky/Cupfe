@@ -326,69 +326,13 @@
 
             </LinearLayout>
 
-
-            <GridLayout
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewCoffees"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:columnCount="2"
-                android:rowCount="3">
+                android:layout_marginTop="5dp"/>
 
-                <ImageView
-                    android:id="@+id/item1"
-                    android:layout_width="150dp"
-                    android:layout_height="220dp"
-                    android:layout_margin="5dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/item1"/>
-
-                <ImageView
-                    android:id="@+id/item2"
-                    android:layout_width="150dp"
-                    android:layout_height="220dp"
-                    android:layout_margin="5dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/item2"/>
-
-                <ImageView
-                    android:id="@+id/item3"
-                    android:layout_width="150dp"
-                    android:layout_height="220dp"
-                    android:layout_margin="5dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/item3"/>
-
-                <ImageView
-                    android:id="@+id/item4"
-                    android:layout_width="150dp"
-                    android:layout_height="220dp"
-                    android:layout_margin="5dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/item4"/>
-
-                <ImageView
-                    android:id="@+id/item5"
-                    android:layout_width="150dp"
-                    android:layout_height="220dp"
-                    android:layout_margin="5dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/item5"/>
-
-                <ImageView
-                    android:id="@+id/item6"
-                    android:layout_width="150dp"
-                    android:layout_height="220dp"
-                    android:layout_margin="5dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/item6"/>
-            </GridLayout>
         </LinearLayout>
     </ScrollView>
 
