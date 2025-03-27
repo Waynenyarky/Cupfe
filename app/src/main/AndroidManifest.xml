@@ -90,21 +90,6 @@
             android:name=".Main_Home_Page"
             android:exported="false" />
         <activity
-            android:name=".details_food6"
-            android:exported="false" />
-        <activity
-            android:name=".details_food5"
-            android:exported="false" />
-        <activity
-            android:name=".details_food4"
-            android:exported="false" />
-        <activity
-            android:name=".details_food3"
-            android:exported="false" />
-        <activity
-            android:name=".details_food2"
-            android:exported="false" />
-        <activity
             android:name=".details_food1"
             android:exported="false" />
         <activity

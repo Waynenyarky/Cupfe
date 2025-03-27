@@ -10,6 +10,7 @@
     android:gravity="center">
 
 
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="160dp"
@@ -61,10 +62,16 @@
     </LinearLayout>
 
 
-
-    <ScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="420dp"
         android:layout_height="653dp"
+        android:scrollbars="none"
+        android:layout_marginTop="-6dp">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:fillViewport="true"
         android:layout_marginTop="-6dp"
         android:padding="3dp"
@@ -74,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_scroll">
+            android:background="@drawable/half_brown_white">
 
             <ViewFlipper
                 android:id="@+id/viewFlipper"
@@ -279,18 +286,19 @@
            </LinearLayout>
 
             <EditText
-                android:layout_width="300dp"
+                android:id="@+id/search"
+                android:layout_width="335dp"
                 android:layout_height="50dp"
-                android:layout_marginStart="54dp"
                 android:background="@drawable/search"
                 android:drawableStart="@drawable/ic_search_white"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/sora_variablefont_wght"
-                android:hint="Search coffee"
+                android:hint="Search coffee and food by name..."
                 android:paddingStart="15dp"
                 android:textColorHint="@color/grey"
                 android:textSize="15sp"
                 android:inputType="text"
+                android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:autofillHints="name"/>
 
@@ -323,18 +331,38 @@
                     android:fontFamily="@font/sora_variablefont_wght"/>
 
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <View
+                    android:layout_width="17dp"
+                    android:layout_height="match_parent"/>
+
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewCoffees"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="8dp"
+                        android:scrollbars="vertical" />
+
+
+                <View
+                android:layout_width="30dp"
+                android:layout_height="match_parent"/>
 
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewCoffees"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"/>
-
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout
         android:id="@+id/navigationBar"
@@ -392,10 +420,4 @@
             android:src="@drawable/me" />
 
     </LinearLayout>
-
-
-
-
-
-
 </LinearLayout>

@@ -1,20 +1,32 @@
 package com.tamayo_aaron_b.cupfe_expresso
 
 import android.app.Dialog
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.tamayo_aaron_b.cupfe_expresso.reservation.ReservationConnect
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 class Reservation2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,13 +35,47 @@ class Reservation2 : AppCompatActivity() {
         setContentView(R.layout.activity_reservation2)
 
         val btnBack = findViewById<ImageView>(R.id.btnBack)
-        val tvDateTime = findViewById<TextView>(R.id.tvDateTime)
+        val tvTransaction = findViewById<TextView>(R.id.tvTransaction)
+        val tvTime = findViewById<TextView>(R.id.tvTime)
+        val tvDate = findViewById<TextView>(R.id.tvDate)
         val etFullName = findViewById<EditText>(R.id.etFullName)
         val etcpNumber = findViewById<EditText>(R.id.etcpNumber)
         val etEmail = findViewById<EditText>(R.id.etEmail)
         val ReserveNow = findViewById<TextView>(R.id.ReserveNow)
         val checkButton = findViewById<ImageView>(R.id.Check)
         val checkButton2 = findViewById<ImageView>(R.id.Check2)
+        val btnHome = findViewById<ImageView>(R.id.btnHome)
+
+        btnHome.setOnClickListener {
+            val dialogView = layoutInflater.inflate(R.layout.force_home, null)
+            val dialog = AlertDialog.Builder(this)
+                .setView(dialogView)
+                .create()
+
+            dialog.apply {
+                setCancelable(false)
+                setCanceledOnTouchOutside(false)
+                window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            }
+
+            val btnYes = dialogView.findViewById<Button>(R.id.btn_yes)
+            val btnNo = dialogView.findViewById<Button>(R.id.btn_no)
+
+            btnYes.setOnClickListener {
+                // Navigate to home
+                startActivity(Intent(this, Main_Home_Page::class.java))
+                overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
+                finish()
+                dialog.dismiss()
+            }
+
+            btnNo.setOnClickListener {
+                dialog.dismiss()
+            }
+
+            dialog.show()
+        }
+
 
         addValidationWithIcon(etFullName) { isValidName(it) }
         addValidationWithIcon(etcpNumber) { isValidPhoneNumber(it) }
@@ -43,23 +89,32 @@ class Reservation2 : AppCompatActivity() {
         checkButton2.setOnClickListener {
             Toast.makeText(applicationContext, "Not available this offer", Toast.LENGTH_SHORT).show()
         }
-        val dateTime = intent.getStringExtra("DATE_TIME") ?: "No Date & Time Selected"
-        val packageName = intent.getStringExtra("packageName")?:""
-        val price = intent.getStringExtra("price")?:""
-        val person = intent.getStringExtra("person")?:""
-        val packageNameB = intent.getStringExtra("packageNameB")
-        val priceB = intent.getStringExtra("priceB")
-        val personB = intent.getStringExtra("personB")
+        val transactionId = intent.getStringExtra("finalPackageID") ?: "N/A"
+        val date = intent.getStringExtra("DATE") ?: "No Date & Time Selected"
+        val time = intent.getStringExtra("TIME") ?: "No Date & Time Selected"
+        val packageName = intent.getStringExtra("packageName") ?: ""
+        val price = intent.getStringExtra("price") ?: ""
+        val person = intent.getStringExtra("person") ?: ""
+        val packageNameB = intent.getStringExtra("packageNameB")?.takeIf { it.isNotEmpty() }
+        val priceB = intent.getStringExtra("priceB")?.takeIf { it.isNotEmpty() }
+        val personB = intent.getStringExtra("personB")?.takeIf { it.isNotEmpty() }
+        val packageNameC = intent.getStringExtra("packageNameC")?.takeIf { it.isNotEmpty() }
+        val priceC = intent.getStringExtra("priceC")?.takeIf { it.isNotEmpty() }
+        val personC = intent.getStringExtra("personC")?.takeIf { it.isNotEmpty() }
 
-        val finalPackageName = if (!packageNameB.isNullOrEmpty()) "$packageName$packageNameB" else packageName
-        val finalPrice = if (!priceB.isNullOrEmpty()) "$price$priceB" else price
-        val finalPerson = if (!personB.isNullOrEmpty()) "$person$personB" else person
+        val finalPackageName = listOfNotNull(packageName, packageNameB, packageNameC).joinToString(" ")
+
+        val finalPrice = listOfNotNull(price, priceB, priceC).joinToString(" ")
+
+        val finalPerson = listOfNotNull(person, personB, personC).joinToString(" ")
 
         // Set values to the same IDs, ensuring no overwriting occurs
         findViewById<TextView>(R.id.tvPackageName).text = finalPackageName
         findViewById<TextView>(R.id.tvPrice).text = finalPrice
         findViewById<TextView>(R.id.tvPerson).text = finalPerson
-        tvDateTime.text = dateTime
+        tvTime.text = time
+        tvDate.text = date
+        tvTransaction.text = "Ref No. $transactionId"
 
 
         ReserveNow.setOnClickListener {
@@ -102,7 +157,7 @@ class Reservation2 : AppCompatActivity() {
                 etEmail.requestFocus()
                 return@setOnClickListener
             }
-            confirmationReserve()
+            confirmationReserve(name, email, cellphone)
         }
 
         // Prevent Emojis in Inputs
@@ -154,19 +209,124 @@ class Reservation2 : AppCompatActivity() {
         }
     }
 
-    private fun confirmationReserve(){
+    private fun confirmationReserve(name: String, email: String, cellphone: String){
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.confirmation_in_reservation)
 
+        val tvName = dialog.findViewById<TextView>(R.id.name)
+        val number = dialog.findViewById<TextView>(R.id.number)
+        val tvEmail = dialog.findViewById<TextView>(R.id.tvEmail)
+        val tvTransaction = dialog.findViewById<TextView>(R.id.tvTransaction)
+        val tvDate = dialog.findViewById<TextView>(R.id.tvDate)
+        val tvTime = dialog.findViewById<TextView>(R.id.tvTime)
+        val tvPackageName = dialog.findViewById<TextView>(R.id.tvPackageName)
+        val tvPrice = dialog.findViewById<TextView>(R.id.tvPrice)
+        val tvPerson = dialog.findViewById<TextView>(R.id.tvPerson)
         val btnCancel = dialog.findViewById<TextView>(R.id.btnCancel)
         val btnConfirm = dialog.findViewById<TextView>(R.id.btnConfirm)
+        val btnCopy = dialog.findViewById<ImageView>(R.id.btnCopy)
+
+
+        val transactionId = intent.getStringExtra("finalPackageID") ?: "N/A"
+        val date = intent.getStringExtra("DATE") ?: "No Date & Time Selected"
+        val time = intent.getStringExtra("TIME") ?: "No Date & Time Selected"
+        val packageName = intent.getStringExtra("packageName")?:""
+        val price = intent.getStringExtra("price")?.replace("₱", "") ?: ""
+        val person = intent.getStringExtra("person")?:""
+        val packageNameB = intent.getStringExtra("packageNameB")
+        val priceB = intent.getStringExtra("priceB")?.replace("₱", "")
+        val personB = intent.getStringExtra("personB")
+        val packageNameC = intent.getStringExtra("packageNameC")
+        val priceC = intent.getStringExtra("priceC")?.replace("₱", "")
+        val personC = intent.getStringExtra("personC")
+
+        // Combine package names, ensuring they are not empty and adding separators
+        val finalPackageName = listOfNotNull(packageName, packageNameB, packageNameC)
+            .filter { it.isNotEmpty() }
+            .joinToString(", ")
+
+        // Combine prices
+        val finalPrice = listOfNotNull(price, priceB, priceC)
+            .filter { it.isNotEmpty() }
+            .joinToString(", ")
+
+        // Combine person count
+        val finalPerson = listOfNotNull(person, personB, personC)
+            .filter { it.isNotEmpty() }
+            .joinToString(", ")
+
+
+        // Set values to the same IDs, ensuring no overwriting occurs
+        tvTransaction.text = "Ref No. $transactionId"
+        tvName.text = "Name: $name"
+        number.text = "Number: $cellphone"
+        tvEmail.text = "Email: $email"
+        tvPackageName.text = finalPackageName
+        tvPrice.text = finalPrice
+        tvPerson.text = finalPerson
+        tvTime.text = time
+        tvDate.text = date
+
+        // Initially disable confirm button
+        var isTransactionCopied = false
+
+        // Copy transaction ID functionality
+        btnCopy.setOnClickListener {
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("Transaction ID", transactionId)
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(this, "Transaction ID copied!", Toast.LENGTH_SHORT).show()
+
+            // Enable confirm button after copying
+            isTransactionCopied = true
+        }
+
 
         btnCancel.setOnClickListener { dialog.dismiss() }
 
-        btnConfirm.setOnClickListener{
-            Toast.makeText(this, "Bundle Confirm", Toast.LENGTH_SHORT).show()
-            dialog.dismiss()
+        btnConfirm.setOnClickListener {
+            if (!isTransactionCopied) {
+                Toast.makeText(this, "Please copy the reference number before proceeding!", Toast.LENGTH_SHORT).show()
+            } else {
+                val reservationTable = ReservationConnect(
+                    transactionId,
+                    name,
+                    email,
+                    cellphone,
+                    finalPackageName,
+                    finalPrice,
+                    date,
+                    time
+                )
+
+                RetrofitClient.instance.reserveTables(reservationTable)
+                    .enqueue(object : Callback<ReservationResponse> {
+                        override fun onResponse(call: Call<ReservationResponse>, response: Response<ReservationResponse>) {
+                            if (response.isSuccessful && response.body() != null) {
+                                val responseBody = response.body()
+                                if (responseBody != null && responseBody.message == "Reservation created. Proceed to payment.") {
+                                    Toast.makeText(this@Reservation2, "Redirecting to payment...", Toast.LENGTH_SHORT).show()
+                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://192.168.1.16/expresso-cafe/api/stripePayment/payment_form.php"))
+                                    startActivity(intent)
+                                    findViewById<EditText>(R.id.etFullName).text.clear()
+                                    findViewById<EditText>(R.id.etcpNumber).text.clear()
+                                    findViewById<EditText>(R.id.etEmail).text.clear()
+                                    dialog.dismiss()
+                                } else {
+                                    Toast.makeText(this@Reservation2, "Failed: ${responseBody?.message ?: "Unknown error"}", Toast.LENGTH_SHORT).show()
+                                }
+                            } else {
+                                Toast.makeText(this@Reservation2, "Server Error: ${response.message()}", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
+                        override fun onFailure(call: Call<ReservationResponse>, t: Throwable) {
+                            Toast.makeText(this@Reservation2, "Network Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+            }
         }
+
 
         dialog.setCancelable(false)
         dialog.setCanceledOnTouchOutside(false)

@@ -4,9 +4,6 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
-data class CoffeeResponse(
-    val body: List<Coffee>
-)
 
 data class Coffee(
     @SerializedName("id") val id: Int,

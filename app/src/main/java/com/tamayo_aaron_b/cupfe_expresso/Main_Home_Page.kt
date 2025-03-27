@@ -7,27 +7,26 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.MotionEvent
 import android.view.animation.ScaleAnimation
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.ViewFlipper
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.imageview.ShapeableImageView
 import com.tamayo_aaron_b.cupfe_expresso.menu.Coffee
 import com.tamayo_aaron_b.cupfe_expresso.menu.CoffeeAdapter
-import com.tamayo_aaron_b.cupfe_expresso.menu.CoffeeClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.logging.Handler
 
 class Main_Home_Page : AppCompatActivity() {
     private var lastClickedButton: ImageView? = null // Track the last clicked button
@@ -35,6 +34,7 @@ class Main_Home_Page : AppCompatActivity() {
     private lateinit var imageProfile: ShapeableImageView
     private lateinit var sharedPreferences: SharedPreferences
 
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recyclerViewCoffees: RecyclerView
     private lateinit var coffeeAdapter: CoffeeAdapter
 
@@ -53,11 +53,26 @@ class Main_Home_Page : AppCompatActivity() {
         val homeName = findViewById<TextView>(R.id.homeName)
         val viewFlipper = findViewById<ViewFlipper>(R.id.viewFlipper)
         val ivCart = findViewById<ImageView>(R.id.ivCart)
+        val search = findViewById<EditText>(R.id.search)
         imageProfile = findViewById(R.id.imageProfile)
-        // Set flipping interval (e.g., 1 second)
         viewFlipper.flipInterval = 5000
 
-        // Delay flipping start by 2 seconds
+        //SEARCH ITEM NAME (not case sensitive)
+        search.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val query = s.toString().trim()
+                if (query.isNotEmpty()) {
+                    searchCoffees(query)
+                } else {
+                    fetchCoffees() // Load all items when search is empty
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+
         handler.postDelayed({
             viewFlipper.startFlipping()
         }, 6000)
@@ -96,35 +111,41 @@ class Main_Home_Page : AppCompatActivity() {
         navHome.setImageResource(R.drawable.homes_brown)
 
         //NAVIGATION
-        // Add click listeners with animations and image change
         setupNavigation(navHome, "Home", R.drawable.homes, R.drawable.homes_brown)
         setupNavigation(navCart, "Cart", R.drawable.menu, R.drawable.menu_brown)
         setupNavigation(navFavorite, "Favorite", R.drawable.fav, R.drawable.fav_brown)
         setupNavigation(navBag, "Notification", R.drawable.notif, R.drawable.notif_brown)
         setupNavigation(navNotif, "Me", R.drawable.me, R.drawable.me_brown)
 
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
         recyclerViewCoffees = findViewById(R.id.recyclerViewCoffees)
         recyclerViewCoffees.layoutManager = GridLayoutManager(this,2)
 
         fetchCoffees()
+        // Set Refresh Listener
+        swipeRefreshLayout.setOnRefreshListener {
+            search.text.clear()
+            fetchCoffees()
+        }
     }
 
     private fun fetchCoffees() {
+        swipeRefreshLayout.isRefreshing = true
 
-        CoffeeClient.instance.getCoffees().enqueue(object : Callback<List<Coffee>> {
+        RetrofitClient.instance.getCoffees().enqueue(object : Callback<List<Coffee>> {
             override fun onResponse(call: Call<List<Coffee>>, response: Response<List<Coffee>>) {
+                swipeRefreshLayout.isRefreshing = false
                 if (response.isSuccessful) {
                     val coffees = response.body() ?: emptyList()
                     coffeeAdapter = CoffeeAdapter(coffees)
                     recyclerViewCoffees.adapter = coffeeAdapter
                 } else {
-                    // Handle API error
                     Log.e("MainActivity", "API call failed: ${response.errorBody()}")
                 }
             }
 
             override fun onFailure(call: Call<List<Coffee>>, t: Throwable) {
-                // Handle network failure
+                swipeRefreshLayout.isRefreshing = false
                 t.printStackTrace()
             }
         })
@@ -133,6 +154,25 @@ class Main_Home_Page : AppCompatActivity() {
     private fun getSavedImageUri(): String? {
         val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         return sharedPreferences.getString("saved_image_uri", null)
+    }
+
+
+
+    private fun searchCoffees(query: String) {
+        RetrofitClient.instance.searchCoffees(query).enqueue(object : Callback<List<Coffee>> {
+            override fun onResponse(call: Call<List<Coffee>>, response: Response<List<Coffee>>) {
+                if (response.isSuccessful) {
+                    val coffees = response.body() ?: emptyList()
+                    coffeeAdapter = CoffeeAdapter(coffees)
+                    recyclerViewCoffees.adapter = coffeeAdapter
+                } else {
+                    Log.e("MainActivity", "Search API failed: ${response.errorBody()}")
+                }
+            }
+            override fun onFailure(call: Call<List<Coffee>>, t: Throwable) {
+                Log.e("MainActivity", "Search API call failed", t)
+            }
+        })
     }
 
     @SuppressLint("ClickableViewAccessibility")

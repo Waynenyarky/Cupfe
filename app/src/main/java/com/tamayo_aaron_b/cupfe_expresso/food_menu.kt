@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
@@ -16,11 +17,35 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.NestedScrollView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.tamayo_aaron_b.cupfe_expresso.menu.Coffee
+import com.tamayo_aaron_b.cupfe_expresso.menu.CoffeeAdapter
+import com.tamayo_aaron_b.cupfe_expresso.menu.FoodAdapter
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class food_menu : AppCompatActivity() {
     private var lastClickedButton: ImageView? = null // Track the last clicked button
+    @SuppressLint("ClickableViewAccessibility")
+
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var recyclerViewMenuCoffee: RecyclerView
+    private lateinit var recyclerViewAllCoffee: RecyclerView
+    private lateinit var recyclerViewFoods: RecyclerView
+
+
+    private lateinit var menuCoffeeAdapter: FoodAdapter
+    private lateinit var allCoffeeAdapter: FoodAdapter
+    private lateinit var foodsAdapter: FoodAdapter
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -34,17 +59,11 @@ class food_menu : AppCompatActivity() {
         val navBag = findViewById<ImageView>(R.id.nav_bag)
         val navNotif = findViewById<ImageView>(R.id.nav_notif)
         val ivBack = findViewById<ImageView>(R.id.ivBack)
-        val item1 = findViewById<ImageView>(R.id.item1)
         val popular1 = findViewById<ImageView>(R.id.popular1)
-        val popular2 = findViewById<ImageView>(R.id.popular2)
-        val popular3 = findViewById<ImageView>(R.id.popular3)
-        val popular4 = findViewById<ImageView>(R.id.popular4)
-        val popular5 = findViewById<ImageView>(R.id.popular5)
-        val popular6 = findViewById<ImageView>(R.id.popular6)
         val foodss1 = findViewById<ImageView>(R.id.foodss1)
         val foodss2 = findViewById<ImageView>(R.id.foodss2)
         val floatingText = findViewById<LinearLayout>(R.id.floatingText)
-        val scrollView = findViewById<ScrollView>(R.id.scrollView)
+        val scrollView = findViewById<NestedScrollView>(R.id.scrollView)
         val handler = android.os.Handler()
         val ivCart = findViewById<ImageView>(R.id.ivCart)
 
@@ -108,10 +127,6 @@ class food_menu : AppCompatActivity() {
             overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
         }
 
-        item1.setOnClickListener{
-            showPopup()
-            overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
-        }
 
         foodss1.setOnClickListener{
             showPopup2()
@@ -142,6 +157,93 @@ class food_menu : AppCompatActivity() {
         setupNavigation(navFavorite, "Favorite", R.drawable.fav, R.drawable.fav_brown)
         setupNavigation(navBag, "Notification", R.drawable.notif, R.drawable.notif_brown)
         setupNavigation(navNotif, "Profile", R.drawable.me, R.drawable.me_brown)
+
+
+
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
+        recyclerViewMenuCoffee = findViewById(R.id.menuCoffee)
+        recyclerViewMenuCoffee.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        recyclerViewAllCoffee = findViewById(R.id.AllCoffee)
+        recyclerViewAllCoffee.layoutManager = GridLayoutManager(this, 3)
+
+        recyclerViewFoods = findViewById(R.id.recyclerViewFoods)
+        recyclerViewFoods.layoutManager = GridLayoutManager(this, 3)
+
+        fetchCoffees()
+        fetchFoods()
+        fetchFoodss()
+
+        // Set Refresh Listener
+        swipeRefreshLayout.setOnRefreshListener {
+            fetchCoffees()
+            fetchFoods()
+            fetchFoodss()
+        }
+
+    }
+
+    private fun fetchCoffees() {
+        swipeRefreshLayout.isRefreshing = true
+        RetrofitClient.instance.getCoffees().enqueue(object : Callback<List<Coffee>> {
+            override fun onResponse(call: Call<List<Coffee>>, response: Response<List<Coffee>>) {
+                swipeRefreshLayout.isRefreshing = false
+                if (response.isSuccessful) {
+                    val coffees = response.body() ?: emptyList()
+                    menuCoffeeAdapter = FoodAdapter(coffees)
+                    recyclerViewMenuCoffee.adapter = menuCoffeeAdapter
+                } else {
+                    Log.e("MainActivity", "API call failed: ${response.errorBody()}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Coffee>>, t: Throwable) {
+                swipeRefreshLayout.isRefreshing = false
+                t.printStackTrace()
+            }
+        })
+    }
+
+    private fun fetchFoods() {
+        swipeRefreshLayout.isRefreshing = true
+        RetrofitClient.instance.getAllCoffees("Coffee").enqueue(object : Callback<List<Coffee>> {
+            override fun onResponse(call: Call<List<Coffee>>, response: Response<List<Coffee>>) {
+                swipeRefreshLayout.isRefreshing = false
+                if (response.isSuccessful) {
+                    val coffeeList = response.body() ?: emptyList()
+                    allCoffeeAdapter = FoodAdapter(coffeeList)
+                    recyclerViewAllCoffee.adapter = allCoffeeAdapter
+                } else {
+                    Toast.makeText(this@food_menu, "Failed to load coffee items", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<Coffee>>, t: Throwable) {
+                swipeRefreshLayout.isRefreshing = false
+                Toast.makeText(this@food_menu, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun fetchFoodss() {
+        swipeRefreshLayout.isRefreshing = true
+        RetrofitClient.instance.getAllFoods("Food").enqueue(object : Callback<List<Coffee>> {
+            override fun onResponse(call: Call<List<Coffee>>, response: Response<List<Coffee>>) {
+                swipeRefreshLayout.isRefreshing = false
+                if (response.isSuccessful) {
+                    val coffeeList = response.body() ?: emptyList()
+                    foodsAdapter = FoodAdapter(coffeeList)
+                    recyclerViewFoods.adapter = foodsAdapter
+                } else {
+                    Toast.makeText(this@food_menu, "Failed to load coffee items", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<Coffee>>, t: Throwable) {
+                swipeRefreshLayout.isRefreshing = false
+                Toast.makeText(this@food_menu, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun showPopup() {

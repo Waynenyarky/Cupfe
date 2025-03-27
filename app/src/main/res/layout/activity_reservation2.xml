@@ -11,13 +11,14 @@
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="110dp">
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp">
 
         <ImageView
             android:id="@+id/btnBack"
@@ -33,13 +34,22 @@
         <TextView
             android:autoSizeMinTextSize="1dp"
             android:autoSizeMaxTextSize="100dp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Go Back"
             android:textSize="15sp"
             android:fontFamily="@font/sora_variablefont_wght"
             android:textStyle="bold"
             android:textColor="@color/black"/>
+
+        <ImageView
+            android:id="@+id/btnHome"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="start"
+            android:src="@drawable/force_home"
+            android:contentDescription="Back Icon "/>
 
     </LinearLayout>
 
@@ -69,6 +79,7 @@
         android:layout_marginTop="15dp"
         android:layout_gravity="start">
 
+        <include layout="@layout/transaction_id_layout"/>
         <include layout="@layout/date_time_layout"/>
         <include layout="@layout/table_indoor"/>
         <include layout="@layout/people_layout"/>

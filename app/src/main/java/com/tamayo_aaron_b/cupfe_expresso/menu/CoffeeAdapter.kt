@@ -1,6 +1,5 @@
 package com.tamayo_aaron_b.cupfe_expresso.menu
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -34,21 +33,33 @@ class CoffeeAdapter(private val coffees: List<Coffee>) :
         private val name: TextView = itemView.findViewById(R.id.name)
         private val price: TextView = itemView.findViewById(R.id.price)
         private val subcategory: TextView = itemView.findViewById(R.id.subcategory)
+        private val isAvailable: TextView = itemView.findViewById(R.id.unavailableText)
 
         fun bind(coffee: Coffee) {
             Glide.with(itemView.context)
                 .load(coffee.imageUrl)
                 .into(image)
             name.text = coffee.name
-            price.text = "$${coffee.priceSmall}"
+            price.text = "₱${coffee.priceSmall}"
             subcategory.text = coffee.subcategory
 
-            itemView.setOnClickListener{
+            if (coffee.isAvailable == 0) {
+                // Mark as unavailable
+                isAvailable.visibility = View.VISIBLE
+                itemView.isClickable = false
+                itemView.setOnClickListener {
+                    Toast.makeText(itemView.context, "Item is unavailable", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                // Mark as available
+                isAvailable.visibility = View.GONE
+                itemView.isClickable = true
+            itemView.setOnClickListener {
                 val intent = Intent(itemView.context, details_food1::class.java)
                 intent.putExtra("coffee", coffee)  // Passing Parcelable object
                 itemView.context.startActivity(intent)
 //                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
-
+                }
             }
         }
     }

@@ -197,6 +197,38 @@
                     android:paddingTop="7dp"
                     android:paddingBottom="20dp">
 
+
+                    <LinearLayout
+                        android:id="@+id/transaction"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Transaction ID"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/sora_variablefont_wght"/>
+
+                        <TextView
+                            android:id="@+id/id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="V278439380"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/sora_variablefont_wght"/>
+                    </LinearLayout>
+
                     <LinearLayout
                         android:id="@+id/bundle1"
                         android:layout_width="match_parent"
@@ -259,6 +291,37 @@
                             android:fontFamily="@font/sora_variablefont_wght"/>
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:id="@+id/bundle3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Bundle"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/sora_variablefont_wght"/>
+
+                        <TextView
+                            android:id="@+id/tvPackageNameC"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Package C"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/sora_variablefont_wght"/>
+                    </LinearLayout>
+
 
                     <LinearLayout
                         android:id="@+id/seats1"
@@ -314,6 +377,38 @@
 
                         <TextView
                             android:id="@+id/tvPersonB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5 - 7 Persons"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/sora_variablefont_wght"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/seats3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Seats"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/sora_variablefont_wght" />
+
+                        <TextView
+                            android:id="@+id/tvPersonC"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="5 - 7 Persons"
@@ -390,6 +485,38 @@
 
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:id="@+id/price3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Price"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/sora_variablefont_wght"/>
+
+                        <TextView
+                            android:id="@+id/tvPriceC"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="₱1099.00"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/sora_variablefont_wght"/>
+
+                    </LinearLayout>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -434,6 +561,19 @@
 
                     <TextView
                         android:id="@+id/tvIncludesB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/A"
+                        android:textColor="@color/profile"
+                        android:textSize="11sp"
+                        android:textStyle="normal"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="30dp"
+                        android:fontFamily="@font/sora_variablefont_wght"/>
+
+                    <TextView
+                        android:id="@+id/tvIncludesC"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/A"

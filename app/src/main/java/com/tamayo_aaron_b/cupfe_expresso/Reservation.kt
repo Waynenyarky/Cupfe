@@ -51,15 +51,24 @@ class Reservation : AppCompatActivity() {
         val tvIncludes = findViewById<TextView>(R.id.tvIncludes)
         val summary = findViewById<LinearLayout>(R.id.Summary)
         val tvPackageNameB = findViewById<TextView>(R.id.tvPackageNameB)
+        val tvPackageNameC= findViewById<TextView>(R.id.tvPackageNameC)
         val tvPriceB = findViewById<TextView>(R.id.tvPriceB)
         val tvPersonB = findViewById<TextView>(R.id.tvPersonB)
         val tvIncludesB = findViewById<TextView>(R.id.tvIncludesB)
+        val tvPriceC = findViewById<TextView>(R.id.tvPriceC)
+        val tvPersonC = findViewById<TextView>(R.id.tvPersonC)
+        val tvIncludesC = findViewById<TextView>(R.id.tvIncludesC)
         val bundle1 = findViewById<LinearLayout>(R.id.bundle1)
         val bundle2 = findViewById<LinearLayout>(R.id.bundle2)
+        val bundle3 = findViewById<LinearLayout>(R.id.bundle3)
         val seats1 = findViewById<LinearLayout>(R.id.seats1)
         val seats2 = findViewById<LinearLayout>(R.id.seats2)
+        val seats3 = findViewById<LinearLayout>(R.id.seats3)
         val price1 = findViewById<LinearLayout>(R.id.price1)
         val price2 = findViewById<LinearLayout>(R.id.price2)
+        val price3 = findViewById<LinearLayout>(R.id.price3)
+        val id = findViewById<TextView>(R.id.id)
+
 
         btnBack.setOnClickListener {
             val intent = Intent(this, Main_Home_Page::class.java)
@@ -67,7 +76,11 @@ class Reservation : AppCompatActivity() {
             overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.fade_out)
         }
 
+
         // Retrieve data from intent
+        val transactionId = intent.getStringExtra("transactionId") ?: "N/A"
+        val transactionId1 = intent.getStringExtra("transactionId1") ?: "N/A"
+        val transactionId2 = intent.getStringExtra("transactionId2") ?: "N/A"
         val packageName = intent.getStringExtra("packageName")
         val price = intent.getStringExtra("price")
         val person = intent.getStringExtra("person")
@@ -76,9 +89,26 @@ class Reservation : AppCompatActivity() {
         val priceB = intent.getStringExtra("priceB")
         val personB = intent.getStringExtra("personB")
         val includesB = intent.getStringExtra("includesB")
+        val packageNameC = intent.getStringExtra("packageNameC")
+        val priceC = intent.getStringExtra("priceC")
+        val personC = intent.getStringExtra("personC")
+        val includesC = intent.getStringExtra("includesC")
+
+        // Clean transaction IDs
+        val cleanedTransactionId = if (transactionId == "N/A") "" else transactionId
+        val cleanedTransactionId1 = if (transactionId1 == "N/A") "" else transactionId1
+        val cleanedTransactionId2 = if (transactionId2 == "N/A") "" else transactionId2
+
+        // Concatenate transaction IDs
+        val finalPackageID = when {
+            cleanedTransactionId.isEmpty() && cleanedTransactionId1.isEmpty() && cleanedTransactionId2.isEmpty()  -> ""
+            else -> cleanedTransactionId + cleanedTransactionId1 + cleanedTransactionId2
+        }
+
 
         if (packageName.isNullOrEmpty() && price.isNullOrEmpty() && person.isNullOrEmpty() && includes.isNullOrEmpty() &&
-            packageNameB.isNullOrEmpty() && priceB.isNullOrEmpty() && personB.isNullOrEmpty() && includesB.isNullOrEmpty()) {
+            packageNameB.isNullOrEmpty() && priceB.isNullOrEmpty() && personB.isNullOrEmpty() && includesB.isNullOrEmpty() &&
+            packageNameC.isNullOrEmpty() && priceC.isNullOrEmpty() && personC.isNullOrEmpty() && includesC.isNullOrEmpty()) {
             summary.visibility = View.GONE
         } else {
             tvPackageName.text = packageName ?: ""
@@ -89,6 +119,10 @@ class Reservation : AppCompatActivity() {
             tvPriceB.text = priceB ?: ""
             tvPersonB.text = personB ?: ""
             tvIncludesB.text = includesB ?: ""
+            tvPackageNameC.text = packageNameC ?: ""
+            tvPriceC.text = priceC?: ""
+            tvPersonC.text = personC ?: ""
+            tvIncludesC.text = includesC ?: ""
         }
 
         if (packageName.isNullOrEmpty() && price.isNullOrEmpty() && person.isNullOrEmpty() && includes.isNullOrEmpty() ) {
@@ -115,6 +149,20 @@ class Reservation : AppCompatActivity() {
             tvIncludesB.text = includesB ?: ""
         }
 
+        if (packageNameC.isNullOrEmpty() && priceC.isNullOrEmpty() && personC.isNullOrEmpty() && includesC.isNullOrEmpty()) {
+            bundle3.visibility = View.GONE
+            seats3.visibility = View.GONE
+            price3.visibility = View.GONE
+            tvIncludesC.visibility = View.GONE
+        } else {
+            tvPackageNameC.text = packageNameC ?: ""
+            tvPriceC.text = priceC ?: ""
+            tvPersonC.text = personC ?: ""
+            tvIncludesC.text = includesC ?: ""
+        }
+
+
+        id.text = finalPackageID
         tvPackageName.text = packageName
         tvPrice.text = price
         tvPerson.text = person
@@ -123,6 +171,10 @@ class Reservation : AppCompatActivity() {
         tvPriceB.text = priceB
         tvPersonB.text = personB
         tvIncludesB.text = includesB
+        tvPackageNameC.text = packageNameC
+        tvPriceC.text = priceC
+        tvPersonC.text = personC
+        tvIncludesC.text = includesC
 
 
         packageA.setOnClickListener{
@@ -147,7 +199,7 @@ class Reservation : AppCompatActivity() {
         calendarLayout.setOnClickListener {
 
             if (summary.visibility == View.GONE) {
-                timeText.text = "Please select Package A or B"
+                timeText.text = "Please select Package A, B or C"
                 timeText.visibility = View.VISIBLE
                 timeText.setTextColor(resources.getColor(R.color.red, theme))
                 return@setOnClickListener
@@ -184,7 +236,7 @@ class Reservation : AppCompatActivity() {
         timeLayout.setOnClickListener {
 
             if (summary.visibility == View.GONE) {
-                timeText.text = "Please select Package A or B"
+                timeText.text = "Please select Package A, B or C"
                 timeText.visibility = View.VISIBLE
                 timeText.setTextColor(resources.getColor(R.color.red, theme))
                 return@setOnClickListener
@@ -263,17 +315,25 @@ class Reservation : AppCompatActivity() {
             val day = dateParts[2]
             val month = getMonthName(dateParts[1].toInt() - 1) // Convert month number to string
             val year = dateParts[0]
-            val formattedDate = "$day $month $year | $formattedTime $period" // Include AM/PM
+            val formattedDate = "$day $month $year |" // Include AM/PM
+            val formattedTimes = "$formattedTime $period"
+
+
 
 
             val intent = Intent(this, Reservation2::class.java).apply {
-                putExtra("DATE_TIME", formattedDate)
+                putExtra("finalPackageID", finalPackageID)
+                putExtra("DATE", formattedDate)
+                putExtra("TIME", formattedTimes)
                 putExtra("packageName", packageName)
                 putExtra("price", price)
                 putExtra("person", person)
                 putExtra("packageNameB", packageNameB)
                 putExtra("priceB", priceB)
                 putExtra("personB", personB)
+                putExtra("packageNameC", packageNameC)
+                putExtra("priceC", priceC)
+                putExtra("personC", personC)
             }
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)

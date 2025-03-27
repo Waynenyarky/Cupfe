@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import java.util.Random
 
 class PackageB : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +24,9 @@ class PackageB : AppCompatActivity() {
         val includesB = findViewById<TextView>(R.id.tvIncludesB).text.toString()
 
         btnGetPackage.setOnClickListener {
+            val transactionId1 = generateTransactionId()
             val intent = Intent(this, Reservation::class.java)
+            intent.putExtra("transactionId1", transactionId1)
             intent.putExtra("packageNameB", packageNameB)
             intent.putExtra("priceB", priceB)
             intent.putExtra("personB", personB)
@@ -37,5 +40,12 @@ class PackageB : AppCompatActivity() {
             overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.fade_out)
         }
 
+    }
+
+    private fun generateTransactionId(): String {
+        val random = Random()
+        val letter = ('A'..'Z').random() // Random uppercase letter
+        val numbers = (1..9).map { random.nextInt(10) }.joinToString("") // 9 random numbers
+        return "$letter$numbers"
     }
 }

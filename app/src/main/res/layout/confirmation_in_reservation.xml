@@ -32,6 +32,237 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="8dp"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/light_brown" />
+
+    </LinearLayout>
+
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mr. Wayne"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/sora_variablefont_wght"/>
+
+    <TextView
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="09123456789"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/sora_variablefont_wght"/>
+
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="wayne@gmail.com"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/sora_variablefont_wght"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/light_brown" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/hashtag"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:id="@+id/tvTransaction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No Transaction ID"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/profile"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:layout_marginEnd="10dp"/>
+
+        <ImageView
+            android:id="@+id/btnCopy"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/copy"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/calendar"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No Date"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/profile"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:layout_marginEnd="5dp"/>
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No Time Selected"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/profile"
+            android:fontFamily="@font/sora_variablefont_wght"/>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/table"
+            android:layout_marginEnd="10dp"/>
+
+
+        <TextView
+            android:id="@+id/tvPackageName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Indoor"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textAlignment="textStart"
+            android:textColor="@color/profile"/>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/people"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:id="@+id/tvPerson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Guests Selected"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/profile"
+            android:fontFamily="@font/sora_variablefont_wght"/>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/cash"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Prize in Reservation"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/profile"
+            android:fontFamily="@font/sora_variablefont_wght"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
+
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/light_brown" />
+
+    </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"

@@ -18,8 +18,6 @@ class Feedback : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_feedback)
 
-
-
         val radioGroupFeedback: RadioGroup = findViewById(R.id.radioGroupFeedback)
         val editTextFeedback: EditText = findViewById(R.id.editTextFeedback)
         val radioOption6 = findViewById<RadioButton>(R.id.radioOption6)

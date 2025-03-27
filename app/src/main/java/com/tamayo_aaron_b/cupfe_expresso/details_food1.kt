@@ -1,5 +1,6 @@
 package com.tamayo_aaron_b.cupfe_expresso
 
+import FavoriteItem
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
@@ -8,21 +9,21 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.tamayo_aaron_b.cupfe_expresso.menu.Coffee
+import com.tamayo_aaron_b.cupfe_expresso.summary.OrderItem
 
 class details_food1 : AppCompatActivity() {
 
-    private var isHeartRed = false
     private var isAddedCart = false
     private var selectedSize = "none"
     private var currentNumber = 0
@@ -76,7 +77,7 @@ class details_food1 : AppCompatActivity() {
 
             // Reset UI Elements
             tvVolumeSize.text = "0ml"
-            findViewById<TextView>(R.id.tvPrice).text = "₱0.00"
+            findViewById<TextView>(R.id.tvPrice).text = "0.00"
             findViewById<TextView>(R.id.tvNumber).text = "0"
             etComment.setText("")
 
@@ -90,12 +91,6 @@ class details_food1 : AppCompatActivity() {
         }
 
 
-
-
-        // Load favorite state
-        loadFavoriteState(heartIcon)
-        loadCart()
-
         //BUY NOW
         ivBuyNow.setOnClickListener {
             if (selectedSize == "none" || currentNumber == 0) {
@@ -103,27 +98,100 @@ class details_food1 : AppCompatActivity() {
             } else {
                 val priceText = findViewById<TextView>(R.id.tvPrice).text.toString()
                 val cleanedPrice = priceText.replace("₱", "").replace(".00", "").trim()
-
-
-                // Save selected size and quantity before navigating
-                val prefs = getSharedPreferences("TempSelection", Context.MODE_PRIVATE).edit()
-                prefs.putString("selectedSize", selectedSize)
-                prefs.putInt("quantity", currentNumber)
                 val userComment1 = etComment.text.toString()
-                prefs.putBoolean("fromOrderSummary", true)
-                prefs.apply()
+                val priceDouble = cleanedPrice.toDoubleOrNull() ?: 0.0
 
+                val coffeeId = coffee?.id
+                if (coffeeId == null) {
+                    Log.e("ORDER_ITEM", "Coffee ID is null! Order cannot proceed.")
+                    showCustomAlertDialog("Error", "Something went wrong. Please try again.")
+                    return@setOnClickListener
+                }
+
+                // Create an OrderItem object
+                val orderItem = OrderItem(
+                    id = coffeeId,
+                    coffeeName = findViewById<TextView>(R.id.tvCoffeeName).text.toString(),
+                    selectedSize = selectedSize,
+                    quantity = currentNumber,
+                    userComment = userComment1,
+                    price = priceDouble,
+                    imageUrl = coffee.imageUrl
+                )
+
+                // Pass OrderItem to Order_Summary
                 val intent = Intent(this, Order_Summary::class.java).apply {
-                    putExtra("coffeeName", findViewById<TextView>(R.id.tvCoffeeName).text.toString())
-                    putExtra("selectedSize", selectedSize)
-                    putExtra("quantity", currentNumber)
-                    putExtra("userComment1", userComment1)
-                    putExtra("price", cleanedPrice)
+                    putExtra("orderItem", orderItem)
                 }
                 startActivity(intent)
                 overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
             }
         }
+
+        ivAddToCart.setOnClickListener {
+            if (!isAddedCart){
+                if (selectedSize == "none" || currentNumber == 0) {
+                    showCustomAlertDialog("Incomplete Selection", "Please select a size and quantity first.")
+                    return@setOnClickListener
+                }
+
+                val priceText = findViewById<TextView>(R.id.tvPrice).text.toString()
+                val cleanedPrice = priceText.replace("₱", "").replace(".00", "").trim()
+                val userComment1 = etComment.text.toString()
+
+                // Create an OrderItem object
+                val orderItem = FavoriteItem(
+                    coffeeName = findViewById<TextView>(R.id.tvCoffeeName).text.toString(),
+                    selectedSize = selectedSize,
+                    quantity = currentNumber,
+                    userComment = userComment1,
+                    price = cleanedPrice,
+                    imageUrl = coffee?.imageUrl
+                )
+
+                isAddedCart = true
+                showCustomAlertDialog("Added to Cart", "Size: $selectedSize\nQuantity: $currentNumber\nTotal: ₱$cleanedPrice.00")
+
+                // Pass OrderItem to Order_Summary
+                val intent = Intent(this, favoriteNav::class.java).apply {
+                    putExtra("orderItem", orderItem)
+                }
+                startActivity(intent)
+                overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
+
+            }else {
+                showCustomAlertDialog("Already Added", "This item is already in your cart.")
+            }
+        }
+
+
+        heartIcon.setOnClickListener {
+            if (selectedSize == "none" || currentNumber == 0) {
+                showCustomAlertDialog("Incomplete Selection", "Please select a size and quantity first.")
+            } else {
+                val priceText = findViewById<TextView>(R.id.tvPrice).text.toString()
+                val cleanedPrice = priceText.replace("₱", "").replace(".00", "").trim()
+                val userComment1 = etComment.text.toString()
+
+                // Create an OrderItem object
+                val favoriteItem = FavoriteItem(
+                    coffeeName = findViewById<TextView>(R.id.tvCoffeeName).text.toString(),
+                    selectedSize = selectedSize,
+                    quantity = currentNumber,
+                    userComment = userComment1,
+                    price = cleanedPrice,
+                    imageUrl = coffee?.imageUrl
+                )
+
+                // Pass OrderItem to Order_Summary
+                val intent = Intent(this, favoriteNav::class.java).apply {
+                    putExtra("favoriteItem", favoriteItem)
+                }
+                startActivity(intent)
+                overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
+            }
+        }
+
 
 
 
@@ -150,35 +218,8 @@ class details_food1 : AppCompatActivity() {
             }
         }
 
-        heartIcon.setOnClickListener {
-            if (isHeartRed) {
-                // Allow removing favorite without checking size or quantity
-                toggleFavorite(heartIcon)
-            } else {
-                // Only show alert if trying to add to favorites without size or quantity
-                if (selectedSize == "none" || currentNumber == 0) {
-                    showCustomAlertDialog("Incomplete Selection", "Please select a size and quantity first.")
-                } else {
-                    // Proceed to add to favorites
-                    toggleFavorite(heartIcon)
-                }
-            }
-        }
 
-        ivAddToCart.setOnClickListener {
-            if (isAddedCart) {
-                // Allow removing favorite without checking size or quantity
-                toggleCart()
-            } else {
-                // Only show alert if trying to add to favorites without size or quantity
-                if (selectedSize == "none" || currentNumber == 0) {
-                    showCustomAlertDialog("Incomplete Selection", "Please select a size and quantity first.")
-                } else {
-                    // Proceed to add to favorites
-                    toggleCart()
-                }
-            }
-        }
+
 
         tvNumber.setOnClickListener {
             val builder = AlertDialog.Builder(this)
@@ -225,7 +266,7 @@ class details_food1 : AppCompatActivity() {
             "Small" -> coffee?.priceSmall
             "Medium" -> coffee?.priceMedium
             "Large" -> coffee?.priceLarge
-            else -> "₱0.00"
+            else -> "0.00"
         }
 
 
@@ -244,113 +285,10 @@ class details_food1 : AppCompatActivity() {
             ivLarge.setBackgroundResource(R.drawable.large_white)
 
             tvVolumeSize.text = "0ml"
-            tvPrice.text = "₱0.00" // Reset price when deselected
+            tvPrice.text = "0.00" // Reset price when deselected
         }
     }
 
-    private fun toggleFavorite(heartIcon: ImageView) {
-        val coffeeName = findViewById<TextView>(R.id.tvCoffeeName).text.toString()
-        val priceText = findViewById<TextView>(R.id.tvPrice).text.toString()
-        val editor = sharedPreferences.edit()
-
-        if (!isHeartRed) { // Only validate if adding to favorites
-            if (selectedSize == "none" || currentNumber == 0) {
-                showCustomAlertDialog("Incomplete Selection", "Please select a size and quantity first.")
-                return
-            }
-        }
-
-        if (isHeartRed) {
-            editor.remove("coffeeName")
-            editor.remove("selectedSize")
-            editor.remove("quantity")
-            editor.remove("totalPrice")
-            val favoriteCount = sharedPreferences.getInt("favoriteCount", 0) - 1
-            editor.putInt("favoriteCount", favoriteCount.coerceAtLeast(0))
-            editor.apply()
-
-            isHeartRed = false
-            heartIcon.setImageResource(R.drawable.fav_heart_white)
-            showCustomAlertDialog("Removed from Favorites", "Item has been removed.")
-        } else {
-            // **Adding to favorites (Validation already passed)**
-            val price = priceText.replace("₱", "").replace(".00", "").toInt()
-            val totalPrice = price * currentNumber
-
-            editor.putString("coffeeName", coffeeName)
-            editor.putString("selectedSize", selectedSize)
-            editor.putInt("quantity", currentNumber)
-            editor.putInt("totalPrice", totalPrice)
-            val favoriteCount = sharedPreferences.getInt("favoriteCount", 0) + 1
-            editor.putInt("favoriteCount", favoriteCount)
-            editor.apply()
-
-            isHeartRed = true
-            heartIcon.setImageResource(R.drawable.fav_heart_red)
-            showCustomAlertDialog("Added to Favorites", "Size: $selectedSize\nQuantity: $currentNumber\nTotal: ₱$totalPrice.00")
-        }
-    }
-
-    private fun loadFavoriteState(heartIcon: ImageView) {
-        val savedName = sharedPreferences.getString("coffeeName", null)
-        val savedSize = sharedPreferences.getString("selectedSize", null)
-        val savedQuantity = sharedPreferences.getInt("quantity", 0)
-
-        if (!savedName.isNullOrEmpty() && !savedSize.isNullOrEmpty() && savedQuantity > 0) {
-            isHeartRed = true
-            heartIcon.setImageResource(R.drawable.fav_heart_red)
-            selectedSize = savedSize
-            currentNumber = savedQuantity
-        }
-    }
-
-    private fun toggleCart() {
-        val coffeeName = findViewById<TextView>(R.id.tvCoffeeName).text.toString()
-        val priceText = findViewById<TextView>(R.id.tvPrice).text.toString()
-        val savedComment = findViewById<TextView>(R.id.etComment).text.toString()
-        val editor = sharedPreferences1.edit()
-
-        if (!isAddedCart) { // Ensuring it's only added once
-            if (selectedSize == "none" || currentNumber == 0) {
-                showCustomAlertDialog("Incomplete Selection", "Please select a size and quantity first.")
-                return
-            }
-
-            // Adding to cart after validation
-            val price = priceText.replace("₱", "").replace(".00", "").toIntOrNull() ?: 0
-            val totalPrice = price * currentNumber
-
-            editor.putString("coffeeName", coffeeName)
-            editor.putString("userComment", savedComment)
-            editor.putString("selectedSize", selectedSize)
-            editor.putInt("quantity", currentNumber)
-            editor.putInt("totalPrice", totalPrice)
-            val favoriteCount = sharedPreferences.getInt("favoriteCount", 0) + 1
-            editor.putInt("favoriteCount", favoriteCount)
-            editor.apply()
-
-            isAddedCart = true
-            showCustomAlertDialog("Added to Cart", "Size: $selectedSize\nQuantity: $currentNumber\nTotal: ₱$totalPrice.00")
-        } else {
-            showCustomAlertDialog("Already Added", "This item is already in your cart.")
-        }
-    }
-
-
-
-    private fun loadCart() {
-        val savedName = sharedPreferences1.getString("coffeeName", null)
-        val savedSize = sharedPreferences1.getString("selectedSize", null)
-        val savedQuantity = sharedPreferences1.getInt("quantity", 0)
-        val savedComment = sharedPreferences1.getString("userComment", null)
-
-        if (!savedName.isNullOrEmpty() && !savedSize.isNullOrEmpty() && savedQuantity > 0) {
-            isAddedCart = true
-            selectedSize = savedSize
-            currentNumber = savedQuantity
-            findViewById<EditText>(R.id.etComment).setText(savedComment)
-        }
-    }
 
     private fun showCustomAlertDialog(title: String, message: String, onOkClick: (() -> Unit)? = null) {
         val dialog = Dialog(this)
@@ -406,10 +344,10 @@ class details_food1 : AppCompatActivity() {
             }
 
             priceTextView.text = when (selectedSize) {
-                "Small" -> "₱99.00"
-                "Medium" -> "₱109.00"
-                "Large" -> "₱119.00"
-                else -> "₱0.00"
+                "Small" -> "99.00"
+                "Medium" -> "109.00"
+                "Large" -> "119.00"
+                else -> "0.00"
             }
 
             // Reset flag so it doesn't retain old values indefinitely
@@ -422,7 +360,7 @@ class details_food1 : AppCompatActivity() {
         currentNumber = 0
 
         findViewById<TextView>(R.id.tvVolume_Size).text = "0ml"
-        findViewById<TextView>(R.id.tvPrice).text = "₱0.00"
+        findViewById<TextView>(R.id.tvPrice).text = "0.00"
         findViewById<TextView>(R.id.tvNumber).text = "0"
 
         ivSmall.setBackgroundResource(R.drawable.small_white)

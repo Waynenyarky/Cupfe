@@ -80,32 +80,6 @@
             android:layout_marginStart="5dp"/>
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email Address"
-        android:fontFamily="@font/sora_variablefont_wght"
-        android:textColor="@color/light_brown"
-        android:textStyle="normal"
-        android:textSize="14sp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="105dp"
-        android:layout_marginBottom="5dp"/>
-
-
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="310dp"
-        android:layout_height="50dp"
-        android:background="@drawable/edit_text"
-        android:hint="Enter your email"
-        android:textSize="12sp"
-        android:fontFamily="@font/sora_variablefont_wght"
-        android:textStyle="normal"
-        android:textColorHint="@color/grey2"
-        android:textColor="@color/black"
-        android:paddingStart="16dp"/>
-
 
     <TextView
         android:layout_width="wrap_content"
@@ -115,7 +89,7 @@
         android:textColor="@color/light_brown"
         android:textStyle="normal"
         android:textSize="14sp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="121dp"
         android:layout_marginBottom="5dp"/>
 
@@ -133,6 +107,33 @@
         android:textColor="@color/black"
         android:paddingStart="16dp"
         android:inputType="text"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email Address"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:textColor="@color/light_brown"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginBottom="5dp"/>
+
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="310dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edit_text"
+        android:hint="Enter your email"
+        android:textSize="12sp"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:textStyle="normal"
+        android:textColorHint="@color/grey2"
+        android:textColor="@color/black"
+        android:paddingStart="16dp"/>
+
 
     <TextView
         android:layout_width="wrap_content"

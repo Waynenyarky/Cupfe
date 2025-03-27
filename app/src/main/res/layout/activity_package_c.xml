@@ -43,6 +43,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/packageNameC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Package C"
@@ -54,19 +55,40 @@
         android:layout_gravity="start"
         android:layout_marginStart="20dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Coffee Date Bundle  (₱2499)"
-        android:textStyle="bold"
-        android:fontFamily="@font/sora_variablefont_wght"
-        android:textSize="20sp"
-        android:textColor="@color/light_brown"
-        android:layout_marginStart="20dp"
+        android:orientation="horizontal"
         android:layout_gravity="start"
-        android:layout_marginBottom="2dp"/>
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="2dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Coffee Date Bundle"
+            android:textStyle="bold"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textSize="20sp"
+            android:textColor="@color/light_brown"/>
+
+        <TextView
+            android:id="@+id/tvPriceBundleC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₱2499.00"
+            android:textStyle="bold"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_marginStart="10dp"/>
+
+    </LinearLayout>
 
     <TextView
+        android:id="@+id/tvPersonC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="For 8-10 Persons"
@@ -118,6 +140,7 @@
         android:layout_marginTop="40dp"/>
 
     <TextView
+        android:id="@+id/tvIncludesC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/C"
@@ -132,7 +155,7 @@
         android:lineSpacingMultiplier="1.2"/>
 
     <TextView
-        android:id="@+id/FindSlot"
+        android:id="@+id/getPackageC"
         android:layout_width="311dp"
         android:layout_height="45dp"
         android:layout_marginTop="50dp"
