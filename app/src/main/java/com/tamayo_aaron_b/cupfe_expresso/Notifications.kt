@@ -27,14 +27,18 @@ class Notifications : AppCompatActivity() {
         val ivBack = findViewById<ImageView>(R.id.ivBack)
         val ivCart = findViewById<ImageView>(R.id.ivCart)
 
+
+
+
+
+
+
+
         ivCart.setOnClickListener{
             val cart = Intent(this, AddToCart::class.java)
             startActivity(cart)
             overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
         }
-
-
-
 
         ivBack.setOnClickListener{
             val back = Intent(this, Main_Home_Page::class.java)
@@ -42,11 +46,7 @@ class Notifications : AppCompatActivity() {
             overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
         }
 
-
-
-
         navBag.setImageResource(R.drawable.notif_brown)
-
         //NAVIGATION
         // Add click listeners with animations and image change
         setupNavigation(navHome, "Home", R.drawable.homes, R.drawable.homes_brown)

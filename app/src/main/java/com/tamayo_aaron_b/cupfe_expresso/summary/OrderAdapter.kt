@@ -156,8 +156,7 @@ class OrderAdapter(private val orderList: List<OrderItem>) :
 
     private fun generateTransactionId(): String {
         val random = Random()
-        val letter = ('A'..'Z').random() // Random uppercase letter
-        val numbers = (1..9).map { random.nextInt(10) }.joinToString("") // 9 random numbers
-        return "$letter$numbers"
+        val numbers = (1..7).map { random.nextInt(10) }.joinToString("") // 9 random numbers
+        return "ORD$numbers"
     }
 }
