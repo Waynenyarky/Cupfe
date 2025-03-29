@@ -67,9 +67,24 @@
 
     </LinearLayout>
 
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:background="@drawable/search2"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:hint="Search..."
+        android:paddingStart="25dp"
+        android:textColorHint="@color/searchHint"
+        android:textSize="12sp"
+        android:inputType="text"
+        android:drawableStart="@drawable/ic_search_grey"
+        android:autofillHints="name"
+        android:layout_marginTop="15dp"/>
+
     <ScrollView
         android:layout_width="405dp"
-        android:layout_height="670dp"
+        android:layout_height="622dp"
         android:scrollbars="none"
         android:contentDescription="For Notif">
 

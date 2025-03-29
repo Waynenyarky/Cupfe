@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--1 Notif-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginTop="18dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="CupFe Expresso"
+                android:textColor="@color/profile"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/Created"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5 Days Ago"
+                android:textColor="@color/profile"
+                android:textStyle="normal"
+                android:textSize="11sp"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtReference"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ref No. H0986787634"
+            android:textColor="@color/profile"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_gravity="start"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/sora_variablefont_wght"/>
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="John Wayne"
+            android:textColor="@color/profile"
+            android:textStyle="normal"
+            android:textSize="13sp"
+            android:layout_gravity="start"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/sora_variablefont_wght"/>
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="enriquejohnwayne@gmail.com"
+            android:textColor="@color/profile"
+            android:textStyle="normal"
+            android:textSize="13sp"
+            android:layout_gravity="start"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/sora_variablefont_wght"/>
+
+        <TextView
+            android:id="@+id/totalAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="231.00"
+            android:textColor="@color/profile"
+            android:textStyle="normal"
+            android:textSize="13sp"
+            android:layout_gravity="start"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/sora_variablefont_wght"/>
+
+        <TextView
+            android:id="@+id/txtMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Promo: None"
+            android:textColor="@color/profile"
+            android:textStyle="normal"
+            android:textSize="13sp"
+            android:layout_gravity="start"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:id="@+id/orderType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Take-Out"
+            android:textColor="@color/profile"
+            android:textStyle="normal"
+            android:textSize="13sp"
+            android:layout_gravity="start"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:id="@+id/paymentMethod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cash"
+            android:textColor="@color/profile"
+            android:textStyle="normal"
+            android:textSize="13sp"
+            android:layout_gravity="start"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="5dp"/>
+
+
+        <TextView
+            android:id="@+id/txtStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Paid"
+            android:textColor="@color/profile"
+            android:textStyle="normal"
+            android:textSize="13sp"
+            android:layout_gravity="start"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Completed"
+            android:textColor="@color/profile"
+            android:textStyle="normal"
+            android:textSize="13.5sp"
+            android:layout_gravity="start"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="8dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="3dp">
+
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:background="@color/light_grey" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

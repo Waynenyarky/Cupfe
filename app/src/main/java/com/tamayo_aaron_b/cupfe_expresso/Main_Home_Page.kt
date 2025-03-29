@@ -54,6 +54,8 @@ class Main_Home_Page : AppCompatActivity() {
         val viewFlipper = findViewById<ViewFlipper>(R.id.viewFlipper)
         val ivCart = findViewById<ImageView>(R.id.ivCart)
         val search = findViewById<EditText>(R.id.search)
+        val receipts = findViewById<ImageView>(R.id.receipts)
+        val trackOrder = findViewById<ImageView>(R.id.trackOrder)
         imageProfile = findViewById(R.id.imageProfile)
         viewFlipper.flipInterval = 5000
 
@@ -103,6 +105,18 @@ class Main_Home_Page : AppCompatActivity() {
         ivReservation.setOnClickListener {
             val reserve = Intent(this, Reservation::class.java)
             startActivity(reserve)
+            overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.fade_out)
+        }
+
+        receipts.setOnClickListener {
+            val resibo = Intent(this, ReceiptsForAll::class.java)
+            startActivity(resibo)
+            overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.fade_out)
+        }
+
+        trackOrder.setOnClickListener {
+            val order = Intent(this, Track_Order::class.java)
+            startActivity(order)
             overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.fade_out)
         }
 

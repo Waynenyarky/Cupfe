@@ -2,7 +2,9 @@ package com.tamayo_aaron_b.cupfe_expresso
 
 import com.google.gson.annotations.SerializedName
 import com.tamayo_aaron_b.cupfe_expresso.menu.Coffee
+import com.tamayo_aaron_b.cupfe_expresso.receiptsAllKind.AllTransactionsConnection
 import com.tamayo_aaron_b.cupfe_expresso.reservation.ReservationConnect
+import com.tamayo_aaron_b.cupfe_expresso.tracking.TrackConnection
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -51,5 +53,13 @@ interface ApiService {
 
     @GET("api/items/search")
     fun searchCoffees(@Query("search") query: String): Call<List<Coffee>>
+
+    @GET("api/receipts")
+    fun getReceipts(): Call<List<AllTransactionsConnection>>
+
+    @GET("api/orders/search-by-reference-number")
+    fun searchOrderByReference(
+        @Query("reference_number") reference_number: String
+    ): Call<TrackConnection>
 
 }

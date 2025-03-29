@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReceiptsForAll"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="66dp"
+        android:layout_marginBottom="6dp">
+
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/baseline_keyboard_arrow_left_24"
+            android:layout_gravity="start"
+            android:background="@drawable/close_btn_bg"
+            android:contentDescription="Back Icon"
+            android:layout_marginEnd="60dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment Receipts"
+            android:textStyle="bold"
+            android:fontFamily="@font/sora_variablefont_wght"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginEnd="85dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="3dp">
+
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/light_grey" />
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:background="@drawable/search2"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/sora_variablefont_wght"
+        android:hint="Search..."
+        android:paddingStart="25dp"
+        android:textColorHint="@color/searchHint"
+        android:textSize="12sp"
+        android:inputType="text"
+        android:drawableStart="@drawable/ic_search_grey"
+        android:autofillHints="name"
+        android:layout_marginTop="15dp"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="for receipts">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:scrollbars="vertical" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
