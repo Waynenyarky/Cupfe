@@ -1,11 +1,16 @@
 package com.tamayo_aaron_b.cupfe_expresso
 
 import android.app.Dialog
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -27,8 +32,9 @@ class Receipts : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_receipts)
 
-        val confirmBtn = findViewById<Button>(R.id.confirmBtn)
-        val cancelBtn = findViewById<Button>(R.id.cancelBtn)
+        val payCash = findViewById<Button>(R.id.payCash)
+        val payOnline = findViewById<Button>(R.id.payOnline)
+        val cancelBtn = findViewById<ImageView>(R.id.cancelBtn)
         val tvOrderType = findViewById<TextView>(R.id.tvOrderType)
         val tvCoffeeName = findViewById<TextView>(R.id.tvCoffeeName)
         val tvCoffeeQuantity = findViewById<TextView>(R.id.tvCoffeeQuantity)
@@ -80,7 +86,8 @@ class Receipts : AppCompatActivity() {
 
 
 
-        confirmBtn.setOnClickListener { showSuccessDialog(transactionId, orderType,coffeeName,size,quantity,price,comment,total) }
+        payCash.setOnClickListener { showSuccessDialog(transactionId, orderType,coffeeName,size,quantity,price,comment,total) }
+        payOnline.setOnClickListener { showSuccessDialog1(transactionId, orderType,coffeeName,size,quantity,price,comment,total) }
 
         cancelBtn.setOnClickListener{
             finish()
@@ -90,7 +97,7 @@ class Receipts : AppCompatActivity() {
 
     }
 
-
+    //CASH
     private fun showSuccessDialog(
         transactionId: String?,
         orderType: String?,
@@ -114,7 +121,30 @@ class Receipts : AppCompatActivity() {
 
 
         val okBtn = dialog.findViewById<Button>(R.id.okBtn)
+        val cancelBtn = dialog.findViewById<Button>(R.id.cancelBtn)
+        val btnCopy = dialog.findViewById<ImageView>(R.id.btnCopy)
+        val txtTransactionIdCash = dialog.findViewById<TextView>(R.id.txtTransactionIdCash)
+
+        txtTransactionIdCash.text = "Ref No. $transactionId"
+
+        var isCopied = false
+        btnCopy.setOnClickListener {
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("Transaction ID", transactionId ?: "N/A")
+            clipboard.setPrimaryClip(clip)
+
+            Toast.makeText(this, "Transaction ID copied", Toast.LENGTH_SHORT).show()
+            isCopied = true
+        }
+
+        cancelBtn.setOnClickListener {
+            dialog.dismiss()
+        }
         okBtn.setOnClickListener {
+            if (!isCopied) {
+                Toast.makeText(this, "Please copy the reference number before proceeding!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener // Prevent further execution
+            }
             val orderRequest = OrderRequest(
                 reference_number = transactionId ?: "N/A",
                 username = username,
@@ -139,7 +169,6 @@ class Receipts : AppCompatActivity() {
                 )
             )
 
-
             RetrofitClient.instance.createOrder(orderRequest).enqueue(object : retrofit2.Callback<OrderResponse> {
                 override fun onResponse(call: Call<OrderResponse>, response: retrofit2.Response<OrderResponse>) {
                     if (response.isSuccessful) {
@@ -163,4 +192,114 @@ class Receipts : AppCompatActivity() {
         dialog.show()
     }
 
+
+    //ONLINE
+    private fun showSuccessDialog1(
+        transactionId: String?,
+        orderType: String?,
+        coffeeName: String?,
+        size: String?,
+        quantity: Int,
+        price: Double,
+        comment: String?,
+        total: Double
+        ) {
+            val dialog = Dialog(this)
+            dialog.setContentView(R.layout.confirmation_receipt_dialog2)
+            dialog.setCancelable(false)
+            dialog.setCanceledOnTouchOutside(false)
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+            val username = sharedPreferences.getString("USERNAME", null) ?: "Hello User!"
+            val email = sharedPreferences.getString("user_email", null) ?: ""
+            val coffeeId = intent?.getIntExtra("coffeeId", -1) ?: -1 // Default value -1 if not found
+
+            val okBtn = dialog.findViewById<Button>(R.id.okBtn)
+            val cancelBtn = dialog.findViewById<Button>(R.id.cancelBtn)
+            val btnCopy = dialog.findViewById<ImageView>(R.id.btnCopy)
+            val txtTransactionId = dialog.findViewById<TextView>(R.id.txtTransactionId)
+
+            var isCopied = false
+
+            // Set transaction ID in the TextView
+            txtTransactionId.text = "Ref No. $transactionId"
+
+
+            btnCopy.setOnClickListener {
+                val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText("Transaction ID", transactionId ?: "N/A")
+                clipboard.setPrimaryClip(clip)
+
+                Toast.makeText(this, "Transaction ID copied", Toast.LENGTH_SHORT).show()
+                isCopied = true
+            }
+
+            cancelBtn.setOnClickListener {
+                dialog.dismiss()
+            }
+
+            okBtn.setOnClickListener {
+                if (!isCopied) {
+                    Toast.makeText(this, "Please copy the reference number before proceeding!", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener // Prevent further execution
+                }
+
+                val orderRequest = OrderRequest(
+                    reference_number = transactionId ?: "N/A",
+                    username = username,
+                    email = email,
+                    total_amount = total.toString(),
+                    status = "pending",
+                    promo_code = "none",
+                    order_type = orderType ?: "Unknown",
+                    payment_method = "Cashless",
+                    payment_status = "Unpaid",
+                    order_items = listOf(
+                        OrderItem(
+                            item_id = coffeeId.toString(),
+                            item_name = coffeeName ?: "Unknown Coffee",
+                            quantity = quantity,
+                            price = String.format("%.2f", price),
+                            size = size ?: "Unknown",
+                            special_instructions = comment ?: "N/A",
+                            username = username,
+                            email = email
+                        )
+                    )
+                )
+
+                RetrofitClient.instance.createOrder(orderRequest).enqueue(object : retrofit2.Callback<OrderResponse> {
+                    override fun onResponse(call: Call<OrderResponse>, response: retrofit2.Response<OrderResponse>) {
+                        if (response.isSuccessful && response.body() != null) {
+                            Log.d("ORDER", "Order created successfully")
+                            dialog.dismiss()
+
+                            // Navigate to Main_Home_Page first
+                            val homeIntent = Intent(this@Receipts, Main_Home_Page::class.java)
+                            startActivity(homeIntent)
+
+                            // Delay before launching payment page to ensure navigation occurs smoothly
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                Toast.makeText(this@Receipts, "Redirecting to payment...", Toast.LENGTH_SHORT).show()
+                                val paymentIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://192.168.1.24/expresso-cafe/api/stripePayment/payment_form_order.php"))
+                                startActivity(paymentIntent)
+                                finish()
+                            }, 1000) // 1-second delay before proceeding to payment
+
+                        } else {
+                            Log.d("ORDER", "Response Code: ${response.code()}")
+                            Log.d("ORDER", "Response Body: ${response.body()}")
+                            Log.e("ORDER", "Failed to create order")
+                        }
+                    }
+
+                    override fun onFailure(call: Call<OrderResponse>, t: Throwable) {
+                        Log.e("ORDER", "Error: ${t.message}")
+                    }
+                })
+            }
+
+            dialog.show()
+        }
 }

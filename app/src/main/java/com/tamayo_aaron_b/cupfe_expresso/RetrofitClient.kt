@@ -10,7 +10,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
-    private const val BASE_URL="http://192.168.1.16/expresso-cafe/" // Replace with your PHP backend URL
+    private const val BASE_URL="http://192.168.1.24/expresso-cafe/" // Replace with your PHP backend URL
 
 
     private val client by lazy {

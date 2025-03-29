@@ -14,7 +14,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="48dp">
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="70dp">
+
+
+        <ImageView
+            android:id="@+id/cancelBtn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/baseline_keyboard_arrow_left_24"
+            android:layout_gravity="start"
+            android:background="@drawable/close_btn_bg"
+            android:contentDescription="Back Icon"
+            android:layout_marginEnd="100dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -460,7 +472,7 @@
             android:layout_marginEnd="20dp">
 
             <Button
-                android:id="@+id/cancelBtn"
+                android:id="@+id/payOnline"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="60dp"
@@ -469,7 +481,7 @@
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
-                android:text="Cancel"
+                android:text="Pay Online"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -480,7 +492,7 @@
 
 
             <Button
-                android:id="@+id/confirmBtn"
+                android:id="@+id/payCash"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="60dp"
@@ -489,7 +501,7 @@
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
-                android:text="Confirm"
+                android:text="Cash"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="16sp"
