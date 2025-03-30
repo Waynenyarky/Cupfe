@@ -56,8 +56,6 @@
                 android:contentDescription="Back Icon"
                 android:src="@drawable/cart" />
 
-
-
         </LinearLayout>
     </LinearLayout>
 

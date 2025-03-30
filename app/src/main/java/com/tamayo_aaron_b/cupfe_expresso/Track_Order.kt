@@ -1,9 +1,11 @@
 package com.tamayo_aaron_b.cupfe_expresso
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +30,8 @@ class Track_Order : AppCompatActivity() {
     private lateinit var searchButton: ImageView
     private lateinit var recyclerViewTracking: RecyclerView
     private lateinit var adapter: TrackAdapter
+    private lateinit var tvEmptyMessage: TextView  // Add this
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +44,7 @@ class Track_Order : AppCompatActivity() {
             finish()
         }
 
+        tvEmptyMessage = findViewById(R.id.tvEmptyMessage) // Initialize TextView
         searchEditText = findViewById(R.id.searchEditText)
         searchButton = findViewById(R.id.searchButton)
         recyclerViewTracking = findViewById(R.id.recyclerViewTracking)
@@ -47,6 +52,10 @@ class Track_Order : AppCompatActivity() {
         adapter = TrackAdapter(null)
         recyclerViewTracking.layoutManager = LinearLayoutManager(this)
         recyclerViewTracking.adapter = adapter
+
+        // Initially show hint
+        tvEmptyMessage.visibility = View.VISIBLE
+        recyclerViewTracking.visibility = View.GONE
 
         searchButton.setOnClickListener {
             val refNumber = searchEditText.text.toString().trim()
@@ -80,7 +89,18 @@ class Track_Order : AppCompatActivity() {
                     swipeRefreshLayout.isRefreshing = false
                     if (response.isSuccessful && response.body() != null) {
                         adapter.updateOrder(response.body())
+
+                        // Hide hint if there are results
+                        if (adapter.itemCount > 0) {
+                            tvEmptyMessage.visibility = View.GONE
+                            recyclerViewTracking.visibility = View.VISIBLE
+                        } else {
+                            tvEmptyMessage.visibility = View.VISIBLE
+                            recyclerViewTracking.visibility = View.GONE
+                        }
                     } else {
+                        tvEmptyMessage.visibility = View.VISIBLE
+                        recyclerViewTracking.visibility = View.GONE
                         Toast.makeText(this@Track_Order, "Order not found", Toast.LENGTH_SHORT).show()
                     }
                 }

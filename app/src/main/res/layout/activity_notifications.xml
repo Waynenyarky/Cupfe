@@ -84,7 +84,7 @@
 
     <ScrollView
         android:layout_width="405dp"
-        android:layout_height="622dp"
+        android:layout_height="607dp"
         android:scrollbars="none"
         android:contentDescription="For Notif">
 

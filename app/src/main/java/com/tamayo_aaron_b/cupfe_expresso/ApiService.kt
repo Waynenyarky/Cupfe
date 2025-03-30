@@ -62,4 +62,7 @@ interface ApiService {
         @Query("reference_number") reference_number: String
     ): Call<TrackConnection>
 
+    @GET("api/receipts/search")
+    fun searchReceipts(@Query("reference_number") reference_number: String): Call<List<AllTransactionsConnection>>
+
 }

@@ -1,7 +1,10 @@
 package com.tamayo_aaron_b.cupfe_expresso
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +22,7 @@ class ReceiptsForAll : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AllTransactionsAdapter
+    private lateinit var search: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +30,7 @@ class ReceiptsForAll : AppCompatActivity() {
         setContentView(R.layout.activity_receipts_for_all)
 
         val ivBack = findViewById<ImageView>(R.id.ivBack)
+        search = findViewById(R.id.search)
         ivBack.setOnClickListener {
             finish()
         }
@@ -36,6 +41,22 @@ class ReceiptsForAll : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this) // Set layout manager
 
         fetchReceipts() // Fetch data from API
+
+        // Search when the user types
+        //SEARCH ITEM NAME (not case sensitive)
+        search.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val query = s.toString().trim()
+                if (query.isNotEmpty()) {
+                    searchReceipts(query)
+                } else {
+                    fetchReceipts() // Load all items when search is empty
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
     }
 
     private fun fetchReceipts() {
@@ -48,6 +69,20 @@ class ReceiptsForAll : AppCompatActivity() {
 
             override fun onFailure(call: Call<List<AllTransactionsConnection>>, t: Throwable) {
                 Log.e("API_ERROR", "Failed to fetch receipts", t)
+            }
+        })
+    }
+
+    private fun searchReceipts(referenceNumber: String) {
+        RetrofitClient.instance.searchReceipts(referenceNumber).enqueue(object : Callback<List<AllTransactionsConnection>> {
+            override fun onResponse(call: Call<List<AllTransactionsConnection>>, response: Response<List<AllTransactionsConnection>>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { adapter.setData(it) }
+                }
+            }
+
+            override fun onFailure(call: Call<List<AllTransactionsConnection>>, t: Throwable) {
+                Log.e("API_ERROR", "Failed to search receipts", t)
             }
         })
     }

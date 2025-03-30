@@ -10,7 +10,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitClient1 {
-    private const val BASE_URL="http://192.168.201.209/expresso-cafe/" // Replace with your actual server URL
+    private const val BASE_URL="http://192.168.1.24/expresso-cafe/" // Replace with your actual server URL
 
     private val gson: Gson = GsonBuilder()
         .setLenient()

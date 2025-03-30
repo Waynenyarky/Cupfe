@@ -58,7 +58,10 @@ class CoffeeAdapter(private val coffees: List<Coffee>) :
                 val intent = Intent(itemView.context, details_food1::class.java)
                 intent.putExtra("coffee", coffee)  // Passing Parcelable object
                 itemView.context.startActivity(intent)
-//                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
+                    (itemView.context as? android.app.Activity)?.overridePendingTransition(
+                        R.anim.slide_in_bottom,
+                        R.anim.slide_out_top
+                    )
                 }
             }
         }

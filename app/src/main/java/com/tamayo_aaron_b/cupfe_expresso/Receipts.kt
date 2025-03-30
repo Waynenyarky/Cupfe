@@ -11,6 +11,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -44,8 +46,6 @@ class Receipts : AppCompatActivity() {
         val tvDate = findViewById<TextView>(R.id.tvDate)
         val tvTime = findViewById<TextView>(R.id.tvTime)
         val reference_number = findViewById<TextView>(R.id.tvTransactionId)
-        val payment_method = findViewById<TextView>(R.id.payment_method)
-        payment_method.text = "Cash"
         val tvSize = findViewById<TextView>(R.id.tvSize)
         val tvPrize = findViewById<TextView>(R.id.tvPrize)
 
@@ -54,8 +54,6 @@ class Receipts : AppCompatActivity() {
         val username = sharedPreferences.getString("USERNAME", null) ?: "Hello User!"
         Log.d("DEBUG", "Email Saved in Receipts: $email")
         Log.d("DEBUG", "Name Saved in Receipts: $username")
-
-
 
 
         // Retrieve data from intent
@@ -127,8 +125,23 @@ class Receipts : AppCompatActivity() {
 
         txtTransactionIdCash.text = "Ref No. $transactionId"
 
+
+        val underlineSpan = SpannableString(txtTransactionIdCash.text.toString()).apply {
+            setSpan(UnderlineSpan(), 0, length, 0)
+        }
+        txtTransactionIdCash.text = underlineSpan
+
         var isCopied = false
         btnCopy.setOnClickListener {
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("Transaction ID", transactionId ?: "N/A")
+            clipboard.setPrimaryClip(clip)
+
+            Toast.makeText(this, "Transaction ID copied", Toast.LENGTH_SHORT).show()
+            isCopied = true
+        }
+
+        txtTransactionIdCash.setOnClickListener {
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("Transaction ID", transactionId ?: "N/A")
             clipboard.setPrimaryClip(clip)
@@ -225,6 +238,11 @@ class Receipts : AppCompatActivity() {
             // Set transaction ID in the TextView
             txtTransactionId.text = "Ref No. $transactionId"
 
+            val underlineSpan = SpannableString(txtTransactionId.text.toString()).apply {
+                setSpan(UnderlineSpan(), 0, length, 0)
+            }
+            txtTransactionId.text = underlineSpan
+
 
             btnCopy.setOnClickListener {
                 val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -234,6 +252,15 @@ class Receipts : AppCompatActivity() {
                 Toast.makeText(this, "Transaction ID copied", Toast.LENGTH_SHORT).show()
                 isCopied = true
             }
+
+        txtTransactionId.setOnClickListener {
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("Transaction ID", transactionId ?: "N/A")
+            clipboard.setPrimaryClip(clip)
+
+            Toast.makeText(this, "Transaction ID copied", Toast.LENGTH_SHORT).show()
+            isCopied = true
+        }
 
             cancelBtn.setOnClickListener {
                 dialog.dismiss()

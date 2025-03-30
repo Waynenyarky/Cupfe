@@ -53,7 +53,7 @@ class TrackAdapter(private var order: TrackConnection?) :
                 "pending" -> holder.status.setTextColor(Color.parseColor("#Ff8c00")) // Orange
                 "preparing" -> holder.status.setTextColor(Color.parseColor("#B58B00")) // Yellow
                 "serving" -> holder.status.setTextColor(Color.parseColor("#0000FF")) // Blue
-                "completed" -> holder.status.setTextColor(Color.parseColor("#013220")) // Green
+                "completed" -> holder.status.setTextColor(Color.parseColor("#00b300")) // Green
                 "canceled" -> holder.status.setTextColor(Color.parseColor("#8b0000")) // Red
                 else -> holder.status.setTextColor(Color.BLACK) // Default
             }
