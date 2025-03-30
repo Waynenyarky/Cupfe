@@ -81,46 +81,124 @@
         android:gravity="center"
         android:layout_marginTop="7dp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+        <ImageView
+            android:id="@+id/imgQRCode"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:visibility="gone"
+            android:contentDescription="Generated QR Code" />
+
+
+    <TextView
+        android:id="@+id/txtQrFallback"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:text="Click here if QR Code is not working"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
 
         <Button
-            android:id="@+id/cancelBtn"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:id="@+id/btnGenerateQR"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="17dp"
+            android:text="Generate QR"
+            android:layout_gravity="center"
             android:background="@drawable/button_order_bg"
-            android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:text="Cancel"
-            android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="14.5sp"
             android:textStyle="bold"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="10dp"/>
+            android:textAllCaps="false"
+            android:focusable="true"
+            android:layout_marginTop="15dp"/>
+
+    <LinearLayout
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp">
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1.3dp"
+            android:layout_weight="1"
+            android:background="@color/light_brown" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="or"
+            android:textSize="15sp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textColor="@color/dark_grey"
+            android:fontFamily="@font/sora_variablefont_wght"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1.3dp"
+            android:layout_weight="1"
+            android:background="@color/light_brown"/>
+
+    </LinearLayout>
+
 
         <Button
             android:id="@+id/okBtn"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="17dp"
             android:background="@drawable/button_order_bg"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
-            android:text="Confirm"
+            android:text="Proceed"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="14.5sp"
             android:textStyle="bold"
             android:layout_marginBottom="5dp"/>
 
-    </LinearLayout>
+    <Button
+        android:id="@+id/cancelBtn"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/button_order_bg"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="Cancel"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14.5sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"/>
+
+    <Button
+        android:id="@+id/returnBtn"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/button_order_bg"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="Return to Home"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14.5sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"
+        android:visibility="gone"/>
 
 </LinearLayout>

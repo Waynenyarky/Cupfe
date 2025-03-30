@@ -5,6 +5,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -22,10 +23,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.tamayo_aaron_b.cupfe_expresso.menu.Coffee
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
+import com.journeyapps.barcodescanner.BarcodeEncoder
 import retrofit2.Call
 
 class Receipts : AppCompatActivity() {
@@ -232,6 +232,12 @@ class Receipts : AppCompatActivity() {
             val cancelBtn = dialog.findViewById<Button>(R.id.cancelBtn)
             val btnCopy = dialog.findViewById<ImageView>(R.id.btnCopy)
             val txtTransactionId = dialog.findViewById<TextView>(R.id.txtTransactionId)
+            val btnGenerateQR = dialog.findViewById<Button>(R.id.btnGenerateQR) // Add a button for QR generation
+            val imgQRCode = dialog.findViewById<ImageView>(R.id.imgQRCode)
+            val txtQrFallback = dialog.findViewById<TextView>(R.id.txtQrFallback)
+            val separator = dialog.findViewById<LinearLayout>(R.id.separator)
+            val returnBtn = dialog.findViewById<Button>(R.id.returnBtn)
+
 
             var isCopied = false
 
@@ -242,6 +248,96 @@ class Receipts : AppCompatActivity() {
                 setSpan(UnderlineSpan(), 0, length, 0)
             }
             txtTransactionId.text = underlineSpan
+
+            val underlineSpans = SpannableString(txtQrFallback.text.toString()).apply {
+                setSpan(UnderlineSpan(), 0, length, 0)
+            }
+            txtQrFallback.text = underlineSpans
+
+
+
+            // Generate QR Code when button is clicked
+            btnGenerateQR.setOnClickListener {
+                if (!isCopied) {
+                    Toast.makeText(this, "Please copy the reference number before generating QR code!", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener // Prevent further execution
+                }
+
+                val orderRequest = OrderRequest(
+                    reference_number = transactionId ?: "N/A",
+                    username = username,
+                    email = email,
+                    total_amount = total.toString(),
+                    status = "pending",
+                    promo_code = "none",
+                    order_type = orderType ?: "Unknown",
+                    payment_method = "Cashless",
+                    payment_status = "Unpaid",
+                    order_items = listOf(
+                        OrderItem(
+                            item_id = coffeeId.toString(),
+                            item_name = coffeeName ?: "Unknown Coffee",
+                            quantity = quantity,
+                            price = String.format("%.2f", price),
+                            size = size ?: "Unknown",
+                            special_instructions = comment ?: "N/A",
+                            username = username,
+                            email = email
+                        )
+                    )
+                )
+
+                RetrofitClient.instance.createOrder(orderRequest).enqueue(object : retrofit2.Callback<OrderResponse> {
+                    override fun onResponse(call: Call<OrderResponse>, response: retrofit2.Response<OrderResponse>) {
+                        if (response.isSuccessful && response.body() != null) {
+                            Log.d("ORDER", "Order created successfully")
+
+                                Toast.makeText(this@Receipts, "QR Generated", Toast.LENGTH_SHORT).show()
+                                val paymentUrl = "http://192.168.1.24/expresso-cafe/api/stripePayment/payment_form_order.php"
+                                val qrCodeBitmap = generateQRCode(paymentUrl)
+
+                                imgQRCode.setImageBitmap(qrCodeBitmap) // Display the generated QR code
+                                imgQRCode.visibility = View.VISIBLE
+                                txtQrFallback.visibility = View.VISIBLE // Show fallback link
+                                returnBtn.visibility = View.VISIBLE
+
+                                // Hide separator and OK button
+                                separator.visibility = View.GONE
+                                okBtn.visibility = View.GONE
+                                btnGenerateQR.visibility = View.GONE
+                                cancelBtn.visibility = View.GONE
+
+
+                                txtQrFallback.setOnClickListener {
+                                    val homeIntent = Intent(this@Receipts, Main_Home_Page::class.java)
+                                    startActivity(homeIntent)
+
+
+                                    Handler(Looper.getMainLooper()).postDelayed({
+                                        Toast.makeText(this@Receipts, "Redirecting to payment...", Toast.LENGTH_SHORT).show()
+                                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(paymentUrl))
+                                        startActivity(browserIntent)
+                                    }, 1000)
+                                }
+
+                        } else {
+                            Log.d("ORDER", "Response Code: ${response.code()}")
+                            Log.d("ORDER", "Response Body: ${response.body()}")
+                            Log.e("ORDER", "Failed to create order")
+                        }
+                    }
+
+                    override fun onFailure(call: Call<OrderResponse>, t: Throwable) {
+                        Log.e("ORDER", "Error: ${t.message}")
+                    }
+                })
+            }
+
+            returnBtn.setOnClickListener{
+                val homeIntent = Intent(this@Receipts, Main_Home_Page::class.java)
+                startActivity(homeIntent)
+                overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
+            }
 
 
             btnCopy.setOnClickListener {
@@ -329,4 +425,12 @@ class Receipts : AppCompatActivity() {
 
             dialog.show()
         }
+
+    private fun generateQRCode(text: String): Bitmap {
+        val width = 500 // QR code width
+        val height = 500 // QR code height
+        val bitMatrix = MultiFormatWriter().encode(text, BarcodeFormat.QR_CODE, width, height)
+        val barcodeEncoder = BarcodeEncoder()
+        return barcodeEncoder.createBitmap(bitMatrix)
+    }
 }

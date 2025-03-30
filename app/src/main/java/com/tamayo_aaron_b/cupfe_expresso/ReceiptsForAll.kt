@@ -6,12 +6,14 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.tamayo_aaron_b.cupfe_expresso.receiptsAllKind.AllTransactionsAdapter
 import com.tamayo_aaron_b.cupfe_expresso.receiptsAllKind.AllTransactionsConnection
 import retrofit2.Call
@@ -20,6 +22,7 @@ import retrofit2.Response
 
 class ReceiptsForAll : AppCompatActivity() {
 
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AllTransactionsAdapter
     private lateinit var search: EditText
@@ -40,9 +43,15 @@ class ReceiptsForAll : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this) // Set layout manager
 
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
+        swipeRefreshLayout.setOnRefreshListener {
+                search.text.clear()
+                fetchReceipts()
+                swipeRefreshLayout.isRefreshing = false
+        }
+
         fetchReceipts() // Fetch data from API
 
-        // Search when the user types
         //SEARCH ITEM NAME (not case sensitive)
         search.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -52,7 +61,7 @@ class ReceiptsForAll : AppCompatActivity() {
                 if (query.isNotEmpty()) {
                     searchReceipts(query)
                 } else {
-                    fetchReceipts() // Load all items when search is empty
+                    fetchReceipts()
                 }
             }
             override fun afterTextChanged(s: Editable?) {}
@@ -60,14 +69,18 @@ class ReceiptsForAll : AppCompatActivity() {
     }
 
     private fun fetchReceipts() {
+        swipeRefreshLayout.isRefreshing = true
+
         RetrofitClient.instance.getReceipts().enqueue(object : Callback<List<AllTransactionsConnection>> {
             override fun onResponse(call: Call<List<AllTransactionsConnection>>, response: Response<List<AllTransactionsConnection>>) {
                 if (response.isSuccessful) {
                     response.body()?.let { adapter.setData(it) }
                 }
+                swipeRefreshLayout.isRefreshing = false
             }
 
             override fun onFailure(call: Call<List<AllTransactionsConnection>>, t: Throwable) {
+                swipeRefreshLayout.isRefreshing = false
                 Log.e("API_ERROR", "Failed to fetch receipts", t)
             }
         })

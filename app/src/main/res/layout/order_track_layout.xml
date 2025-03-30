@@ -50,8 +50,8 @@
             android:textStyle="bold"
             android:textSize="16sp"
             android:layout_gravity="start"
-            android:layout_marginStart="45dp"
-            android:layout_marginEnd="45dp"
+            android:layout_marginStart="41dp"
+            android:layout_marginEnd="41dp"
             android:layout_marginTop="18dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/sora_variablefont_wght"/>
@@ -65,8 +65,8 @@
             android:textStyle="normal"
             android:textSize="14sp"
             android:layout_gravity="start"
-            android:layout_marginStart="45dp"
-            android:layout_marginEnd="45dp"
+            android:layout_marginStart="41dp"
+            android:layout_marginEnd="41dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/sora_variablefont_wght"/>
 
@@ -79,8 +79,8 @@
             android:textStyle="normal"
             android:textSize="14sp"
             android:layout_gravity="start"
-            android:layout_marginStart="45dp"
-            android:layout_marginEnd="45dp"
+            android:layout_marginStart="41dp"
+            android:layout_marginEnd="41dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/sora_variablefont_wght"/>
 
@@ -93,8 +93,8 @@
             android:textStyle="normal"
             android:textSize="14sp"
             android:layout_gravity="start"
-            android:layout_marginStart="45dp"
-            android:layout_marginEnd="45dp"
+            android:layout_marginStart="41dp"
+            android:layout_marginEnd="41dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/sora_variablefont_wght"/>
 
@@ -107,7 +107,7 @@
             android:textStyle="normal"
             android:textSize="14sp"
             android:layout_gravity="start"
-            android:layout_marginStart="45dp"
+            android:layout_marginStart="41dp"
             android:layout_marginEnd="45dp"
             android:layout_marginBottom="5dp"/>
 
@@ -120,8 +120,8 @@
             android:textStyle="normal"
             android:textSize="14sp"
             android:layout_gravity="start"
-            android:layout_marginStart="45dp"
-            android:layout_marginEnd="45dp"
+            android:layout_marginStart="41dp"
+            android:layout_marginEnd="41dp"
             android:layout_marginBottom="5dp"/>
 
         <TextView
@@ -133,8 +133,8 @@
             android:textStyle="normal"
             android:textSize="14sp"
             android:layout_gravity="start"
-            android:layout_marginStart="45dp"
-            android:layout_marginEnd="45dp"
+            android:layout_marginStart="41dp"
+            android:layout_marginEnd="41dp"
             android:layout_marginBottom="5dp"/>
 
 
@@ -147,8 +147,8 @@
             android:textStyle="normal"
             android:textSize="14sp"
             android:layout_gravity="start"
-            android:layout_marginStart="45dp"
-            android:layout_marginEnd="45dp"
+            android:layout_marginStart="41dp"
+            android:layout_marginEnd="41dp"
             android:layout_marginBottom="8dp"/>
 
         <TextView
@@ -160,8 +160,8 @@
             android:textStyle="normal"
             android:textSize="14.5sp"
             android:layout_gravity="start"
-            android:layout_marginStart="45dp"
-            android:layout_marginEnd="45dp"
+            android:layout_marginStart="41dp"
+            android:layout_marginEnd="41dp"
             android:layout_marginBottom="8dp"/>
 
 
