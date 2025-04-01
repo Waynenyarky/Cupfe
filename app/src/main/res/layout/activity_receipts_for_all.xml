@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="66dp"
+        android:layout_marginTop="45dp"
         android:layout_marginBottom="6dp">
 
 
@@ -57,9 +57,11 @@
 
     </LinearLayout>
 
+
+
     <EditText
         android:id="@+id/search"
-        android:layout_width="340dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@drawable/search2"
         android:drawablePadding="10dp"
@@ -71,7 +73,11 @@
         android:inputType="text"
         android:drawableStart="@drawable/ic_search_grey"
         android:autofillHints="name"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"/>
+
+
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"

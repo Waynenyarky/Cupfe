@@ -70,4 +70,11 @@ dependencies {
 
     implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
 
+    //SCROLL
+    implementation ("com.google.android.material:material:1.9.0")
+    implementation ("com.google.android.material:material:1.13.0-alpha12")
+
+    implementation("org.java-websocket:Java-WebSocket:1.5.2") // WebSocket support
+    implementation("com.google.code.gson:gson:2.10.1") // JSON parsing
+
 }

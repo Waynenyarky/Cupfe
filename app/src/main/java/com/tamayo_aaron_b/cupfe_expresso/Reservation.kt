@@ -1,19 +1,26 @@
 package com.tamayo_aaron_b.cupfe_expresso
 
+import android.animation.Animator
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.ScaleAnimation
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.NestedScrollView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class Reservation : AppCompatActivity() {
     private lateinit var timeLayout: LinearLayout
@@ -22,6 +29,12 @@ class Reservation : AppCompatActivity() {
     private lateinit var selectedTimeText: TextView
     private var lastSelectedTime: TextView? = null
     private var lastClickedButton: ImageView? = null // Track the last clicked button
+
+    private lateinit var fabScrollTop: FloatingActionButton
+    private lateinit var fabScrollBottom: FloatingActionButton
+    private lateinit var scrollView: ScrollView
+    private var isAtBottom = false
+    private var isAtTop = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +81,86 @@ class Reservation : AppCompatActivity() {
         val price2 = findViewById<LinearLayout>(R.id.price2)
         val price3 = findViewById<LinearLayout>(R.id.price3)
         val id = findViewById<TextView>(R.id.id)
+        fabScrollTop = findViewById(R.id.fabScrollTop)
+        fabScrollBottom = findViewById(R.id.fabScrollBottom)
+        scrollView = findViewById(R.id.scrollView)
+
+        //Scroll top
+        scrollView.viewTreeObserver.addOnScrollChangedListener {
+            val scrollViewHeight = scrollView.getChildAt(0).height
+            val scrollPosition = scrollView.height + scrollView.scrollY
+            isAtBottom = scrollPosition >= scrollViewHeight
+
+            if (isAtBottom) {
+                // Show the FAB when at the bottom
+                fabScrollTop.visibility = View.VISIBLE
+            } else {
+                // Hide the FAB when not at the bottom
+                fabScrollTop.visibility = View.GONE
+            }
+        }
+
+        // Set up the FAB to scroll to the top when clicked
+        fabScrollTop.setOnClickListener {
+            val animator = ObjectAnimator.ofInt(scrollView, "scrollY", 0)
+            animator.duration = 1200 // Adjust duration for smoother effect
+            animator.start()
+        }
+
+        //Scroll bottom
+        scrollView.viewTreeObserver.addOnScrollChangedListener {
+            val scrollViewHeight = scrollView.getChildAt(0).height
+            val scrollPosition = scrollView.height + scrollView.scrollY
+            isAtTop = scrollPosition >= scrollViewHeight
+
+            if (isAtTop) {
+                // Hide the FAB when at the bottom
+                fabScrollBottom.visibility = View.GONE
+            } else {
+                // Show the FAB when not at the bottom
+                fabScrollBottom.visibility = View.VISIBLE
+            }
+        }
+
+        // Set up the FAB to scroll to the bottom when clicked
+        fabScrollBottom.setOnClickListener {
+            val bottom = scrollView.getChildAt(0).height - scrollView.height
+            val animator = ObjectAnimator.ofInt(scrollView, "scrollY", bottom)
+            animator.duration = 1200 // Adjust duration for smoother effect
+
+            animator.addListener(object : Animator.AnimatorListener {
+                override fun onAnimationStart(animation: Animator) {}
+                override fun onAnimationEnd(animation: Animator) {
+                    fabScrollBottom.visibility = View.GONE // Hide FAB after scrolling down
+                }
+                override fun onAnimationCancel(animation: Animator) {}
+                override fun onAnimationRepeat(animation: Animator) {}
+            })
+
+            animator.start()
+        }
+
+        // Make FAB "jump" every 3 seconds
+        val handler = Handler(Looper.getMainLooper())
+        val jumpRunnable = object : Runnable {
+            override fun run() {
+                if (fabScrollBottom.visibility == View.VISIBLE) {
+                    fabScrollBottom.animate()
+                        .translationY(-20f) // Move up
+                        .setDuration(300)
+                        .withEndAction {
+                            fabScrollBottom.animate()
+                                .translationY(0f) // Move back down
+                                .setDuration(300)
+                        }
+                }
+                handler.postDelayed(this, 2000) // Repeat every 3 seconds
+            }
+        }
+
+        // Start the jump animation loop
+        handler.postDelayed(jumpRunnable, 2000)
+
 
 
         btnBack.setOnClickListener {

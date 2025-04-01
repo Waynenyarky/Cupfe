@@ -1,13 +1,9 @@
 package com.tamayo_aaron_b.cupfe_expresso
 
-import android.app.Dialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
-import android.text.InputType
 import android.text.SpannableString
 import android.text.TextWatcher
 import android.text.method.PasswordTransformationMethod
@@ -21,8 +17,6 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -200,25 +194,25 @@ class sign_up_page : AppCompatActivity() {
 
     // Function to send OTP
     private fun sendOTP() {
-        val email = etEmail.text.toString().trim()
         val username = etFName.text.toString().trim()
+        val email = etEmail.text.toString().trim()
         val password = etPass.text.toString().trim()
         val confirm_password = etCPass.text.toString().trim()
 
-        if (!isValidEmail(email)) {
-            etEmail.error = "Email is required"
-            etEmail.requestFocus()
-            return
-        }
-
         if (!isValidName(username)) {
-            etFName.error = "Username is required"
+            etFName.error = "Name is not valid"
             etFName.requestFocus()
             return
         }
 
+        if (!isValidEmail(email)) {
+            etEmail.error = "Email is not valid"
+            etEmail.requestFocus()
+            return
+        }
+
         if (!isValidPassword(password)) {
-            etPass.error = "Password is required"
+            etPass.error = "Password is not valid"
             etPass.requestFocus()
             return
         }
@@ -251,7 +245,7 @@ class sign_up_page : AppCompatActivity() {
                 } else {
                     val errorBody = response.errorBody()?.string()
                     Log.e("Server Error", "Error: $errorBody")
-                    Toast.makeText(applicationContext, "Server Error: $errorBody", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "Email is already registered", Toast.LENGTH_LONG).show()
                 }
                 // Enable button and restore text after response
                 btnOTP.isEnabled = true

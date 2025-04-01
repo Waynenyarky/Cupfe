@@ -12,9 +12,13 @@ import java.util.concurrent.TimeUnit
 object RetrofitClient {
     private const val BASE_URL="http://192.168.1.24/expresso-cafe/" // Replace with your PHP backend URL
 
+    private val loggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
 
     private val client by lazy {
         OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor) // Add logging
             .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
             .connectTimeout(30, TimeUnit.SECONDS) // Increase connection timeout
             .readTimeout(30, TimeUnit.SECONDS) // Increase read timeout

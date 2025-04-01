@@ -1,11 +1,15 @@
 package com.tamayo_aaron_b.cupfe_expresso
 
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -25,9 +29,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tamayo_aaron_b.cupfe_expresso.menu.Coffee
 import com.tamayo_aaron_b.cupfe_expresso.menu.CoffeeAdapter
 import com.tamayo_aaron_b.cupfe_expresso.menu.FoodAdapter
+import com.tamayo_aaron_b.cupfe_expresso.notificationFolder.NotificationService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,11 +52,20 @@ class food_menu : AppCompatActivity() {
     private lateinit var allCoffeeAdapter: FoodAdapter
     private lateinit var foodsAdapter: FoodAdapter
 
+    private lateinit var fabScrollTop: FloatingActionButton
+    private lateinit var scrollView: NestedScrollView
+    private var isAtBottom = false
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_food_menu)
+
+        val email = intent.getStringExtra("user_email") ?: ""
+        if (email.isNotEmpty()) {
+            NotificationService(this, email).startChecking()
+        }
 
         // Get references to navigation buttons
         val navHome = findViewById<ImageView>(R.id.nav_home)
@@ -62,62 +77,58 @@ class food_menu : AppCompatActivity() {
         val popular1 = findViewById<ImageView>(R.id.popular1)
         val foodss1 = findViewById<ImageView>(R.id.foodss1)
         val foodss2 = findViewById<ImageView>(R.id.foodss2)
-        val floatingText = findViewById<LinearLayout>(R.id.floatingText)
-        val scrollView = findViewById<NestedScrollView>(R.id.scrollView)
-        val handler = android.os.Handler()
         val ivCart = findViewById<ImageView>(R.id.ivCart)
+        scrollView = findViewById(R.id.scrollView)
+        fabScrollTop = findViewById(R.id.fabScrollTop)
+
+        // Listen for scroll changes to determine if at the bottom of the scroll
+        scrollView.viewTreeObserver.addOnScrollChangedListener {
+            val scrollViewHeight = scrollView.getChildAt(0).height
+            val scrollPosition = scrollView.height + scrollView.scrollY
+            isAtBottom = scrollPosition >= scrollViewHeight
+
+            if (isAtBottom) {
+                // Show the FAB when at the bottom
+                fabScrollTop.visibility = View.VISIBLE
+            } else {
+                // Hide the FAB when not at the bottom
+                fabScrollTop.visibility = View.GONE
+            }
+        }
+
+        // Set up the FAB to scroll to the top when clicked
+        fabScrollTop.setOnClickListener {
+            val animator = ObjectAnimator.ofInt(scrollView, "scrollY", 0)
+            animator.duration = 1200 // Adjust duration for smoother effect
+            animator.start()
+        }
+
+        // Make FAB "jump" every 3 seconds
+        val handler = Handler(Looper.getMainLooper())
+        val jumpRunnable = object : Runnable {
+            override fun run() {
+                if (fabScrollTop.visibility == View.VISIBLE) {
+                    fabScrollTop.animate()
+                        .translationY(-20f) // Move up
+                        .setDuration(300)
+                        .withEndAction {
+                            fabScrollTop.animate()
+                                .translationY(0f) // Move back down
+                                .setDuration(300)
+                        }
+                }
+                handler.postDelayed(this, 2000) // Repeat every 3 seconds
+            }
+        }
+
+        // Start the jump animation loop
+        handler.postDelayed(jumpRunnable, 2000)
 
         ivCart.setOnClickListener{
             val cart = Intent(this, AddToCart::class.java)
             startActivity(cart)
             overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
         }
-
-        scrollView.setOnTouchListener { _, event ->
-            when (event.action) {
-                MotionEvent.ACTION_MOVE -> {
-                    floatingText.animate()
-                        .alpha(0f)  // Fade out
-                        .setDuration(300) // Animation duration in milliseconds
-                        .withEndAction {
-                            floatingText.visibility = View.INVISIBLE
-                        }
-                        .start()
-
-                    handler.removeCallbacksAndMessages(null) // Remove existing callbacks
-                }
-
-                MotionEvent.ACTION_UP -> {
-                    handler.postDelayed({
-                        floatingText.visibility = View.VISIBLE
-                        floatingText.animate()
-                            .alpha(1f)  // Fade in
-                            .setDuration(500) // Animation duration
-                            .start()
-                    }, 2500)
-                }
-            }
-            false
-        }
-
-
-        floatingText.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                floatingText.viewTreeObserver.removeOnGlobalLayoutListener(this)
-
-                val parentView = floatingText.parent as View
-                val parentWidth = parentView.width
-                val parentHeight = parentView.height
-
-                val floatWidth = floatingText.width
-                val floatHeight = floatingText.height
-
-                floatingText.x = (parentWidth - floatWidth) / 3f
-                floatingText.y = (parentHeight - floatHeight) / 2 + 850f
-
-                floatingText.visibility = View.VISIBLE
-            }
-        })
 
 
 
@@ -385,8 +396,17 @@ class food_menu : AppCompatActivity() {
     private fun navigateTo(label: String) {
         when (label) {
             "Home" -> {
+                var email = intent.getStringExtra("user_email")
+                if (email.isNullOrEmpty()) {
+                    val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+                    email = sharedPreferences.getString("user_email", "") ?: ""
+                }
+
+
                 val home = Intent(this,Main_Home_Page::class.java)
+                intent.putExtra("user_email", email) // Send email
                 startActivity(home)
+                Log.d("DEBUG", "Email Sent to Notifications: $email")
                 overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
 
             }
@@ -395,19 +415,44 @@ class food_menu : AppCompatActivity() {
 
             }
             "Favorite" -> {
+                var email = intent.getStringExtra("user_email")
+                if (email.isNullOrEmpty()) {
+                    val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+                    email = sharedPreferences.getString("user_email", "") ?: ""
+                }
+
                 val favorite = Intent(this, favoriteNav::class.java)
+                intent.putExtra("user_email", email) // Send email
                 startActivity(favorite)
+                Log.d("DEBUG", "Email Sent to Notifications: $email")
                 overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
             }
             "Notification" -> {
-                val notification = Intent(this, Notifications::class.java)
-                startActivity(notification)
-                overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
+                // Retrieve email from intent or SharedPreferences
+                var email = intent.getStringExtra("user_email")
+                if (email.isNullOrEmpty()) {
+                    val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+                    email = sharedPreferences.getString("user_email", "") ?: ""
+                }
 
+                val intent = Intent(this, Notifications::class.java)
+                intent.putExtra("user_email", email) // Send email
+                startActivity(intent)
+                Log.d("DEBUG", "Email Sent to Notifications: $email")
+                overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
             }
             "Profile" -> {
-                val profile = Intent(this, Profile::class.java)
-                startActivity(profile)
+                var email = intent.getStringExtra("user_email")
+                if (email.isNullOrEmpty()) {
+                    val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+                    email = sharedPreferences.getString("user_email", "") ?: ""
+                }
+
+
+                val me = Intent(this, Profile::class.java)
+                intent.putExtra("user_email", email) // Send email
+                startActivity(me)
+                Log.d("DEBUG", "Email Sent to Notifications: $email")
                 overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
 
             }

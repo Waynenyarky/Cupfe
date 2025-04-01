@@ -8,12 +8,21 @@ import com.tamayo_aaron_b.cupfe_expresso.tracking.TrackConnection
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Query
 
 data class OTPRequests(val email: String)
 
+data class NotificationResponse(
+    val id: Int,
+    val title: String,
+    val email: String,
+    val message: String,
+    val timestamp: String,
+    val created_at : String
+)
 
 data class ResetPasswordRequest(val email: String, val otp: String, val new_password: String)
 data class ResetPasswordResponse(val success: Boolean, val message: String)
@@ -64,5 +73,12 @@ interface ApiService {
 
     @GET("api/receipts/search")
     fun searchReceipts(@Query("reference_number") reference_number: String): Call<List<AllTransactionsConnection>>
+
+    @Headers("Content-Type: application/json")
+    @POST("api/users/login")
+    fun verifyOTPSignIn(@Body request: OTPRequest): Call<ApiResponse>
+
+    @GET("api/notifications")
+    fun getNotifications(@Query("email") email: String): Call<List<NotificationResponse>>
 
 }

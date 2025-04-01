@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.animation.ScaleAnimation
 import android.widget.ImageView
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tamayo_aaron_b.cupfe_expresso.favorite.FavoriteAdapter
+import com.tamayo_aaron_b.cupfe_expresso.notificationFolder.NotificationService
 import com.tamayo_aaron_b.cupfe_expresso.summary.OrderAdapter
 
 class favoriteNav : AppCompatActivity() {
@@ -26,6 +28,11 @@ class favoriteNav : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_favorite_nav)
+
+        val email = intent.getStringExtra("user_email") ?: ""
+        if (email.isNotEmpty()) {
+            NotificationService(this, email).startChecking()
+        }
 
         // Get references to navigation buttons
         val navHome = findViewById<ImageView>(R.id.nav_home)
@@ -141,26 +148,61 @@ class favoriteNav : AppCompatActivity() {
     private fun navigateTo(label: String) {
         when (label) {
             "Home" -> {
-                val home = Intent(this, Main_Home_Page::class.java)
+                var email = intent.getStringExtra("user_email")
+                if (email.isNullOrEmpty()) {
+                    val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+                    email = sharedPreferences.getString("user_email", "") ?: ""
+                }
+
+
+                val home = Intent(this,Main_Home_Page::class.java)
+                intent.putExtra("user_email", email) // Send email
                 startActivity(home)
+                Log.d("DEBUG", "Email Sent to Notifications: $email")
                 overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
             }
             "Cart" -> {
+                var email = intent.getStringExtra("user_email")
+                if (email.isNullOrEmpty()) {
+                    val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+                    email = sharedPreferences.getString("user_email", "") ?: ""
+                }
+
                 val cart = Intent(this, food_menu::class.java)
+                intent.putExtra("user_email", email) // Send email
                 startActivity(cart)
+                Log.d("DEBUG", "Email Sent to Notifications: $email")
                 overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
             }
             "Favorite" -> {
                 // Navigate to Favorite screen
             }
             "Notification" -> {
-                val notification = Intent(this, Notifications::class.java)
-                startActivity(notification)
+                // Retrieve email from intent or SharedPreferences
+                var email = intent.getStringExtra("user_email")
+                if (email.isNullOrEmpty()) {
+                    val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+                    email = sharedPreferences.getString("user_email", "") ?: ""
+                }
+
+                val intent = Intent(this, Notifications::class.java)
+                intent.putExtra("user_email", email) // Send email
+                startActivity(intent)
+                Log.d("DEBUG", "Email Sent to Notifications: $email")
                 overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
             }
             "Me" -> {
+                var email = intent.getStringExtra("user_email")
+                if (email.isNullOrEmpty()) {
+                    val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+                    email = sharedPreferences.getString("user_email", "") ?: ""
+                }
+
+
                 val me = Intent(this, Profile::class.java)
+                intent.putExtra("user_email", email) // Send email
                 startActivity(me)
+                Log.d("DEBUG", "Email Sent to Notifications: $email")
                 overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
             }
         }

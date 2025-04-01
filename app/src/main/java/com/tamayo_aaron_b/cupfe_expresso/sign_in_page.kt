@@ -92,21 +92,19 @@ class sign_in_page : AppCompatActivity() {
         }
 
 
-
-
         // Verify OTP & Login button
         btnSignInAcc.setOnClickListener {
             val email = etEmail.text.toString().trim()
             val password = etPass.text.toString().trim()
 
             if (email.isEmpty()) {
-                etEmail.error = "Please enter your email"
+                etEmail.error = "Email is not valid"
                 etEmail.requestFocus()
                 return@setOnClickListener
             }
 
             if (password.isEmpty()) {
-                etPass.error = "Please enter your password"
+                etPass.error = "Password is not valid"
                 etPass.requestFocus()
                 return@setOnClickListener
             }
@@ -202,7 +200,7 @@ class sign_in_page : AppCompatActivity() {
     private fun verifyOTPLogin(email: String, password: String) {
         val request = OTPRequest(email = email, username = "", password = password)
 
-        RetrofitClient1.instance.verifyOTPSignIn(request).enqueue(object : Callback<ApiResponse> {
+        RetrofitClient.instance.verifyOTPSignIn(request).enqueue(object : Callback<ApiResponse> {
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                 runOnUiThread {
                     btnSignInAcc.isEnabled = true
@@ -222,7 +220,6 @@ class sign_in_page : AppCompatActivity() {
                     }
                 }
             }
-
 
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
                 runOnUiThread {
@@ -257,10 +254,21 @@ class sign_in_page : AppCompatActivity() {
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         val btnOkay = dialog.findViewById<Button>(R.id.btnOkay)
+
         btnOkay.setOnClickListener {
             dialog.dismiss()
+
+            // Retrieve stored email
+            val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+            val email = sharedPreferences.getString("user_email", "") ?: ""
+
+            // Pass email to Main_Home_Page
             val intent = Intent(this@sign_in_page, Main_Home_Page::class.java)
+            intent.putExtra("user_email", email) // Send email
             startActivity(intent)
+
+            Log.d("DEBUG", "Email Saved: $email")
+
             Toast.makeText(this, "Sign In Successfully", Toast.LENGTH_SHORT).show()
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish() // Close the sign-in page
