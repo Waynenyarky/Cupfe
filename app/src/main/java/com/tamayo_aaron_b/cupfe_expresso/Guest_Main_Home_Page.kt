@@ -37,11 +37,6 @@ class Guest_Main_Home_Page : AppCompatActivity() {
         val Guest_navBag = findViewById<ImageView>(R.id.Guest_nav_bag)
         val Guest_navNotif = findViewById<ImageView>(R.id.Guest_nav_notif)
         val Guest_item1 = findViewById<ImageView>(R.id.Guest_item1)
-        val Guest_item2 = findViewById<ImageView>(R.id.Guest_item2)
-        val Guest_item3 = findViewById<ImageView>(R.id.Guest_item3)
-        val Guest_item4 = findViewById<ImageView>(R.id.Guest_item4)
-        val Guest_item5 = findViewById<ImageView>(R.id.Guest_item5)
-        val Guest_item6 = findViewById<ImageView>(R.id.Guest_item6)
         val Guest_cart = findViewById<ImageView>(R.id.Guest_cart)
         val floatingText = findViewById<TextView>(R.id.floatingText)
 
@@ -74,7 +69,7 @@ class Guest_Main_Home_Page : AppCompatActivity() {
         }
 
         Guest_item1.setOnClickListener {
-            val food1 = Intent(this, details_food1::class.java)
+            val food1 = Intent(this, sign_in_page::class.java)
             startActivity(food1)
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
         }
@@ -158,7 +153,9 @@ class Guest_Main_Home_Page : AppCompatActivity() {
 
             }
             "Guest_Cart" -> {
-
+                val cart = Intent(this, sign_in_page::class.java)
+                startActivity(cart)
+                overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
             }
             "Guest_Favorite" -> {
                 val favorite = Intent(this, sign_in_page::class.java)

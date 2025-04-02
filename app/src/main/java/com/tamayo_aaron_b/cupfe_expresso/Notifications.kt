@@ -205,7 +205,7 @@ class Notifications : AppCompatActivity() {
 
         // Build the notification
         val notification = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.new_notification)  // Set the small icon for the notification
+            .setSmallIcon(R.drawable.cupfe_icon)  // Set the small icon for the notification
             .setContentTitle("New Updates")  // Set the title of the notification
             .setContentText("You have new notifications in Cupfe Expresso.")  // Set the content text
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)  // Set notification priority

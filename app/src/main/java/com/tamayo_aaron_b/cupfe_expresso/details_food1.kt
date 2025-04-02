@@ -19,12 +19,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.tamayo_aaron_b.cupfe_expresso.cartFolder.CartItem
 import com.tamayo_aaron_b.cupfe_expresso.menu.Coffee
 import com.tamayo_aaron_b.cupfe_expresso.summary.OrderItem
 
 class details_food1 : AppCompatActivity() {
 
-    private var isAddedCart = false
+
     private var selectedSize = "none"
     private var currentNumber = 0
     private lateinit var sharedPreferences: SharedPreferences
@@ -129,38 +132,51 @@ class details_food1 : AppCompatActivity() {
         }
 
         ivAddToCart.setOnClickListener {
-            if (!isAddedCart){
-                if (selectedSize == "none" || currentNumber == 0) {
-                    showCustomAlertDialog("Incomplete Selection", "Please select a size and quantity first.")
-                    return@setOnClickListener
-                }
+            if (selectedSize == "none" || currentNumber == 0) {
+                showCustomAlertDialog("Incomplete Selection", "Please select a size and quantity first.")
+                return@setOnClickListener
+            }
 
-                val priceText = findViewById<TextView>(R.id.tvPrice).text.toString()
-                val cleanedPrice = priceText.replace("₱", "").replace(".00", "").trim()
-                val userComment1 = etComment.text.toString()
+            val priceText = findViewById<TextView>(R.id.tvPrice).text.toString()
+            val cleanedPrice = priceText.replace("₱", "").replace(".00", "").trim()
+            val userComment1 = etComment.text.toString()
 
-                // Create an OrderItem object
-                val orderItem = FavoriteItem(
-                    coffeeName = findViewById<TextView>(R.id.tvCoffeeName).text.toString(),
-                    selectedSize = selectedSize,
-                    quantity = currentNumber,
-                    userComment = userComment1,
-                    price = cleanedPrice,
-                    imageUrl = coffee?.imageUrl
-                )
+            val coffeeId = coffee?.id
+            if (coffeeId == null) {
+                Log.e("ORDER_ITEM", "Coffee ID is null! Order cannot proceed.")
+                showCustomAlertDialog("Error", "Something went wrong. Please try again.")
+                return@setOnClickListener
+            }
 
-                isAddedCart = true
-                showCustomAlertDialog("Added to Cart", "Size: $selectedSize\nQuantity: $currentNumber\nTotal: ₱$cleanedPrice.00")
+            val cartItem = CartItem(
+                id = coffeeId,
+                coffeeName = findViewById<TextView>(R.id.tvCoffeeName).text.toString(),
+                selectedSize = selectedSize,
+                quantity = currentNumber,
+                userComment = userComment1,
+                price = cleanedPrice.toDoubleOrNull() ?: 0.0,
+                imageUrl = coffee?.imageUrl
+            )
 
-                // Pass OrderItem to Order_Summary
-                val intent = Intent(this, favoriteNav::class.java).apply {
-                    putExtra("orderItem", orderItem)
-                }
+            val sharedPreferences = getSharedPreferences("CartPrefs", Context.MODE_PRIVATE)
+            val cartJson = sharedPreferences.getString("cart_items", "[]")
+            val cartList: MutableList<CartItem> = Gson().fromJson(cartJson, object : TypeToken<MutableList<CartItem>>() {}.type) ?: mutableListOf()
+
+            // Add the new item
+            cartList.add(cartItem)
+
+            // Save back to SharedPreferences
+            with(sharedPreferences.edit()) {
+                putString("cart_items", Gson().toJson(cartList))
+                apply()
+            }
+
+            // Directly call the okButton click inside the dialog
+            showCustomAlertDialog("Added to Cart", "Size: $selectedSize\nQuantity: $currentNumber\nItem Price: ₱$cleanedPrice.00") {
+                // On OK click, perform the action
+                val intent = Intent(this, AddToCart::class.java)
+                intent.putExtra("update_cart", true) // ✅ Pass update flag
                 startActivity(intent)
-                overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
-
-            }else {
-                showCustomAlertDialog("Already Added", "This item is already in your cart.")
             }
         }
 

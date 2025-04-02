@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.animation.ScaleAnimation
+import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -55,7 +56,9 @@ class favoriteNav : AppCompatActivity() {
             recyclerView.adapter = FavoriteAdapter(favoriteList)
         }
 
-
+        if (favoriteItem == null) {
+            showNoFavoritesDialog()
+        }
 
 
         ivBack.setOnClickListener {
@@ -93,7 +96,22 @@ class favoriteNav : AppCompatActivity() {
     }
 
 
+    private fun showNoFavoritesDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_no_favorites, null)
+        val dialog = android.app.AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false) // Prevent dismissing by clicking outside
+            .create()
 
+        dialogView.findViewById<Button>(R.id.btnFindCupFe).setOnClickListener {
+            dialog.dismiss()
+            val intent = Intent(this, food_menu::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
+
+        dialog.show()
+    }
 
 
 

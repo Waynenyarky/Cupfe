@@ -33,6 +33,7 @@ import com.tamayo_aaron_b.cupfe_expresso.notificationFolder.NotificationService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.provider.Settings
 
 class Main_Home_Page : AppCompatActivity() {
     private var lastClickedButton: ImageView? = null // Track the last clicked button
@@ -379,5 +380,16 @@ class Main_Home_Page : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacksAndMessages(null) // Prevent memory leaks
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        // Check if the app has permission to draw over other apps
+        if (!Settings.canDrawOverlays(this)) {
+            // If permission is not granted, redirect the user to settings
+            val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
+            startActivity(intent)
+        }
     }
 }

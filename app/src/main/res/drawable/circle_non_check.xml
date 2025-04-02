@@ -1,0 +1,9 @@
+<!-- res/drawable/circle_non_check.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FFFFFF"/>  <!-- Grey color for non-checked -->
+    <size android:width="48dp" android:height="48dp"/>
+    <corners android:radius="50dp"/>  <!-- Circular shape -->
+    <stroke
+        android:color="@color/grey"
+        android:width="2dp"/>
+</shape>

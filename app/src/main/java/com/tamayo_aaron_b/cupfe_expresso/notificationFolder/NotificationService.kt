@@ -18,10 +18,18 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.PixelFormat
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.view.Gravity
+import android.view.WindowManager
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import android.provider.Settings
+
 
 class NotificationService(private val context: Context, private val userEmail: String) {
 
@@ -55,7 +63,7 @@ class NotificationService(private val context: Context, private val userEmail: S
                             val lastSentNotificationId = sharedPreferences.getInt("lastNotificationId", -1)
 
                             if (latestNotificationId != lastSentNotificationId) {
-                                showNotification()
+                                showNotification() // Show a floating notification when new notifications are available
                                 saveLastNotificationId(latestNotificationId) // Save latest notification ID
                             }
                         }
@@ -69,24 +77,58 @@ class NotificationService(private val context: Context, private val userEmail: S
     }
 
     private fun showNotification() {
+        if (!Settings.canDrawOverlays(context)) {
+            val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
+            context.startActivity(intent)
+        }
+
+        val textView = TextView(context).apply {
+            text = "You have new notifications in Cupfe Expresso."
+            textSize = 18f
+            setBackgroundColor(ContextCompat.getColor(context, R.color.light_brown))
+            setTextColor(Color.WHITE)
+            setPadding(50, 30, 50, 30)
+            gravity = Gravity.CENTER
+        }
+
+        // Set layout parameters to make the view float at the top of the screen
+        val layoutParams = WindowManager.LayoutParams().apply {
+            type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY // Requires SYSTEM_ALERT_WINDOW permission
+            format = PixelFormat.RGBA_8888
+            flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+            gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
+            y = 100 // Adjust vertical position
+            width = WindowManager.LayoutParams.MATCH_PARENT
+            height = WindowManager.LayoutParams.WRAP_CONTENT
+        }
+
+        // Add the custom view to the window
+        val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        windowManager.addView(textView, layoutParams)
+
+        // Remove the view after a delay (e.g., 3 seconds)
+        Handler(Looper.getMainLooper()).postDelayed({
+            windowManager.removeView(textView)
+        }, 3000)
+
+
+        // Vibrate the phone for 500 milliseconds (customize this as needed)
+        val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(5000, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            // For older devices, use the deprecated vibrate method
+            vibrator.vibrate(5000)
+        }
+
+        // Continue showing the standard notification as well (optional)
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
             val channelId = "cupfe_expresso_notifications"
             val notificationId = 1
 
-            // Vibrate the phone for 500 milliseconds (customize this as needed)
-            val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrator.vibrate(VibrationEffect.createOneShot(5000, VibrationEffect.DEFAULT_AMPLITUDE))
-            } else {
-                // For older devices, use the deprecated vibrate method
-                vibrator.vibrate(5000)
-            }
-
-            // Retrieve email from SharedPreferences
             val sharedPreferences = context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
             val email = sharedPreferences.getString("user_email", "") ?: ""
 
-            // Pass email as an extra in the intent
             val intent = Intent(context, Notifications::class.java).apply {
                 putExtra("user_email", email)
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -103,7 +145,7 @@ class NotificationService(private val context: Context, private val userEmail: S
             }
 
             val notification = NotificationCompat.Builder(context, channelId)
-                .setSmallIcon(R.drawable.new_notification)
+                .setSmallIcon(R.drawable.cupfe_icon)
                 .setContentTitle("New Updates")
                 .setContentText("You have new notifications in Cupfe Expresso.")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -112,8 +154,6 @@ class NotificationService(private val context: Context, private val userEmail: S
                 .build()
 
             NotificationManagerCompat.from(context).notify(notificationId, notification)
-        } else {
-            ActivityCompat.requestPermissions(context as Activity, arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 0)
         }
     }
 

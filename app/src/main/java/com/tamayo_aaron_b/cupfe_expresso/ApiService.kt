@@ -23,7 +23,6 @@ data class NotificationResponse(
     val timestamp: String,
     val created_at : String
 )
-
 data class ResetPasswordRequest(val email: String, val otp: String, val new_password: String)
 data class ResetPasswordResponse(val success: Boolean, val message: String)
 data class ReservationResponse(

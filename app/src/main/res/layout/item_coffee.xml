@@ -97,6 +97,7 @@
         android:layout_gravity="center"
         android:textColor="@android:color/white"
         android:padding="8dp"
-        android:rotation="-20"/>
+        android:rotation="-20"
+        android:layout_marginBottom="45dp"/>
 
 </FrameLayout>

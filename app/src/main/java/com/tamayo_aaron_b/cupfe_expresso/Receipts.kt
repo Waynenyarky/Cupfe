@@ -188,6 +188,7 @@ class Receipts : AppCompatActivity() {
                         Log.d("ORDER", "Order created successfully")
                         dialog.dismiss()
                         startActivity(Intent(this@Receipts, Main_Home_Page::class.java))
+                        Toast.makeText(this@Receipts, "Proceed to the Counter", Toast.LENGTH_SHORT).show()
                         finish()
                     } else {
                         Log.d("ORDER", "Response Code: ${response.code()}")
@@ -333,7 +334,20 @@ class Receipts : AppCompatActivity() {
                 })
             }
 
-            returnBtn.setOnClickListener{
+            returnBtn.setOnClickListener {
+                // Check if transactionId is not null
+                if (transactionId != null) {
+                    // Copy transactionId to clipboard
+                    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val clip = ClipData.newPlainText("Transaction ID", transactionId)
+                    clipboard.setPrimaryClip(clip)
+
+                    Toast.makeText(this, "Transaction ID copied", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Transaction ID not found", Toast.LENGTH_SHORT).show()
+                }
+
+                // Proceed to Main_Home_Page
                 val homeIntent = Intent(this@Receipts, Main_Home_Page::class.java)
                 startActivity(homeIntent)
                 overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.nav_fade_out_heart)
