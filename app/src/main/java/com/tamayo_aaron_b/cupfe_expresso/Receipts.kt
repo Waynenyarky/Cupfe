@@ -27,6 +27,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import retrofit2.Call
+import android.util.Base64
 
 class Receipts : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -294,8 +295,10 @@ class Receipts : AppCompatActivity() {
                             Log.d("ORDER", "Order created successfully")
 
                                 Toast.makeText(this@Receipts, "QR Generated", Toast.LENGTH_SHORT).show()
-                                val paymentUrl = "http://192.168.1.24/expresso-cafe/api/stripePayment/payment_form_order.php"
-                                val qrCodeBitmap = generateQRCode(paymentUrl)
+                                val secretToken = "ABC123SECRET"
+                                val paymentUrl = "http://192.168.20.209/expresso-cafe/api/stripePayment/payment_form_order.php?token=$secretToken&appSpecificId=com.enrique_john_wayne_m.cupfe_scanner"
+                                val encodedUrl = Base64.encodeToString(paymentUrl.toByteArray(), Base64.NO_WRAP)
+                                val qrCodeBitmap = generateQRCode(encodedUrl)
 
                                 imgQRCode.setImageBitmap(qrCodeBitmap) // Display the generated QR code
                                 imgQRCode.visibility = View.VISIBLE
@@ -419,7 +422,7 @@ class Receipts : AppCompatActivity() {
                             // Delay before launching payment page to ensure navigation occurs smoothly
                             Handler(Looper.getMainLooper()).postDelayed({
                                 Toast.makeText(this@Receipts, "Redirecting to payment...", Toast.LENGTH_SHORT).show()
-                                val paymentIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://192.168.1.24/expresso-cafe/api/stripePayment/payment_form_order.php"))
+                                val paymentIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://192.168.20.209/expresso-cafe/api/stripePayment/payment_form_order.php"))
                                 startActivity(paymentIntent)
                                 finish()
                             }, 1000) // 1-second delay before proceeding to payment
