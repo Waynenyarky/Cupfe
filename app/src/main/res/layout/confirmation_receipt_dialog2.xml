@@ -94,7 +94,7 @@
         android:id="@+id/txtQrFallback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Click here if QR Code is not working"
+        android:text="No QR scanner? Click here."
         android:textColor="@color/blue"
         android:textSize="16sp"
         android:textStyle="bold"

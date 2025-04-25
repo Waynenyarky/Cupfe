@@ -32,6 +32,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.Manifest
+import android.view.View
+import android.widget.TextView
 
 class Notifications : AppCompatActivity() {
 
@@ -140,6 +142,13 @@ class Notifications : AppCompatActivity() {
                         // Retrieve stored notification count
                         val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
                         val storedCount = sharedPreferences.getInt("lastNotificationCount", 0)
+                        val readIds = sharedPreferences.getStringSet("readNotificationIds", mutableSetOf()) ?: setOf()
+
+                        val unreadCount = notifications.count { !readIds.contains(it.id.toString()) }
+
+                        // Show badge if there are unread notifications
+                        showFloatingBadge(unreadCount)
+                        markAllAsRead(notifications)
 
                         // Check for new notifications
                         if (notifications.size > storedCount) {
@@ -158,6 +167,22 @@ class Notifications : AppCompatActivity() {
                     Toast.makeText(this@Notifications, "Network error", Toast.LENGTH_SHORT).show()
                 }
             })
+    }
+
+    private fun showFloatingBadge(count: Int) {
+        val badge = findViewById<TextView>(R.id.tv_notification_badge)
+        if (count > 0) {
+            badge.text = count.toString()
+            badge.visibility = View.VISIBLE
+        } else {
+            badge.visibility = View.GONE
+        }
+    }
+
+    private fun markAllAsRead(notifications: List<NotificationResponse>) {
+        val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        val readSet = notifications.map { it.id.toString() }.toMutableSet()
+        sharedPreferences.edit().putStringSet("readNotificationIds", readSet).apply()
     }
 
     // Function to show the notification

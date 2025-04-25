@@ -1,5 +1,6 @@
 package com.tamayo_aaron_b.cupfe_expresso.notificationFolder
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,15 @@ class NotificationAdapter(notifications: List<NotificationResponse>) :
         holder.email.text = notification.email
         holder.message.text = notification.message
         holder.created_at.text =formatDate(notification.created_at)
+
+        // 👇 Add this part to mark as read on click
+        holder.itemView.setOnClickListener {
+            // Call markAsRead when notification is clicked
+            markAsRead(holder.itemView.context, notification.id)
+
+            // You can also notify item changed if you want visual feedback
+            notifyItemChanged(position)
+        }
     }
 
     override fun getItemCount(): Int = sortedNotifications.size
@@ -53,5 +63,12 @@ class NotificationAdapter(notifications: List<NotificationResponse>) :
         } catch (e: Exception) {
             dateString // Return original date if parsing fails
         }
+    }
+
+    private fun markAsRead(context: Context, notificationId: Int) {
+        val sharedPreferences = context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        val readSet = sharedPreferences.getStringSet("readNotificationIds", mutableSetOf())?.toMutableSet() ?: mutableSetOf()
+        readSet.add(notificationId.toString())
+        sharedPreferences.edit().putStringSet("readNotificationIds", readSet).apply()
     }
 }

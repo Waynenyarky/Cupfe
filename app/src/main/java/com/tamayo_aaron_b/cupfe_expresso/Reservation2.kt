@@ -306,7 +306,7 @@ class Reservation2 : AppCompatActivity() {
                                 val responseBody = response.body()
                                 if (responseBody != null && responseBody.message == "Reservation created. Proceed to payment.") {
                                     Toast.makeText(this@Reservation2, "Redirecting to payment...", Toast.LENGTH_SHORT).show()
-                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://192.168.20.209/expresso-cafe/api/stripePayment/payment_form.php"))
+                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://192.168.1.20/expresso-cafe/api/stripePayment/payment_form.php"))
                                     startActivity(intent)
                                     findViewById<EditText>(R.id.etFullName).text.clear()
                                     findViewById<EditText>(R.id.etcpNumber).text.clear()

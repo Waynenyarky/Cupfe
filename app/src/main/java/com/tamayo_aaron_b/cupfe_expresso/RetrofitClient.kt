@@ -10,7 +10,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
-    private const val BASE_URL="http://192.168.20.209/expresso-cafe/" // Replace with your PHP backend URL
+    private const val BASE_URL="http://192.168.1.20/expresso-cafe/" // Replace with your PHP backend URL
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY

@@ -10,6 +10,8 @@ data class OrderRequest(
     val order_type: String,
     val payment_method: String,
     val payment_status: String = "Unpaid",
+    val est_time: String,
+    val reason: String,
     val order_items: List<OrderItem>
 )
 

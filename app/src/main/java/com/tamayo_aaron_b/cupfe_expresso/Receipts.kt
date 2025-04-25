@@ -49,6 +49,7 @@ class Receipts : AppCompatActivity() {
         val reference_number = findViewById<TextView>(R.id.tvTransactionId)
         val tvSize = findViewById<TextView>(R.id.tvSize)
         val tvPrize = findViewById<TextView>(R.id.tvPrize)
+        val tvEstTime = findViewById<TextView>(R.id.tvEstTime)
 
         val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
         val email = sharedPreferences.getString("user_email", null) ?: ""
@@ -69,6 +70,7 @@ class Receipts : AppCompatActivity() {
         val comment = intent.getStringExtra("comment")
         val subTotal = intent.getDoubleExtra("subTotal", 0.0)
         val total = intent.getDoubleExtra("total", 0.0)
+        val estimatedTime = intent.getStringExtra("estimatedTime")
 
         // Update UI
         reference_number.text = "$transactionId"
@@ -82,11 +84,13 @@ class Receipts : AppCompatActivity() {
         etComment1.text = "``$comment"
         tvSubTotal.text = "₱${String.format("%.2f", subTotal)}"
         total_amount.text = "₱${String.format("%.2f", total)}"
+        tvEstTime.text = "$estimatedTime"
 
 
 
-        payCash.setOnClickListener { showSuccessDialog(transactionId, orderType,coffeeName,size,quantity,price,comment,total) }
-        payOnline.setOnClickListener { showSuccessDialog1(transactionId, orderType,coffeeName,size,quantity,price,comment,total) }
+
+        payCash.setOnClickListener { showSuccessDialog(transactionId, orderType,coffeeName,size,quantity,price,comment,total,estimatedTime) }
+        payOnline.setOnClickListener { showSuccessDialog1(transactionId, orderType,coffeeName,size,quantity,price,comment,total,estimatedTime) }
 
         cancelBtn.setOnClickListener{
             finish()
@@ -105,7 +109,8 @@ class Receipts : AppCompatActivity() {
         quantity: Int,
         price: Double,
         comment: String?,
-        total: Double
+        total: Double,
+        estimatedTime: String?
     ) {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.confirmation_receipt_dialog)
@@ -169,6 +174,8 @@ class Receipts : AppCompatActivity() {
                 order_type = orderType ?: "Unknown",
                 payment_method = "Cash",
                 payment_status = "Unpaid",
+                est_time = estimatedTime.toString(),
+                reason = "exceed limit",
                 order_items = listOf(
                     OrderItem(
                         item_id = coffeeId.toString(),
@@ -217,7 +224,8 @@ class Receipts : AppCompatActivity() {
         quantity: Int,
         price: Double,
         comment: String?,
-        total: Double
+        total: Double,
+        estimatedTime: String?
         ) {
             val dialog = Dialog(this)
             dialog.setContentView(R.layout.confirmation_receipt_dialog2)
@@ -275,6 +283,8 @@ class Receipts : AppCompatActivity() {
                     order_type = orderType ?: "Unknown",
                     payment_method = "Cashless",
                     payment_status = "Unpaid",
+                    est_time = estimatedTime.toString(),
+                    reason = "exceed limit",
                     order_items = listOf(
                         OrderItem(
                             item_id = coffeeId.toString(),
@@ -296,7 +306,7 @@ class Receipts : AppCompatActivity() {
 
                                 Toast.makeText(this@Receipts, "QR Generated", Toast.LENGTH_SHORT).show()
                                 val secretToken = "ABC123SECRET"
-                                val paymentUrl = "http://192.168.20.209/expresso-cafe/api/stripePayment/payment_form_order.php?token=$secretToken&appSpecificId=com.enrique_john_wayne_m.cupfe_scanner"
+                                val paymentUrl = "http://192.168.1.20/expresso-cafe/api/stripePayment/payment_form_order.php?token=$secretToken&appSpecificId=com.enrique_john_wayne_m.cupfe_scanner"
                                 val encodedUrl = Base64.encodeToString(paymentUrl.toByteArray(), Base64.NO_WRAP)
                                 val qrCodeBitmap = generateQRCode(encodedUrl)
 
@@ -395,6 +405,8 @@ class Receipts : AppCompatActivity() {
                     order_type = orderType ?: "Unknown",
                     payment_method = "Cashless",
                     payment_status = "Unpaid",
+                    est_time = estimatedTime.toString(),
+                    reason = "exceed limit",
                     order_items = listOf(
                         OrderItem(
                             item_id = coffeeId.toString(),
@@ -422,7 +434,7 @@ class Receipts : AppCompatActivity() {
                             // Delay before launching payment page to ensure navigation occurs smoothly
                             Handler(Looper.getMainLooper()).postDelayed({
                                 Toast.makeText(this@Receipts, "Redirecting to payment...", Toast.LENGTH_SHORT).show()
-                                val paymentIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://192.168.20.209/expresso-cafe/api/stripePayment/payment_form_order.php"))
+                                val paymentIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://192.168.1.20/expresso-cafe/api/stripePayment/payment_form_order.php"))
                                 startActivity(paymentIntent)
                                 finish()
                             }, 1000) // 1-second delay before proceeding to payment

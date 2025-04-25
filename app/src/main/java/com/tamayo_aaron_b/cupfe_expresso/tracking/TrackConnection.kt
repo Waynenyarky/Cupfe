@@ -14,10 +14,14 @@ data class TrackConnection(
     val order_type: String,
     val payment_method: String,
     val payment_status: String,
+    val est_time: String,
+    val reason: String,
     val created_at: String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
@@ -41,6 +45,8 @@ data class TrackConnection(
         parcel.writeString(order_type)
         parcel.writeString(payment_method)
         parcel.writeString(payment_status)
+        parcel.writeString(est_time)
+        parcel.writeString(reason)
         parcel.writeString(created_at)
     }
 

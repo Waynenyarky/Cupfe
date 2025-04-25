@@ -1,8 +1,11 @@
 package com.tamayo_aaron_b.cupfe_expresso
 
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -17,6 +20,7 @@ import com.tamayo_aaron_b.cupfe_expresso.cartFolder.CartItem
 import com.tamayo_aaron_b.cupfe_expresso.summary.OrderAdapter
 import com.tamayo_aaron_b.cupfe_expresso.summary.OrderItem
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.Random
@@ -41,6 +45,31 @@ class Order_Summary : AppCompatActivity() {
         subTotalView = findViewById(R.id.subTotal)
         totalView = findViewById(R.id.Total)
         val orderItem: OrderItem? = intent.getParcelableExtra("orderItem")
+        val etEstimatedTime = findViewById<EditText>(R.id.etEstimatedTime)
+
+        etEstimatedTime.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val hour = calendar.get(Calendar.HOUR_OF_DAY)
+            val minute = calendar.get(Calendar.MINUTE)
+
+            val timePicker = TimePickerDialog(
+                ContextThemeWrapper(this, R.style.BrownTimePickerDialog),
+                { _, selectedHour, selectedMinute ->
+                    val calendarTime = Calendar.getInstance()
+                    calendarTime.set(Calendar.HOUR_OF_DAY, selectedHour)
+                    calendarTime.set(Calendar.MINUTE, selectedMinute)
+
+                    val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault()) // 12-hour format with AM/PM
+                    val formattedTime = sdf.format(calendarTime.time)
+                    etEstimatedTime.setText(formattedTime)
+                },
+                hour,
+                minute,
+                false
+            )
+            timePicker.show()
+        }
+
 
         recyclerView = findViewById(R.id.orderSummary)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -94,7 +123,14 @@ class Order_Summary : AppCompatActivity() {
         }
 
         payNow.setOnClickListener {
-            val context = this@Order_Summary // Use this context
+            val estimatedTime = etEstimatedTime.text.toString().trim()
+
+            if (estimatedTime.isEmpty()) {
+                Toast.makeText(this, "Select a estimated pickup time.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val context = this@Order_Summary
             val intent = Intent(context, Receipts::class.java)
 
             // Generate Transaction ID
@@ -131,6 +167,7 @@ class Order_Summary : AppCompatActivity() {
                 putExtra("comment", comment)
                 putExtra("subTotal", subTotal)
                 putExtra("total", total)
+                putExtra("estimatedTime", estimatedTime)
             }
 
             // Start Receipts activity

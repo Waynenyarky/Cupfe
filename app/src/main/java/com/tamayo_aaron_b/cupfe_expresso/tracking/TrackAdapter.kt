@@ -27,6 +27,7 @@ class TrackAdapter(private var order: TrackConnection?) :
         val order_type: TextView = view.findViewById(R.id.orderType)
         val payment_status: TextView = view.findViewById(R.id.txtStatus)
         val payment_method: TextView = view.findViewById(R.id.paymentMethod)
+        val est_time: TextView = view.findViewById(R.id.estTime)
         val created_at: TextView = view.findViewById(R.id.Created)
     }
 
@@ -46,6 +47,7 @@ class TrackAdapter(private var order: TrackConnection?) :
             holder.order_type.text = Html.fromHtml("<b>Order Type: </b>${it.order_type}", Html.FROM_HTML_MODE_LEGACY)
             holder.payment_method.text = Html.fromHtml("<b>Payment Method: </b>${it.payment_method}", Html.FROM_HTML_MODE_LEGACY)
             holder.payment_status.text = Html.fromHtml("<b>Payment Status: </b> ${it.payment_status}", Html.FROM_HTML_MODE_LEGACY)
+            holder.est_time.text = Html.fromHtml("<b>Est. Time: </b> ${convertTo12HourFormat(it.est_time)}", Html.FROM_HTML_MODE_LEGACY)
             holder.created_at.text = formatDate(it.created_at)
 
             // Set text color based on status
@@ -83,6 +85,17 @@ class TrackAdapter(private var order: TrackConnection?) :
             }
         } catch (e: Exception) {
             dateString // Return original date if parsing fails
+        }
+    }
+
+    private fun convertTo12HourFormat(time24: String): String {
+        return try {
+            val sdf24 = SimpleDateFormat("HH:mm", Locale.getDefault())
+            val sdf12 = SimpleDateFormat("h:mm a", Locale.getDefault())
+            val date = sdf24.parse(time24)
+            if (date != null) sdf12.format(date) else time24
+        } catch (e: Exception) {
+            time24 // Fallback to original if parsing fails
         }
     }
 }

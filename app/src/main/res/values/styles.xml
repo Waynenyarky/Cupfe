@@ -18,4 +18,9 @@
     <style name="RoundedImageShape" parent="ShapeAppearance.Material3.SmallComponent">
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="BrownTimePickerDialog" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="colorPrimary">#C67C4E</item> <!-- Brown -->
+        <item name="colorAccent">#C67C4E</item> <!-- Brown -->
+    </style>
 </resources>
