@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tamayo_aaron_b.cupfe_expresso.R
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.concurrent.TimeUnit
@@ -47,7 +48,7 @@ class TrackAdapter(private var order: TrackConnection?) :
             holder.order_type.text = Html.fromHtml("<b>Order Type: </b>${it.order_type}", Html.FROM_HTML_MODE_LEGACY)
             holder.payment_method.text = Html.fromHtml("<b>Payment Method: </b>${it.payment_method}", Html.FROM_HTML_MODE_LEGACY)
             holder.payment_status.text = Html.fromHtml("<b>Payment Status: </b> ${it.payment_status}", Html.FROM_HTML_MODE_LEGACY)
-            holder.est_time.text = Html.fromHtml("<b>Est. Time: </b> ${convertTo12HourFormat(it.est_time)}", Html.FROM_HTML_MODE_LEGACY)
+            holder.est_time.text = Html.fromHtml("<b>Estimated Time: </b> ${convertTo12HourFormat(it.est_time)}", Html.FROM_HTML_MODE_LEGACY)
             holder.created_at.text = formatDate(it.created_at)
 
             // Set text color based on status
@@ -61,6 +62,36 @@ class TrackAdapter(private var order: TrackConnection?) :
             }
 
             holder.status.text = Html.fromHtml("<b>Status: </b>${it.status}", Html.FROM_HTML_MODE_LEGACY)
+
+            val sdfToday = SimpleDateFormat("HH:mm", Locale.getDefault())
+            val now = Date()
+
+            try {
+                val estimatedTime = sdfToday.parse(it.est_time)
+                if (estimatedTime != null) {
+                    val calendarNow = Calendar.getInstance()
+                    val calendarEstimated = Calendar.getInstance()
+
+                    calendarEstimated.set(Calendar.HOUR_OF_DAY, estimatedTime.hours)
+                    calendarEstimated.set(Calendar.MINUTE, estimatedTime.minutes)
+                    calendarEstimated.set(Calendar.SECOND, 0)
+
+                    val remainingMillis = calendarEstimated.timeInMillis - calendarNow.timeInMillis
+
+                    val remainingText = if (remainingMillis > 0) {
+                        val hours = TimeUnit.MILLISECONDS.toHours(remainingMillis)
+                        val minutes = TimeUnit.MILLISECONDS.toMinutes(remainingMillis) % 60
+                        val seconds = TimeUnit.MILLISECONDS.toSeconds(remainingMillis) % 60
+                        "<br><b>Remaining:</b> ${String.format("%02d:%02d:%02d", hours, minutes, seconds)}"
+                    } else {
+                        "<br><b>Remaining:</b> 00:00:00"
+                    }
+
+                    holder.est_time.append(Html.fromHtml(remainingText, Html.FROM_HTML_MODE_LEGACY))
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
