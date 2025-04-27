@@ -246,6 +246,7 @@
                                 android:src="@drawable/track_order" />
 
                             <ImageView
+                                android:id="@+id/promos"
                                 android:layout_width="40dp"
                                 android:layout_height="45dp"
                                 android:layout_gravity="center"

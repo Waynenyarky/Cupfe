@@ -34,6 +34,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.provider.Settings
+import com.tamayo_aaron_b.cupfe_expresso.promoscount.Promoses
 
 class Main_Home_Page : AppCompatActivity() {
     private var lastClickedButton: ImageView? = null // Track the last clicked button
@@ -72,6 +73,7 @@ class Main_Home_Page : AppCompatActivity() {
         val search = findViewById<EditText>(R.id.search)
         val receipts = findViewById<ImageView>(R.id.receipts)
         val trackOrder = findViewById<ImageView>(R.id.trackOrder)
+        val promos = findViewById<ImageView>(R.id.promos)
         imageProfile = findViewById(R.id.imageProfile)
         viewFlipper.flipInterval = 5000
         fabScrollTop = findViewById(R.id.fabScrollTop)
@@ -156,6 +158,12 @@ class Main_Home_Page : AppCompatActivity() {
             imageProfile.setImageURI(Uri.parse(it)) // Display image in Profile
         }
 
+
+        promos.setOnClickListener {
+            val promo = Intent(this, Promoses::class.java)
+            startActivity(promo)
+            overridePendingTransition(R.anim.nav_fade_in_heart, R.anim.fade_out)
+        }
 
         ivCart.setOnClickListener {
             val cart = Intent(this, AddToCart::class.java)

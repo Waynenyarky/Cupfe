@@ -175,7 +175,7 @@ class Receipts : AppCompatActivity() {
                 payment_method = "Cash",
                 payment_status = "Unpaid",
                 est_time = estimatedTime.toString(),
-                reason = "exceed limit",
+                reason = "Failed to pay on time (exceeded1 hr grace period after est time of arrival)",
                 order_items = listOf(
                     OrderItem(
                         item_id = coffeeId.toString(),
@@ -284,7 +284,7 @@ class Receipts : AppCompatActivity() {
                     payment_method = "Cashless",
                     payment_status = "Unpaid",
                     est_time = estimatedTime.toString(),
-                    reason = "exceed limit",
+                    reason = "Failed to pay on time (exceeded1 hr grace period after est time of arrival)",
                     order_items = listOf(
                         OrderItem(
                             item_id = coffeeId.toString(),
@@ -406,7 +406,7 @@ class Receipts : AppCompatActivity() {
                     payment_method = "Cashless",
                     payment_status = "Unpaid",
                     est_time = estimatedTime.toString(),
-                    reason = "exceed limit",
+                    reason = "Failed to pay on time (exceeded1 hr grace period after est time of arrival)",
                     order_items = listOf(
                         OrderItem(
                             item_id = coffeeId.toString(),

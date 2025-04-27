@@ -153,43 +153,6 @@
 
 
 
-            <!--Transaction History-->
-            <LinearLayout
-                android:id="@+id/transactionHistory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="7dp"
-                    android:src="@drawable/transaction_history" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Transaction History"
-                    android:textSize="19sp"
-                    android:textStyle="normal"
-                    android:layout_marginTop="4dp"
-                    android:textColor="@color/profile"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1" />
-
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:src="@drawable/right_arrow"/>
-
-
-            </LinearLayout>
-
-
             <!--QR code-->
             <LinearLayout
                 android:id="@+id/qrCode"
@@ -227,7 +190,40 @@
             </LinearLayout>
 
 
+            <!--Delete-->
+            <LinearLayout
+                android:id="@+id/delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:orientation="horizontal"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp">
 
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="6dp"
+                    android:src="@drawable/profile_delete" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Delete Account"
+                    android:textSize="19sp"
+                    android:textStyle="normal"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/profile"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/right_arrow"/>
+
+
+            </LinearLayout>
 
 
             <TextView
@@ -409,42 +405,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Help"
-                    android:textSize="19sp"
-                    android:textStyle="normal"
-                    android:layout_marginTop="4dp"
-                    android:textColor="@color/profile"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"/>
-
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:src="@drawable/right_arrow"/>
-
-
-            </LinearLayout>
-
-
-            <!--Delete-->
-            <LinearLayout
-                android:id="@+id/delete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:orientation="horizontal"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="3dp"
-                    android:src="@drawable/profile_delete" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Delete Account"
                     android:textSize="19sp"
                     android:textStyle="normal"
                     android:layout_marginTop="4dp"

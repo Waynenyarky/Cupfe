@@ -29,6 +29,7 @@ class TrackAdapter(private var order: TrackConnection?) :
         val payment_status: TextView = view.findViewById(R.id.txtStatus)
         val payment_method: TextView = view.findViewById(R.id.paymentMethod)
         val est_time: TextView = view.findViewById(R.id.estTime)
+        val reason: TextView = view.findViewById(R.id.reason)
         val created_at: TextView = view.findViewById(R.id.Created)
     }
 
@@ -41,7 +42,7 @@ class TrackAdapter(private var order: TrackConnection?) :
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         order?.let {
             holder.reference_number.text = "Ref No. ${it.reference_number}"
-            holder.username.text =  Html.fromHtml("<b>Name: </b>${it.username}", Html.FROM_HTML_MODE_LEGACY)
+            holder.username.text = Html.fromHtml("<b>Name: </b>${it.username}", Html.FROM_HTML_MODE_LEGACY)
             holder.email.text = Html.fromHtml("<b>Email: </b>${it.email}", Html.FROM_HTML_MODE_LEGACY)
             holder.total_amount.text = Html.fromHtml("<b>Total Amount: </b> ₱${it.total_amount}", Html.FROM_HTML_MODE_LEGACY)
             holder.promo_code.text = Html.fromHtml("<b>Promo Code: </b>${it.promo_code}", Html.FROM_HTML_MODE_LEGACY)
@@ -63,9 +64,23 @@ class TrackAdapter(private var order: TrackConnection?) :
 
             holder.status.text = Html.fromHtml("<b>Status: </b>${it.status}", Html.FROM_HTML_MODE_LEGACY)
 
+            // Show or hide reason based on status
+            when (it.status.lowercase()) {
+                "canceled" -> {
+                    holder.reason.visibility = View.VISIBLE
+                    holder.reason.text = Html.fromHtml("<b>Reason: </b> ${it.reason}", Html.FROM_HTML_MODE_LEGACY)
+                }
+                "pending", "preparing", "serving", "completed" -> {
+                    holder.reason.visibility = View.GONE
+                }
+                else -> {
+                    holder.reason.visibility = View.GONE
+                }
+            }
+
+            // Remaining time calculation
             val sdfToday = SimpleDateFormat("HH:mm", Locale.getDefault())
             val now = Date()
-
             try {
                 val estimatedTime = sdfToday.parse(it.est_time)
                 if (estimatedTime != null) {
@@ -78,13 +93,21 @@ class TrackAdapter(private var order: TrackConnection?) :
 
                     val remainingMillis = calendarEstimated.timeInMillis - calendarNow.timeInMillis
 
-                    val remainingText = if (remainingMillis > 0) {
-                        val hours = TimeUnit.MILLISECONDS.toHours(remainingMillis)
-                        val minutes = TimeUnit.MILLISECONDS.toMinutes(remainingMillis) % 60
-                        val seconds = TimeUnit.MILLISECONDS.toSeconds(remainingMillis) % 60
-                        "<br><b>Remaining:</b> ${String.format("%02d:%02d:%02d", hours, minutes, seconds)}"
-                    } else {
-                        "<br><b>Remaining:</b> 00:00:00"
+                    val remainingText = when (it.status.lowercase()) {
+                        "completed", "canceled" -> {
+                            // Force 00:00:00 for completed or canceled
+                            "<br><b>Remaining:</b> 00:00:00"
+                        }
+                        else -> {
+                            if (remainingMillis > 0) {
+                                val hours = TimeUnit.MILLISECONDS.toHours(remainingMillis)
+                                val minutes = TimeUnit.MILLISECONDS.toMinutes(remainingMillis) % 60
+                                val seconds = TimeUnit.MILLISECONDS.toSeconds(remainingMillis) % 60
+                                "<br><b>Remaining:</b> ${String.format("%02d:%02d:%02d", hours, minutes, seconds)}"
+                            } else {
+                                "<br><b>Remaining:</b> 00:00:00"
+                            }
+                        }
                     }
 
                     holder.est_time.append(Html.fromHtml(remainingText, Html.FROM_HTML_MODE_LEGACY))

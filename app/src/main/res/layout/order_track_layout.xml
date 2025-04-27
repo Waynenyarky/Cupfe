@@ -165,6 +165,19 @@
             android:layout_marginBottom="8dp"/>
 
         <TextView
+            android:id="@+id/reason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="exceed limit"
+            android:textColor="@color/profile"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:layout_gravity="start"
+            android:layout_marginStart="41dp"
+            android:layout_marginEnd="41dp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
